@@ -1,0 +1,216 @@
+/* =============================================
+   CommunityDetail Page Styles
+   ============================================= */
+
+.community-detail-page {
+  padding: 0 0 4rem;
+  background: var(--bg);
+  min-height: calc(100vh - 200px);
+  animation: fadeInPage 0.5s ease;
+}
+
+/* Banner Hero */
+.cd-hero {
+  position: relative;
+  height: 320px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: flex-end;
+}
+
+.cd-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+}
+
+.cd-hero-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  padding-bottom: 2.5rem;
+}
+
+.cd-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--primary);
+  color: white;
+  margin-bottom: 0.75rem;
+}
+
+.cd-hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.cd-hero-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Content Layout */
+.cd-body {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2.5rem;
+}
+
+.cd-main-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  margin-bottom: 2rem;
+}
+
+.cd-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cd-description-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-body);
+}
+
+/* Community Products Showcase Grid */
+.cd-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.cd-product-card {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.cd-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.cd-product-img {
+  height: 140px;
+  overflow: hidden;
+}
+
+.cd-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.cd-product-card:hover .cd-product-img img {
+  transform: scale(1.05);
+}
+
+.cd-product-info {
+  padding: 1rem;
+}
+
+.cd-product-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  margin-bottom: 0.35rem;
+}
+
+.cd-product-price {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+/* Sidebar Stats & Contact */
+.cd-sidebar-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  margin-bottom: 1.75rem;
+}
+
+.cd-stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cd-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.cd-stat-label {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.cd-stat-val {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.cd-contact-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+.cd-contact-btn:hover {
+  background: var(--primary-hover);
+}
+
+@media (max-width: 992px) {
+  .cd-body {
+    grid-template-columns: 1fr;
+  }
+}

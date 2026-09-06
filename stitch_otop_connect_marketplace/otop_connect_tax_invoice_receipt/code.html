@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed-variant": "#7f2a0d", "on-error": "#ffffff", "on-error-container": "#93000a", "inverse-surface": "#2e3135", "secondary-fixed": "#d0e4ff", "surface-container-high": "#e6e8ed", "surface-container-lowest": "#ffffff", "inverse-on-surface": "#eff0f6", "tertiary-container": "#97691d", "surface-variant": "#e1e2e8", "surface-container-highest": "#e1e2e8", "tertiary-fixed": "#ffddb2", "surface": "#f8f9ff", "on-secondary-container": "#445f7e", "primary-fixed-dim": "#ffb59e", "on-tertiary": "#ffffff", "outline-variant": "#ddc0b9", "on-tertiary-container": "#fff7f1", "surface-bright": "#f8f9ff", "tertiary-fixed-dim": "#f5bc69", "background": "#f8f9ff", "on-primary-container": "#fff6f4", "on-secondary-fixed-variant": "#2d4966", "error": "#ba1a1a", "primary-fixed": "#ffdbd0", "surface-container-low": "#f2f3f9", "secondary": "#45607f", "on-surface-variant": "#56423c", "on-secondary-fixed": "#001d35", "on-tertiary-fixed": "#291800", "inverse-primary": "#ffb59e", "primary-container": "#b85434", "secondary-fixed-dim": "#adc9ec", "on-secondary": "#ffffff", "surface-tint": "#9f4123", "error-container": "#ffdad6", "tertiary": "#7b5101", "secondary-container": "#bddafd", "on-background": "#191c20", "surface-dim": "#d8dadf", "primary": "#983d1f", "on-primary": "#ffffff", "surface-container": "#eceef3", "outline": "#89726b", "on-primary-fixed": "#3a0a00", "on-tertiary-fixed-variant": "#624000", "on-surface": "#191c20" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.5rem", "space-2xl": "3rem", "max-content-width": "1280px", "space-xl": "2rem", "space-3xl": "4.5rem", "gutter-desktop": "2rem", "gutter-tablet": "1.5rem", "space-lg": "1.5rem", "space-md": "1rem", "margin-tablet": "2rem", "gutter-mobile": "1rem", "margin-mobile": "1rem", "space-xxs": "0.25rem", "space-sm": "0.75rem", "margin-desktop": "3rem" }, "fontFamily": { "label-prominent": [ "Be Vietnam Pro" ], "body-md": [ "Be Vietnam Pro" ], "headline-md": [ "Epilogue" ], "headline-lg-mobile": [ "Epilogue" ], "label-badge": [ "Be Vietnam Pro" ], "display-hero-mobile": [ "Epilogue" ], "headline-lg": [ "Epilogue" ], "headline-sm": [ "Epilogue" ], "caption": [ "Be Vietnam Pro" ], "body-lg": [ "Be Vietnam Pro" ], "body-sm": [ "Be Vietnam Pro" ], "title-editorial": [ "Epilogue" ], "display-hero": [ "Epilogue" ] }, "fontSize": { "label-prominent": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "600" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "label-badge": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-hero-mobile": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" } ], "caption": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "400" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "title-editorial": [ "18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "500" } ], "display-hero": [ "48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-28 max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex flex-col justify-between py-space-xs"><div class="flex items-center justify-between gap-space-md w-full"><div class="flex items-center gap-space-sm shrink-0"><img alt="OTOP Connect Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VXY7mwV6PaFBBQ_yqrC7IrF0v5m8_e_aCILWa-Y3oqrdkJjOs7TAzWzf7pr3iWQJozZisrSybVQgRN-ABixziHPCJY3tQ8waLIkm7u5SiNfoRdJBVLTHf6T-PFVsGsY6wH-S8QwXehYTkZNOuY3SFCj3wXmHbVjmUEMu_sJj07mv1J7nwz0twa7K1eEpcEyUgsW_4QSJiMF-yv4H2MVQ6D0kixqToRnXv7KvxIcaSXO3wB-A_DbChKb1E"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">OTOP Connect</span><span class="font-caption text-caption text-on-surface-variant font-medium">ตลาดชุมชนและภูมิปัญญาไทย</span></div></div><div class="flex-1 max-w-2xl mx-space-md hidden md:flex items-center"><div class="w-full flex items-center bg-surface-container-lowest rounded-lg p-space-xxs shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="relative flex items-center pl-space-sm pr-space-xs"><span class="material-symbols-outlined text-on-surface-variant text-base mr-1">category</span><select class="appearance-none bg-transparent font-label-badge text-label-badge text-on-surface-variant pr-space-md focus:outline-none cursor-pointer"><option>ทุกหมวดหมู่</option><option>ผ้าและเครื่องแต่งกาย</option><option>ของใช้และของตกแต่ง</option><option>อาหารและเครื่องดื่ม</option><option>สมุนไพรและสุคนธบำบัด</option></select></div><input class="flex-1 bg-transparent px-space-xs font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none" placeholder="ค้นหาสินค้า OTOP, ภูมิปัญญาชุมชน, หรือจังหวัด เช่น ผ้าครามสกลนคร, ชาเชียงราย..." type="text"/><button class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-md flex items-center gap-space-xxs transition-colors shadow-sm" type="button"><span class="material-symbols-outlined text-sm">search</span><span class="font-label-prominent text-label-prominent">ค้นหา</span></button></div></div><div class="flex items-center gap-space-sm shrink-0"><div class="hidden xl:flex items-center bg-surface-container-high rounded-full p-0.5"><button class="px-space-xs py-0.5 rounded-full font-label-badge text-label-badge bg-surface-container-lowest text-primary font-bold shadow-sm" type="button">ผู้ซื้อ</button><button class="px-space-xs py-0.5 rounded-full font-label-badge text-label-badge text-on-surface-variant hover:text-on-surface font-medium transition-colors" type="button">ผู้ผลิตชุมชน</button></div><a class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center relative" href="#" title="รายการโปรด"><span class="material-symbols-outlined text-xl">favorite</span></a><a class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center relative" href="#" title="การแจ้งเตือน"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></a><a class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center relative" href="#" title="ตะกร้าสินค้า"><span class="material-symbols-outlined text-xl">shopping_bag</span><span class="absolute top-0.5 right-0.5 bg-primary text-on-primary font-label-badge text-caption rounded-full w-4 h-4 flex items-center justify-center font-bold">3</span></a><div class="flex items-center gap-space-xs pl-space-xs cursor-pointer group"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDieO7TEKe0To7Kr-fbXjC0eMX_C_FzHXaEBzKaNKRWQ3bgu_fqyxwjtNVytT0W2b6csJt2M7e_fM-zdR_sljKZ5RVX7PpoUFYSt6TUtdZoLJL_m2ORI6gmangHkmOV87MFuTBMDmp08dq7HBJZAHrgnToTs4StrBLsxkoevOGa2HunxmIUCAU7gLEvJ2zbKg5pYSd0WYvKpSIFmViozHMPu_44ic2PLJQZ1I1t8wrrH6H8OyT8N6fr"/><div class="hidden lg:flex flex-col text-left"><span class="font-label-prominent text-label-prominent text-on-surface font-semibold leading-tight">สมศรี ทอศิลป์</span><span class="font-caption text-caption text-on-surface-variant leading-tight">วิสาหกิจชุมชนสกลนคร</span></div><span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface text-base transition-colors">expand_more</span></div></div></div><div class="w-full flex items-center justify-between pt-space-xxs"><nav class="flex items-center gap-space-lg" data-active-classes="text-primary font-bold"><a aria-current="page" class="transition-colors py-1 text-primary font-bold" data-path="home" href="#">หน้าแรก (Home)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="all-products" href="#">สินค้าทั้งหมด (Products)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="categories" href="#">หมวดหมู่ (Categories)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="community-enterprises" href="#">วิสาหกิจชุมชน (Communities)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="craft-stories" href="#">เรื่องราวภูมิปัญญา (Stories)</a></nav><div class="hidden md:flex items-center gap-space-sm"><span class="font-label-badge text-label-badge bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-0.5 rounded-full font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-xs">verified</span>รับรองมาตรฐาน OTOP</span><span class="font-label-badge text-label-badge bg-secondary-fixed text-on-secondary-fixed px-space-xs py-0.5 rounded-full font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-xs">local_shipping</span>จัดส่งตรงจากแหล่งผลิต</span></div></div></div></header><main class="w-full pt-28 bg-surface"><div class="flex flex-col w-full">
+<!-- Breadcrumb & Top Bar -->
+<section class="w-full bg-surface-container-low py-space-sm px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop shadow-sm">
+<div class="max-w-max-content-width mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-space-xs text-body-sm font-body-sm">
+<nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-space-xs text-on-surface-variant">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">home</span>หน้าแรก
+        </a>
+<span class="text-outline">/</span>
+<a class="hover:text-primary transition-colors" href="#">วิสาหกิจชุมชน (Seller Hub)</a>
+<span class="text-outline">/</span>
+<a class="hover:text-primary transition-colors" href="#">คำสั่งซื้อ #OTOP-2025-884</a>
+<span class="text-outline">/</span>
+<span class="text-primary font-semibold">ใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ</span>
+</nav>
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-badge text-label-badge font-semibold">
+<span class="material-symbols-outlined text-xs">shield</span> e-Tax Invoice by Time Stamp
+        </span>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-badge text-label-badge font-semibold">
+<span class="material-symbols-outlined text-xs">verified</span> ตราสินค้าสิ่งบ่งชี้ทางภูมิศาสตร์ GI
+        </span>
+</div>
+</div>
+</section>
+<!-- Document Actions & Status Hub -->
+<section class="w-full max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pt-space-lg pb-space-sm">
+<div class="bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Status Badge & Meta -->
+<div class="flex items-start md:items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-2xl">receipt_long</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<h1 class="font-headline-sm text-headline-sm text-on-surface font-bold">เอกสารทางการเงิน #INV-202505-0884</h1>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-space-xs py-0.5 rounded-full font-label-badge text-label-badge font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> ชำระเงินเรียบร้อยแล้ว (PromptPay)
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span>ทำรายการเมื่อ: 12 พฤษภาคม 2568, 10:42 น.</span>
+<span class="text-outline">•</span>
+<span>เลขอ้างอิง OTOP Gateway: 202505129941</span>
+</p>
+</div>
+</div>
+<!-- Main Action Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<!-- Print Trigger -->
+<button class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-2.5 rounded-lg flex items-center gap-space-xxs transition-all shadow-sm active:scale-95 font-label-prominent text-label-prominent" id="btnPrintDocument" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-lg">print</span>
+<span>พิมพ์เอกสาร (Ctrl+P)</span>
+</button>
+<!-- PDF Download -->
+<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-space-md py-2.5 rounded-lg flex items-center gap-space-xxs transition-colors font-label-prominent text-label-prominent" id="btnDownloadPDF" type="button">
+<span class="material-symbols-outlined text-lg text-primary">download</span>
+<span>ดาวน์โหลด PDF</span>
+</button>
+<!-- Email Customer -->
+<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-space-md py-2.5 rounded-lg flex items-center gap-space-xxs transition-colors font-label-prominent text-label-prominent" id="btnSendEmail" type="button">
+<span class="material-symbols-outlined text-lg text-secondary">mail</span>
+<span>ส่งอีเมลลูกค้า</span>
+</button>
+<!-- Full Tax Invoice Request Modal Trigger -->
+<button class="bg-surface-container-low hover:bg-surface-container text-primary hover:text-on-surface-variant px-space-sm py-2.5 rounded-lg flex items-center gap-space-xxs transition-colors font-label-badge text-label-badge" id="btnRequestFullTax" type="button">
+<span class="material-symbols-outlined text-base">request_quote</span>
+<span>ขอใบกำกับภาษีเต็มรูป</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Interactive Document Workspace (Grid: Side Controls + Paper Container) -->
+<main class="w-full max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-md">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT: Realistic Paper Sheet View (Col 1-8) -->
+<div class="lg:col-span-8 flex flex-col items-center">
+<!-- Format Switcher Bar -->
+<div class="w-full mb-space-sm flex items-center justify-between bg-surface-container-high p-1.5 rounded-lg">
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-1 rounded font-label-badge text-label-badge font-semibold bg-surface-container-lowest text-primary shadow-sm flex items-center gap-1.5" id="formatA4Btn" type="button">
+<span class="material-symbols-outlined text-base">article</span> มาตรฐาน A4 ทางการ (Standard A4)
+            </button>
+<button class="px-space-sm py-1 rounded font-label-badge text-label-badge font-medium text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5" id="formatSlipBtn" type="button">
+<span class="material-symbols-outlined text-base">receipt</span> สลิปความร้อน 80mm (Thermal Slip)
+            </button>
+</div>
+<span class="font-caption text-caption text-on-surface-variant hidden sm:inline-flex items-center gap-1 pr-2">
+<span class="material-symbols-outlined text-xs text-primary">zoom_in</span> ซูมเอกสาร 100% (High Fidelity)
+          </span>
+</div>
+<!-- The Realistic Paper Document (Target of Printable View) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-6 sm:p-10 md:p-12 shadow-md relative overflow-hidden transition-all duration-300" id="invoiceDocument">
+<!-- Subtle Artisan Watermark Background -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03] flex items-center justify-center select-none">
+<span class="font-headline-lg text-[140px] uppercase font-black tracking-widest text-on-surface rotate-[-25deg]">
+              OTOP CONNECT
+            </span>
+</div>
+<!-- Document Header -->
+<div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md pb-space-lg bg-surface-container-low/40 p-space-md rounded-lg">
+<!-- Left Header: Branding + Partnership Badge -->
+<div class="flex items-start gap-space-sm">
+<div class="w-14 h-14 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-3xl">storefront</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">OTOP Connect</span>
+<span class="font-caption text-caption font-semibold bg-tertiary-fixed text-on-tertiary-fixed px-1.5 py-0.5 rounded">CDD Partner</span>
+</div>
+<span class="font-label-prominent text-label-prominent text-on-surface font-semibold">แพลตฟอร์มตลาดชุมชนและภูมิปัญญาไทย</span>
+<span class="font-caption text-caption text-on-surface-variant">ในกำกับกรมการพัฒนาชุมชน กระทรวงมหาดไทย (MOU ร่วมสนับสนุนผู้ประกอบการ GI)</span>
+</div>
+</div>
+<!-- Right Header: Document Type Details -->
+<div class="flex flex-col sm:text-right">
+<span class="font-caption text-caption uppercase tracking-wider text-primary font-bold">เอกสารออกเป็นชุด (Electronic Original)</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface mt-0.5">ใบเสร็จรับเงิน / ใบกำกับภาษีอย่างย่อ</h2>
+<span class="font-caption text-caption text-on-surface-variant">RECEIPT / ABBREVIATED TAX INVOICE</span>
+<div class="mt-space-xs font-mono text-body-sm font-semibold text-primary">
+                เลขที่ (No.): INV-202505-0884
+              </div>
+<span class="font-caption text-caption text-on-surface-variant">วันที่ออก: 12 พฤษภาคม 2568 (10:42:18 น.)</span>
+</div>
+</div>
+<!-- Issuer & Customer Info Grid -->
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-space-md py-space-md bg-surface-container-lowest">
+<!-- Issuer (Seller & Platform Agency) -->
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-badge text-label-badge font-bold uppercase tracking-wider text-on-surface-variant">ผู้จำหน่าย / ผู้ให้บริการ (ISSUER)</span>
+<span class="font-caption text-caption bg-secondary-fixed text-on-secondary-fixed px-1.5 rounded font-medium">รหัสวิสาหกิจ: SELLER-4702</span>
+</div>
+<h3 class="font-label-prominent text-label-prominent text-on-surface font-bold">
+                  วิสาหกิจชุมชนทอผ้าย้อมครามบ้านดอนกอย
+                </h3>
+<p class="font-caption text-caption text-on-surface-variant mt-0.5">
+                  ในนามตัวแทนจัดจำหน่าย: บริษัท โอทอป คอนเน็ค (เพื่อวิสาหกิจชุมชนไทย) จำกัด
+                </p>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs space-y-0.5">
+<p>4702 หมู่ 2 ต.สว่าง อ.พรรณานิคม จ.สกลนคร 47130</p>
+<p>โทรศัพท์: 084-214-9988 | อีเมล: donkoy.craft@otopconnect.th</p>
+<p class="font-mono text-body-sm font-bold text-on-surface mt-1">
+                    เลขประจำตัวผู้เสียภาษี: 0-1055-66029-48-1 (สนง.ใหญ่)
+                  </p>
+</div>
+</div>
+<div class="mt-space-xs pt-space-xs bg-surface-container-high/40 px-space-xs py-1 rounded text-on-secondary-container font-caption text-caption flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary">eco</span>
+<span>มาตรฐาน GI ครามธรรมชาติสกลนคร ขึ้นทะเบียนเลขที่ สช 59100078</span>
+</div>
+</div>
+<!-- Customer Details -->
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-badge text-label-badge font-bold uppercase tracking-wider text-on-surface-variant">ข้อมูลผู้ซื้อ / รับบริการ (CUSTOMER)</span>
+<span class="font-caption text-caption bg-tertiary-fixed text-on-tertiary-fixed px-1.5 rounded font-medium">สมาชิกชุมชนระดับ VIP</span>
+</div>
+<h3 class="font-label-prominent text-label-prominent text-on-surface font-bold">
+                  คุณสมศรี ทอดศิลป์
+                </h3>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs space-y-0.5">
+<p>128/45 หมู่บ้านธารารมณ์ ซอยธารารมณ์ 150 ถ.รามคำแหง</p>
+<p>แขวงสะพานสูง เขตสะพานสูง กรุงเทพมหานคร 10240</p>
+<p>เบอร์ติดต่อ: 081-987-6543 | อีเมล: somsi.t@example.com</p>
+<p class="font-mono text-body-sm text-on-surface mt-1">
+                    เลขประจำตัวผู้เสียภาษี / บัตร ปชช: XXX-X-XXX89-4
+                  </p>
+</div>
+</div>
+<div class="mt-space-xs pt-space-xs bg-surface-container-high/40 px-space-xs py-1 rounded text-on-surface-variant font-caption text-caption flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-secondary">local_shipping</span>
+<span>พัสดุรับรอง: จัดส่ง EMS ประกันภัยความคุ้มครองงานหัตถกรรมชุมชน</span>
+</div>
+</div>
+</div>
+<!-- Document References Bar -->
+<div class="relative z-10 bg-surface-container p-space-xs rounded-lg my-space-xs flex flex-wrap items-center justify-between text-caption font-caption text-on-surface-variant gap-2">
+<div><span class="font-bold text-on-surface">เลขอ้างอิงคำสั่งซื้อ (Order ID):</span> #OTOP-2025-884</div>
+<div><span class="font-bold text-on-surface">ช่องทางชำระเงิน:</span> PromptPay QR Code (National e-Payment)</div>
+<div><span class="font-bold text-on-surface">สกุลเงิน:</span> THB (บาทไทย)</div>
+<div><span class="font-bold text-on-surface">สถานะภาษี:</span> ภาษีรวมในมูลค่า (VAT Included)</div>
+</div>
+<!-- Itemized Table -->
+<div class="relative z-10 mt-space-sm overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-high text-on-surface font-headline-sm text-label-badge font-bold">
+<th class="py-2.5 px-3 text-center w-12 rounded-l-md">ลำดับ</th>
+<th class="py-2.5 px-3 w-32">รหัสสินค้า</th>
+<th class="py-2.5 px-3">รายการสินค้าและภูมิปัญญาชุมชน</th>
+<th class="py-2.5 px-3 text-center w-20">จำนวน</th>
+<th class="py-2.5 px-3 text-right w-28">ราคา/หน่วย</th>
+<th class="py-2.5 px-3 text-right w-32 rounded-r-md">จำนวนเงิน (บาท)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/60">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3 px-3 text-center font-mono font-medium text-on-surface-variant">1</td>
+<td class="py-3 px-3 font-mono font-medium text-primary">DON-KHOI-01</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-prominent text-label-prominent font-semibold text-on-surface">ผ้าคลุมไหล่ย้อมครามธรรมชาติ ลายเกล็ดพญานาค</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 mt-0.5">
+<span class="font-caption text-caption bg-tertiary-fixed text-on-tertiary-fixed px-1.5 rounded font-semibold inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">star</span> OTOP 5 ดาว
+                        </span>
+<span class="font-caption text-caption bg-secondary-fixed text-on-secondary-fixed px-1.5 rounded font-semibold">
+                          GI สกลนคร
+                        </span>
+<span class="font-caption text-caption text-on-surface-variant">ฝ้ายเข็นมือ ย้อมครามธรรมชาติ 100% ขนาดยาว 200 ซม.</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3 text-center font-semibold text-on-surface">1 ชิ้น</td>
+<td class="py-3 px-3 text-right font-mono text-on-surface">850.00</td>
+<td class="py-3 px-3 text-right font-mono font-semibold text-on-surface">850.00</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3 px-3 text-center font-mono font-medium text-on-surface-variant">2</td>
+<td class="py-3 px-3 font-mono font-medium text-primary">DON-KHOI-02</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-prominent text-label-prominent font-semibold text-on-surface">สบู่กากครามผสมน้ำผึ้งป่าเดือนห้า (สูตรฟื้นฟูผิว)</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 mt-0.5">
+<span class="font-caption text-caption bg-tertiary-fixed text-on-tertiary-fixed px-1.5 rounded font-semibold inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">star</span> OTOP 4 ดาว
+                        </span>
+<span class="font-caption text-caption text-on-surface-variant">ก้อนละ 100 กรัม พืชพรรณสมุนไพรอินทรีย์ชุมชน</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3 text-center font-semibold text-on-surface">2 ก้อน</td>
+<td class="py-3 px-3 text-right font-mono text-on-surface">120.00</td>
+<td class="py-3 px-3 text-right font-mono font-semibold text-on-surface">240.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Financial Calculation Summary Area -->
+<div class="relative z-10 mt-space-sm pt-space-xs grid grid-cols-1 md:grid-cols-12 gap-space-md items-start">
+<!-- Left Note & Thai Amount Words -->
+<div class="md:col-span-7 flex flex-col gap-space-xs">
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<span class="font-caption text-caption text-on-surface-variant block mb-0.5">จำนวนเงินตัวอักษร (Amount in Words):</span>
+<p class="font-label-prominent text-label-prominent font-bold text-primary">
+                  (หนึ่งพันเก้าสิบบาทถ้วน)
+                </p>
+<p class="font-caption text-caption text-on-surface-variant italic mt-0.5">
+                  (One Thousand Ninety Baht Only)
+                </p>
+</div>
+<!-- Community Economic Impact Card -->
+<div class="bg-secondary-fixed/30 p-space-sm rounded-lg flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5">volunteer_activism</span>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge font-bold text-on-secondary-fixed">ผลลัพธ์การขับเคลื่อนชุมชน (Social Impact)</span>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed-variant mt-0.5">
+                    เงินจำนวน <strong class="text-primary font-bold">฿921.05 (84.5%)</strong> จากใบเสร็จนี้ถูกโอนตรงสู่กลุ่มแม่บ้านช่างทอดอนกอย สกลนคร เพื่อเสริมสร้างอาชีพผู้สูงอายุและอนุรักษ์การปลูกครามไร้สารเคมี
+                  </p>
+</div>
+</div>
+</div>
+<!-- Right: Calculations Breakdown -->
+<div class="md:col-span-5 bg-surface-container-low/70 p-space-sm rounded-lg flex flex-col gap-1.5 font-body-sm text-body-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>รวมมูลค่าสินค้า (Subtotal):</span>
+<span class="font-mono text-on-surface font-medium">฿1,090.00</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>ค่าจัดส่ง EMS ประกันภัยงานหัตถศิลป์:</span>
+<span class="font-mono text-on-surface font-medium">฿50.00</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-primary">ส่วนลดพิเศษ (โครงการ OTOP หนุนค่าส่ง):</span>
+<span class="font-mono text-primary font-medium">-฿50.00</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>มูลค่าก่อนคิดภาษี (Excl. VAT):</span>
+<span class="font-mono text-on-surface">฿1,018.69</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="inline-flex items-center gap-1">
+                  ภาษีมูลค่าเพิ่ม (VAT 7% รวมในยอดแล้ว):
+                  <span class="material-symbols-outlined text-xs text-outline" title="คิดคำนวณตามอัตรา 7% จากฐานภาษี">info</span>
+</span>
+<span class="font-mono text-on-surface">฿71.31</span>
+</div>
+<div class="w-full h-px bg-surface-container-high my-1"></div>
+<div class="flex items-center justify-between text-on-surface pt-1">
+<span class="font-headline-sm text-label-prominent font-bold">ยอดสุทธิชำระ (Grand Total):</span>
+<span class="font-mono font-headline-sm text-headline-sm font-bold text-primary">฿1,090.00</span>
+</div>
+</div>
+</div>
+<!-- Bottom Provenance, Signatures & Authenticity Stamp -->
+<div class="relative z-10 mt-space-lg pt-space-md border-t-2 border-dashed border-surface-container-high grid grid-cols-1 sm:grid-cols-3 gap-space-md items-end">
+<!-- QR Code & e-Tax Verification -->
+<div class="flex items-center gap-space-sm bg-surface-container-lowest p-space-xs rounded-lg">
+<!-- Simulated High-Precision QR Code SVG -->
+<div class="w-20 h-20 bg-surface-container-high rounded p-1 flex items-center justify-center shrink-0">
+<svg class="w-full h-full text-on-surface" fill="currentColor" viewbox="0 0 100 100">
+<path d="M10,10 h30 v30 h-30 z M15,15 v20 h20 v-20 z M22,22 h6 v6 h-6 z M60,10 h30 v30 h-30 z M65,15 v20 h20 v-20 z M72,22 h6 v6 h-6 z M10,60 h30 v30 h-30 z M15,65 v20 h20 v-20 z M22,72 h6 v6 h-6 z M45,15 h10 v5 h-10 z M45,30 h8 v8 h-8 z M65,55 h10 v15 h-10 z M80,65 h10 v10 h-10 z M50,60 h10 v25 h-10 z M70,85 h15 v5 h-15 z M45,45 h25 v6 h-25 z"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge font-bold text-on-surface">สแกนตรวจสอบเอกสาร</span>
+<span class="font-caption text-caption text-on-surface-variant">e-Tax Verification Code:</span>
+<span class="font-mono text-caption text-secondary font-semibold">ETAX-TH-2025-0512-884</span>
+<span class="font-caption text-caption text-outline mt-0.5">รับรองลายมือชื่อเวลาโดย ETDA</span>
+</div>
+</div>
+<!-- Digital Seal / Watermark Stamp -->
+<div class="flex flex-col items-center justify-center text-center">
+<div class="w-24 h-24 rounded-full border-2 border-primary/40 flex flex-col items-center justify-center p-1 relative">
+<div class="w-20 h-20 rounded-full border border-dashed border-primary/60 flex flex-col items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+<span class="font-caption text-[9px] uppercase font-bold tracking-tighter">OTOP OFFICIAL</span>
+<span class="font-caption text-[8px] font-bold">รับรองมาตรฐาน</span>
+</div>
+</div>
+<span class="font-caption text-caption text-on-surface-variant mt-1">ตราประทับดิจิทัลวิสาหกิจชุมชน</span>
+</div>
+<!-- Authorized Digital Signature -->
+<div class="flex flex-col items-center sm:items-end text-center sm:text-right">
+<div class="w-44 flex flex-col items-center">
+<!-- Signature line graphic representation -->
+<div class="h-12 w-full flex items-center justify-center relative">
+<span class="font-serif italic text-primary text-xl tracking-wider select-none font-bold">ประนอม วงศ์สกล</span>
+</div>
+<div class="w-full h-px bg-outline-variant my-1"></div>
+<span class="font-label-prominent text-label-badge font-bold text-on-surface">(นางประนอม วงศ์สกล)</span>
+<span class="font-caption text-caption text-on-surface-variant">ประธานวิสาหกิจชุมชนบ้านดอนกอย</span>
+<span class="font-caption text-caption text-outline">ผู้รับเงิน / ผู้มีอำนาจลงนาม</span>
+</div>
+</div>
+</div>
+<!-- Document Legal Footer Disclaimer -->
+<div class="relative z-10 mt-space-md pt-space-xs text-center font-caption text-caption text-on-surface-variant">
+            เอกสารนี้เป็นใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ ออกตามมาตรา 86/6 แห่งประมวลรัษฎากร หากประสงค์ขอใบกำกับภาษีเต็มรูปแบบ โปรดติดต่อภายใน 15 วันนับจากวันที่ออกเอกสาร
+          </div>
+</div>
+<!-- Print-Only Style Hook (Handled gracefully via Tailwind print utilities & media rule) -->
+<div class="mt-space-sm text-center text-caption font-caption text-on-surface-variant">
+<p>เอกสารพร้อมพิมพ์บนกระดาษขนาดมาตรฐาน A4 หรือเลือกรูปแบบสลิปขนาด 80 มม. สำหรับพิมพ์บิลหน้าร้าน</p>
+</div>
+</div>
+<!-- RIGHT: Interactive Controls, Activity Log & Tax Guide (Col 9-12) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Print & Format Settings Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-primary">tune</span>
+<h3 class="font-headline-sm text-title-editorial font-bold text-on-surface">การตั้งค่าพิมพ์ &amp; ดาวน์โหลด</h3>
+</div>
+<div class="space-y-space-sm font-body-sm text-body-sm">
+<!-- Format selector -->
+<div>
+<label class="block font-label-badge text-label-badge font-semibold text-on-surface mb-1">
+                รูปแบบกระดาษ (Layout Preset)
+              </label>
+<select class="w-full bg-surface-container-low text-on-surface rounded-lg px-space-sm py-2 focus:outline-none cursor-pointer" id="paperSizeSelect">
+<option selected="" value="a4">ขนาดมาตรฐาน A4 (210 x 297 มม.)</option>
+<option value="slip">กระดาษม้วนความร้อน 80 มม. (POS Thermal)</option>
+<option value="letter">US Letter (215.9 x 279.4 มม.)</option>
+</select>
+</div>
+<!-- Print Toggles -->
+<div class="pt-space-xs space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/>
+<span class="text-on-surface font-medium">รวมตราประทับรับรองดิจิทัล (Digital Stamp)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/>
+<span class="text-on-surface font-medium">แสดง QR Code ตรวจสอบย้อนกลับ GI</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/>
+<span class="text-on-surface font-medium">แสดงสรุปผลลัพธ์สนับสนุนชุมชน (Impact Note)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/>
+<span class="text-on-surface font-medium">พิมพ์สำเนาคู่ฉบับสำหรับแผนกบัญชี (Copy)</span>
+</label>
+</div>
+<div class="pt-space-xs">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-label-prominent text-label-prominent py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-colors" onclick="window.print()">
+<span class="material-symbols-outlined text-lg">print</span> สั่งพิมพ์ตามการตั้งค่า
+              </button>
+</div>
+</div>
+</div>
+<!-- Community Enterprise Tax Exemption Notice -->
+<div class="bg-tertiary-fixed/25 p-space-md rounded-xl">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-xl shrink-0">policy</span>
+<div class="flex flex-col">
+<h4 class="font-label-prominent text-label-prominent font-bold text-on-tertiary-fixed">
+                สิทธิประโยชน์ภาษีวิสาหกิจชุมชน
+              </h4>
+<p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant mt-1 leading-relaxed">
+                ตามพระราชกฤษฎีกาออกตามความในประมวลรัษฎากรว่าด้วยการยกเว้นรัษฎากร รายได้จากการจำหน่ายผ้าครามและผลิตภัณฑ์สมุนไพรชุมชนนี้ ได้รับการส่งเสริมการพัฒนาเศรษฐกิจฐานราก บุคคลธรรมดาไม่ต้องถูกหักภาษี ณ ที่จ่ายเพิ่มเติม
+              </p>
+<div class="mt-2 flex items-center gap-1 font-caption text-caption text-tertiary font-semibold">
+<span class="material-symbols-outlined text-sm">verified</span> รับรองสถานะโดยกรมสรรพากร &amp; กรมพัฒนาชุมชน
+              </div>
+</div>
+</div>
+</div>
+<!-- Activity & Dispatch Log -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary">history</span>
+<h3 class="font-headline-sm text-title-editorial font-bold text-on-surface">บันทึกการส่งเอกสาร</h3>
+</div>
+<span class="font-caption text-caption bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full font-semibold">
+              อัปเดตล่าสุด
+            </span>
+</div>
+<div class="space-y-space-sm">
+<!-- Timeline Item 1 -->
+<div class="flex items-start gap-space-xs">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-xs">mark_email_read</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge font-bold text-on-surface">ส่งเอกสารทางอีเมลสำเร็จ</span>
+<span class="font-caption text-caption text-on-surface-variant">ส่งไปยัง somsi.t@example.com แล้ว</span>
+<span class="font-caption text-[11px] text-outline">12 พ.ค. 2568, 10:45 น. (เปิดอ่านแล้ว)</span>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="flex items-start gap-space-xs">
+<div class="w-6 h-6 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-xs">sms</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge font-bold text-on-surface">แจ้งเตือน SMS พร้อมลิงก์ดาวน์โหลด</span>
+<span class="font-caption text-caption text-on-surface-variant">ส่งไปยังหมายเลข 081-987-6543</span>
+<span class="font-caption text-[11px] text-outline">12 พ.ค. 2568, 10:43 น.</span>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="flex items-start gap-space-xs">
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-xs">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge font-bold text-on-surface">ประทับตรายางเวลา (Time Stamp) สำเร็จ</span>
+<span class="font-caption text-caption text-on-surface-variant">ระบบ e-Tax Central Gateway CDD</span>
+<span class="font-caption text-[11px] text-outline">12 พ.ค. 2568, 10:42 น.</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<button class="text-primary hover:text-primary-container font-label-badge text-label-badge font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-sm">forward_to_inbox</span> ส่งซ้ำอีกครั้ง
+            </button>
+<button class="text-on-surface-variant hover:text-on-surface font-caption text-caption" type="button">
+              ดูประวัติทั้งหมด
+            </button>
+</div>
+</div>
+<!-- Quick Help Card -->
+<div class="bg-surface-container-low p-space-sm rounded-xl flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-2xl">support_agent</span>
+<div class="flex flex-col">
+<span class="font-label-prominent text-label-badge font-bold text-on-surface">ต้องการแก้ไขข้อมูลใบกำกับภาษี?</span>
+<span class="font-caption text-caption text-on-surface-variant">ติดต่อศูนย์บริการผู้ประกอบการและลูกค้า OTOP Connect 02-141-8888</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Full Tax Invoice Request Modal Dialog (Hidden by Default, toggled via JS) -->
+<div class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-inverse-surface/60 backdrop-blur-sm" id="fullTaxModal">
+<div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+<div class="flex items-center justify-between pb-4 border-b border-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">assignment</span>
+<h3 class="font-headline-sm text-title-editorial font-bold text-on-surface">ขอใบกำกับภาษีเต็มรูปแบบ</h3>
+</div>
+<button class="p-1 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" id="closeFullTaxModal" type="button">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<form class="space-y-4 py-4 font-body-sm text-body-sm" id="taxRequestForm">
+<div class="flex items-center gap-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="accent-primary" name="taxType" type="radio"/>
+<span class="text-on-surface font-medium">บุคคลธรรมดา</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="accent-primary" name="taxType" type="radio"/>
+<span class="text-on-surface font-medium">นิติบุคคล / บริษัทจำกัด</span>
+</label>
+</div>
+<div>
+<label class="block font-label-badge text-label-badge font-semibold text-on-surface mb-1">ชื่อผู้เสียภาษี / ชื่อบริษัทเต็ม</label>
+<input class="w-full bg-surface-container-low px-3 py-2 rounded-lg text-on-surface focus:outline-none" type="text" value="คุณสมศรี ทอดศิลป์"/>
+</div>
+<div>
+<label class="block font-label-badge text-label-badge font-semibold text-on-surface mb-1">เลขประจำตัวผู้เสียภาษีอากร 13 หลัก</label>
+<input class="w-full bg-surface-container-low px-3 py-2 rounded-lg text-on-surface focus:outline-none font-mono" placeholder="1-4702-00123-45-6" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block font-label-badge text-label-badge font-semibold text-on-surface mb-1">สาขา</label>
+<input class="w-full bg-surface-container-low px-3 py-2 rounded-lg text-on-surface focus:outline-none" type="text" value="สำนักงานใหญ่"/>
+</div>
+<div>
+<label class="block font-label-badge text-label-badge font-semibold text-on-surface mb-1">เบอร์โทรศัพท์ติดต่อ</label>
+<input class="w-full bg-surface-container-low px-3 py-2 rounded-lg text-on-surface focus:outline-none font-mono" type="text" value="081-987-6543"/>
+</div>
+</div>
+<div>
+<label class="block font-label-badge text-label-badge font-semibold text-on-surface mb-1">ที่อยู่จดทะเบียนสำหรับออกใบกำกับภาษี</label>
+<textarea class="w-full bg-surface-container-low px-3 py-2 rounded-lg text-on-surface focus:outline-none" rows="2">128/45 หมู่บ้านธารารมณ์ ซอยธารารมณ์ 150 ถ.รามคำแหง แขวงสะพานสูง เขตสะพานสูง กรุงเทพฯ 10240</textarea>
+</div>
+<div class="p-3 bg-surface-container rounded-lg font-caption text-caption text-on-surface-variant flex items-start gap-2">
+<span class="material-symbols-outlined text-base text-primary shrink-0">info</span>
+<span>ใบกำกับภาษีเต็มรูปจะถูกส่งเป็น e-Tax Invoice PDF พร้อมลายเซ็นดิจิทัลทางอีเมลภายใน 24 ชม.</span>
+</div>
+<div class="flex items-center justify-end gap-2 pt-2">
+<button class="px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-prominent text-label-prominent" id="cancelFullTaxModal" type="button">ยกเลิก</button>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-5 py-2 rounded-lg font-label-prominent text-label-prominent shadow-sm transition-colors" type="submit">ยืนยันการขอเอกสาร</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Client-Side Micro-Interactions Script -->
+<script>
+    (function() {
+      // Toggle Print Formats (A4 vs Slip)
+      const formatA4Btn = document.getElementById('formatA4Btn');
+      const formatSlipBtn = document.getElementById('formatSlipBtn');
+      const paperSizeSelect = document.getElementById('paperSizeSelect');
+      const docContainer = document.getElementById('invoiceDocument');
+
+      function setFormat(format) {
+        if (!docContainer) return;
+        if (format === 'slip') {
+          docContainer.classList.add('max-w-[420px]', 'text-xs');
+          formatSlipBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+          formatSlipBtn.classList.remove('text-on-surface-variant');
+          formatA4Btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+          formatA4Btn.classList.add('text-on-surface-variant');
+          if (paperSizeSelect) paperSizeSelect.value = 'slip';
+        } else {
+          docContainer.classList.remove('max-w-[420px]', 'text-xs');
+          formatA4Btn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+          formatA4Btn.classList.remove('text-on-surface-variant');
+          formatSlipBtn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+          formatSlipBtn.classList.add('text-on-surface-variant');
+          if (paperSizeSelect) paperSizeSelect.value = 'a4';
+        }
+      }
+
+      if (formatA4Btn) formatA4Btn.addEventListener('click', () => setFormat('a4'));
+      if (formatSlipBtn) formatSlipBtn.addEventListener('click', () => setFormat('slip'));
+      if (paperSizeSelect) {
+        paperSizeSelect.addEventListener('change', (e) => {
+          setFormat(e.target.value === 'slip' ? 'slip' : 'a4');
+        });
+      }
+
+      // Modal Controls
+      const modal = document.getElementById('fullTaxModal');
+      const btnOpen = document.getElementById('btnRequestFullTax');
+      const btnClose = document.getElementById('closeFullTaxModal');
+      const btnCancel = document.getElementById('cancelFullTaxModal');
+      const taxForm = document.getElementById('taxRequestForm');
+
+      function openModal() {
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+      }
+      function closeModal() {
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      }
+
+      if (btnOpen) btnOpen.addEventListener('click', openModal);
+      if (btnClose) btnClose.addEventListener('click', closeModal);
+      if (btnCancel) btnCancel.addEventListener('click', closeModal);
+
+      if (taxForm) {
+        taxForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('ระบบได้ส่งคำขอใบกำกับภาษีเต็มรูปแบบเรียบร้อยแล้ว ทางเราจะจัดส่งให้ท่านทางอีเมล');
+          closeModal();
+        });
+      }
+
+      // Toast feedback for action triggers
+      const btnSendEmail = document.getElementById('btnSendEmail');
+      if (btnSendEmail) {
+        btnSendEmail.addEventListener('click', () => {
+          btnSendEmail.innerHTML = '<span class="material-symbols-outlined text-lg">check</span> ส่งเรียบร้อยแล้ว';
+          setTimeout(() => {
+            btnSendEmail.innerHTML = '<span class="material-symbols-outlined text-lg text-secondary">mail</span><span>ส่งอีเมลลูกค้า</span>';
+          }, 2500);
+        });
+      }
+
+      const btnDownload = document.getElementById('btnDownloadPDF');
+      if (btnDownload) {
+        btnDownload.addEventListener('click', () => {
+          btnDownload.innerHTML = '<span class="material-symbols-outlined text-lg">download_done</span> กำลังดาวน์โหลด...';
+          setTimeout(() => {
+            btnDownload.innerHTML = '<span class="material-symbols-outlined text-lg text-primary">download</span><span>ดาวน์โหลด PDF</span>';
+          }, 2000);
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-low mt-space-3xl py-space-2xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-xl pb-space-2xl"><div class="lg:col-span-2 flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-headline-md text-primary font-bold">OTOP Connect</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-md">แพลตฟอร์มตลาดออนไลน์เพื่อส่งเสริมผลิตภัณฑ์ชุมชน พัฒนาภูมิปัญญาไทยสู่สากล เชื่อมโยงผู้ผลิตวิสาหกิจชุมชนโดยตรงสู่ผู้บริโภค พร้อมระบบตรวจสอบมาตรฐานและแหล่งกำเนิดสินค้า GI</p><div class="flex flex-wrap items-center gap-space-xs pt-space-xs"><span class="font-label-badge text-label-badge bg-surface-container-highest text-on-surface-variant px-space-sm py-1 rounded-md font-semibold">ความร่วมมือ กรมการพัฒนาชุมชน (CDD)</span><span class="font-label-badge text-label-badge bg-surface-container-highest text-on-surface-variant px-space-sm py-1 rounded-md font-semibold">กรมส่งเสริมการค้าระหว่างประเทศ (DITP)</span></div></div><div class="flex flex-col gap-space-xs"><h4 class="font-headline-sm text-title-editorial text-on-surface font-semibold mb-space-xxs">ภูมิปัญญา 5 ภาค</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" href="#">ภาคเหนือ (Lanna Craft &amp; Silk)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคอีสาน (Indigo &amp; Pottery)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคกลาง (Traditional Crafts)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคใต้ (Batik &amp; Herbal Care)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคตะวันออก (Gourmet &amp; Fruits)</a></li></ul></div><div class="flex flex-col gap-space-xs"><h4 class="font-headline-sm text-title-editorial text-on-surface font-semibold mb-space-xxs">บริการลูกค้า</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" href="#">ติดตามสถานะคำสั่งซื้อ</a></li><li><a class="hover:text-primary transition-colors" href="#">มาตรฐานรับรอง OTOP 5 ดาว</a></li><li><a class="hover:text-primary transition-colors" href="#">นโยบายการคืนสินค้าและการรับประกัน</a></li><li><a class="hover:text-primary transition-colors" href="#">สมัครเป็นผู้ประกอบการวิสาหกิจ</a></li><li><a class="hover:text-primary transition-colors" href="#">ศูนย์ช่วยเหลือชุมชน</a></li></ul></div><div class="flex flex-col gap-space-xs"><h4 class="font-headline-sm text-title-editorial text-on-surface font-semibold mb-space-xxs">ความปลอดภัยและการชำระเงิน</h4><p class="font-body-sm text-body-sm text-on-surface-variant">ธุรกรรมมั่นคงปลอดภัย มาตรฐานระดับสากล สนับสนุน PromptPay, บัตรเครดิต และกระเป๋าเงินดิจิทัลชุมชน</p><div class="flex flex-wrap gap-space-xs mt-space-xs"><span class="material-symbols-outlined text-primary bg-surface-container-lowest p-space-xs rounded shadow-sm">lock</span><span class="material-symbols-outlined text-secondary bg-surface-container-lowest p-space-xs rounded shadow-sm">credit_card</span><span class="material-symbols-outlined text-tertiary bg-surface-container-lowest p-space-xs rounded shadow-sm">qr_code_2</span><span class="material-symbols-outlined text-primary bg-surface-container-lowest p-space-xs rounded shadow-sm">shield_with_heart</span></div></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-caption text-caption text-on-surface-variant"><p>© 2025 OTOP Connect Thailand. สงวนลิขสิทธิ์ทุกประการ สนับสนุนเศรษฐกิจฐานรากไทย</p><div class="flex items-center gap-space-lg"><a class="hover:text-on-surface transition-colors" href="#">ข้อกำหนดการใช้งาน</a><a class="hover:text-on-surface transition-colors" href="#">นโยบายความเป็นส่วนตัว</a><a class="hover:text-on-surface transition-colors" href="#">แผนผังเว็บไซต์</a></div></div></div></footer></body></html>

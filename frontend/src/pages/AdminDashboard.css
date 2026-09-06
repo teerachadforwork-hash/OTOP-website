@@ -1,0 +1,425 @@
+/* =============================================
+   AdminDashboard Extra Styles
+   ============================================= */
+
+.admin-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 34px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.admin-action-btn.approve {
+  background: var(--eco-light);
+  color: var(--eco);
+}
+
+.admin-action-btn.approve:hover {
+  background: var(--eco);
+  color: white;
+}
+
+.admin-action-btn.reject {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.admin-action-btn.reject:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+.admin-tabs button {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  min-height: 38px;
+}
+.admin-tabs button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.admin-form-grid textarea,
+.admin-form-grid input,
+.admin-form-grid select,
+.member-toolbar input,
+.member-toolbar select,
+.admin-inline-form input,
+.admin-row-actions select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: var(--text-main);
+}
+.admin-form-grid textarea {
+  min-height: 90px;
+  grid-column: 1 / -1;
+}
+.admin-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-dashboard-page .dashboard-card {
+  margin-bottom: 1.5rem;
+}
+
+.admin-shell {
+  max-width: 1240px;
+}
+
+.admin-header {
+  align-items: flex-end;
+}
+
+.admin-eyebrow {
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.admin-header-actions,
+.admin-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-stat-grid {
+  margin-bottom: 1.5rem;
+}
+
+.admin-insight-grid,
+.admin-testing-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 1.5rem;
+}
+
+.role-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.role-summary-card {
+  text-align: left;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.role-summary-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.role-summary-card span {
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.role-summary-card strong {
+  color: var(--text-main);
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 0.55rem;
+}
+
+.role-summary-card small {
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.compact-member-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.compact-member-list button {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.compact-member-list strong,
+.compact-member-list small,
+.admin-muted-line {
+  display: block;
+}
+
+.compact-member-list small,
+.admin-muted-line,
+.empty-note,
+.admin-help-text {
+  color: var(--text-muted);
+}
+
+.compact-member-list em {
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.admin-help-text {
+  margin: -0.5rem 0 1rem;
+}
+
+.admin-table-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.member-toolbar,
+.admin-inline-form {
+  align-items: center;
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.member-toolbar {
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 240px) auto;
+}
+
+.admin-inline-form {
+  grid-template-columns: minmax(220px, 1fr) auto;
+}
+
+.role-pill,
+.status-pill {
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  white-space: nowrap;
+}
+
+.role-pill.role-admin {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.status-pill.active {
+  background: var(--eco-light);
+  color: var(--eco);
+}
+
+.status-pill.inactive {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.admin-workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.workflow-card ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.workflow-card li {
+  color: var(--text-body);
+  line-height: 1.65;
+  margin-bottom: 0.5rem;
+}
+
+.workflow-wide {
+  grid-column: 1 / -1;
+}
+
+.workflow-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.7rem;
+}
+
+.workflow-metrics span,
+.launch-command-list div {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+}
+
+.launch-command-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.launch-command-list strong {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.launch-command-list code {
+  background: #111827;
+  border-radius: var(--radius-sm);
+  color: #f8fafc;
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  padding: 0.65rem;
+  white-space: pre;
+}
+
+.admin-checkbox-line {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.admin-checkbox-line input {
+  width: auto;
+}
+@media (max-width: 720px) {
+  .admin-form-grid,
+  .member-toolbar,
+  .admin-inline-form,
+  .admin-insight-grid,
+  .admin-testing-grid,
+  .admin-workflow-grid,
+  .role-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header {
+    align-items: flex-start;
+  }
+
+  .admin-header-actions {
+    width: 100%;
+  }
+
+  .admin-header-actions .admin-action-btn,
+  .member-toolbar .admin-action-btn,
+  .admin-inline-form .admin-action-btn {
+    width: 100%;
+  }
+
+  .admin-tabs {
+    flex-wrap: nowrap;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 1rem 0.5rem;
+  }
+
+  .admin-responsive-table,
+  .admin-responsive-table thead,
+  .admin-responsive-table tbody,
+  .admin-responsive-table tr,
+  .admin-responsive-table th,
+  .admin-responsive-table td {
+    display: block;
+  }
+
+  .admin-responsive-table thead {
+    display: none;
+  }
+
+  .admin-responsive-table tr {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.85rem;
+    overflow: hidden;
+  }
+
+  .admin-responsive-table td {
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border-light);
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: minmax(96px, 34%) minmax(0, 1fr);
+    padding: 0.75rem;
+    word-break: break-word;
+  }
+
+  .admin-responsive-table td:last-child {
+    border-bottom: none;
+  }
+
+  .admin-responsive-table td::before {
+    color: var(--text-muted);
+    content: attr(data-label);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .admin-row-actions {
+    align-items: stretch;
+  }
+
+  .admin-row-actions .admin-action-btn,
+  .admin-row-actions select {
+    flex: 1 1 100%;
+  }
+
+  .dashboard-title {
+    font-size: 1.75rem;
+  }
+}

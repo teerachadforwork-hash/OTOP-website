@@ -1,0 +1,292 @@
+/* =============================================
+   PaymentPage Styles
+   ============================================= */
+
+.payment-page {
+  padding: 2.5rem 0 5rem;
+  background: var(--bg);
+  min-height: calc(100vh - 200px);
+  animation: fadeInPage 0.5s ease;
+}
+
+.payment-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.payment-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.payment-subtitle {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+/* Grid Layout */
+.payment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.payment-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+
+.payment-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Method Selector Tabs */
+.payment-methods-tab {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.payment-tab-btn {
+  padding: 0.85rem 0.5rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-light);
+  background: white;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.payment-tab-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* QR Code Box */
+.qr-box {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px dashed var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.qr-image-wrapper {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1rem;
+  background: white;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.qr-amount-badge {
+  display: inline-block;
+  padding: 0.4rem 1.25rem;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* Bank Account List */
+.bank-account-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bank-account-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+}
+
+.bank-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.bank-logo.kbank { background: #138f2d; }
+.bank-logo.scb { background: #4e2583; }
+.bank-logo.bbl { background: #1e3a8a; }
+
+.bank-info {
+  flex: 1;
+}
+
+.bank-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.bank-number {
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.bank-owner {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.copy-btn {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* Slip Upload Zone */
+.slip-upload-zone {
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: var(--primary-light);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.slip-upload-zone:hover {
+  background: rgba(184, 84, 52, 0.12);
+}
+
+.slip-upload-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.slip-preview-box {
+  max-height: 220px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.slip-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.slip-remove-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.payment-submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 14px rgba(184, 84, 52, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.payment-submit-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.payment-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 992px) {
+  .payment-grid {
+    grid-template-columns: 1fr;
+  }
+}

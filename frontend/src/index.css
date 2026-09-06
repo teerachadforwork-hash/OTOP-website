@@ -1,0 +1,156 @@
+:root {
+  /* Color Palette based on OTOP Connect Modern Artisan Design System */
+  --primary: #b85434;
+  --primary-hover: #9e4325;
+  --primary-light: #fff2ee;
+  --primary-surface: #faece7;
+  
+  --secondary: #2b4764;
+  --secondary-hover: #1f354c;
+  --secondary-light: #edf3f8;
+
+  --tertiary: #d19c4c;
+  --tertiary-light: #fef8ee;
+
+  --eco: #2d6a4f;
+  --eco-light: #eaf5f0;
+
+  --bg: #faf7f2;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f4efe6;
+
+  --border: #e6e0d5;
+  --border-light: #f0ebe2;
+
+  --text-main: #24272b;
+  --text-body: #4b5259;
+  --text-muted: #737c86;
+  --text-inverse: #ffffff;
+
+  --shadow-sm: 0 2px 6px rgba(43, 71, 100, 0.04);
+  --shadow-md: 0 6px 18px rgba(43, 71, 100, 0.08);
+  --shadow-lg: 0 12px 30px rgba(184, 84, 52, 0.12);
+  --shadow-hover: 0 14px 28px rgba(184, 84, 52, 0.14), 0 4px 10px rgba(0, 0, 0, 0.04);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --font-thai: 'Prompt', 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Epilogue', 'Prompt', sans-serif;
+  
+  --max-width: 1280px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-thai);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-main);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  min-height: 100vh;
+  color: var(--text-main);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Common Container Utility */
+.otop-container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .otop-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Badge Utilities */
+.badge-otop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--tertiary-light);
+  color: #9c6e23;
+  border: 1px solid rgba(209, 156, 76, 0.4);
+}
+
+.badge-gi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--eco-light);
+  color: var(--eco);
+  border: 1px solid rgba(45, 106, 79, 0.3);
+}
+
+.badge-province {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #f0ece5;
+  color: var(--secondary);
+}

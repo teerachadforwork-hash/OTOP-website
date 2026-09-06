@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed-variant": "#7f2a0d", "on-error": "#ffffff", "on-error-container": "#93000a", "inverse-surface": "#2e3135", "secondary-fixed": "#d0e4ff", "surface-container-high": "#e6e8ed", "surface-container-lowest": "#ffffff", "inverse-on-surface": "#eff0f6", "tertiary-container": "#97691d", "surface-variant": "#e1e2e8", "surface-container-highest": "#e1e2e8", "tertiary-fixed": "#ffddb2", "surface": "#f8f9ff", "on-secondary-container": "#445f7e", "primary-fixed-dim": "#ffb59e", "on-tertiary": "#ffffff", "outline-variant": "#ddc0b9", "on-tertiary-container": "#fff7f1", "surface-bright": "#f8f9ff", "tertiary-fixed-dim": "#f5bc69", "background": "#f8f9ff", "on-primary-container": "#fff6f4", "on-secondary-fixed-variant": "#2d4966", "error": "#ba1a1a", "primary-fixed": "#ffdbd0", "surface-container-low": "#f2f3f9", "secondary": "#45607f", "on-surface-variant": "#56423c", "on-secondary-fixed": "#001d35", "on-tertiary-fixed": "#291800", "inverse-primary": "#ffb59e", "primary-container": "#b85434", "secondary-fixed-dim": "#adc9ec", "on-secondary": "#ffffff", "surface-tint": "#9f4123", "error-container": "#ffdad6", "tertiary": "#7b5101", "secondary-container": "#bddafd", "on-background": "#191c20", "surface-dim": "#d8dadf", "primary": "#983d1f", "on-primary": "#ffffff", "surface-container": "#eceef3", "outline": "#89726b", "on-primary-fixed": "#3a0a00", "on-tertiary-fixed-variant": "#624000", "on-surface": "#191c20" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.5rem", "space-2xl": "3rem", "max-content-width": "1280px", "space-xl": "2rem", "space-3xl": "4.5rem", "gutter-desktop": "2rem", "gutter-tablet": "1.5rem", "space-lg": "1.5rem", "space-md": "1rem", "margin-tablet": "2rem", "gutter-mobile": "1rem", "margin-mobile": "1rem", "space-xxs": "0.25rem", "space-sm": "0.75rem", "margin-desktop": "3rem" }, "fontFamily": { "label-prominent": [ "Be Vietnam Pro" ], "body-md": [ "Be Vietnam Pro" ], "headline-md": [ "Epilogue" ], "headline-lg-mobile": [ "Epilogue" ], "label-badge": [ "Be Vietnam Pro" ], "display-hero-mobile": [ "Epilogue" ], "headline-lg": [ "Epilogue" ], "headline-sm": [ "Epilogue" ], "caption": [ "Be Vietnam Pro" ], "body-lg": [ "Be Vietnam Pro" ], "body-sm": [ "Be Vietnam Pro" ], "title-editorial": [ "Epilogue" ], "display-hero": [ "Epilogue" ] }, "fontSize": { "label-prominent": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "600" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "label-badge": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-hero-mobile": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" } ], "caption": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "400" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "title-editorial": [ "18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "500" } ], "display-hero": [ "48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-28 max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex flex-col justify-between py-space-xs"><div class="flex items-center justify-between gap-space-md w-full"><div class="flex items-center gap-space-sm shrink-0"><img alt="OTOP Connect Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VXY7mwV6PaFBBQ_yqrC7IrF0v5m8_e_aCILWa-Y3oqrdkJjOs7TAzWzf7pr3iWQJozZisrSybVQgRN-ABixziHPCJY3tQ8waLIkm7u5SiNfoRdJBVLTHf6T-PFVsGsY6wH-S8QwXehYTkZNOuY3SFCj3wXmHbVjmUEMu_sJj07mv1J7nwz0twa7K1eEpcEyUgsW_4QSJiMF-yv4H2MVQ6D0kixqToRnXv7KvxIcaSXO3wB-A_DbChKb1E"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">OTOP Connect</span><span class="font-caption text-caption text-on-surface-variant font-medium">ตลาดชุมชนและภูมิปัญญาไทย</span></div></div><div class="flex-1 max-w-2xl mx-space-md hidden md:flex items-center"><div class="w-full flex items-center bg-surface-container-lowest rounded-lg p-space-xxs shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="relative flex items-center pl-space-sm pr-space-xs"><span class="material-symbols-outlined text-on-surface-variant text-base mr-1">category</span><select class="appearance-none bg-transparent font-label-badge text-label-badge text-on-surface-variant pr-space-md focus:outline-none cursor-pointer"><option>ทุกหมวดหมู่</option><option>ผ้าและเครื่องแต่งกาย</option><option>ของใช้และของตกแต่ง</option><option>อาหารและเครื่องดื่ม</option><option>สมุนไพรและสุคนธบำบัด</option></select></div><input class="flex-1 bg-transparent px-space-xs font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none" placeholder="ค้นหาสินค้า OTOP, ภูมิปัญญาชุมชน, หรือจังหวัด เช่น ผ้าครามสกลนคร, ชาเชียงราย..." type="text"/><button class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-md flex items-center gap-space-xxs transition-colors shadow-sm" type="button"><span class="material-symbols-outlined text-sm">search</span><span class="font-label-prominent text-label-prominent">ค้นหา</span></button></div></div><div class="flex items-center gap-space-sm shrink-0"><div class="hidden xl:flex items-center bg-surface-container-high rounded-full p-0.5"><button class="px-space-xs py-0.5 rounded-full font-label-badge text-label-badge bg-surface-container-lowest text-primary font-bold shadow-sm" type="button">ผู้ซื้อ</button><button class="px-space-xs py-0.5 rounded-full font-label-badge text-label-badge text-on-surface-variant hover:text-on-surface font-medium transition-colors" type="button">ผู้ผลิตชุมชน</button></div><a class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center relative" href="#" title="รายการโปรด"><span class="material-symbols-outlined text-xl">favorite</span></a><a class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center relative" href="#" title="การแจ้งเตือน"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></a><a class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center relative" href="#" title="ตะกร้าสินค้า"><span class="material-symbols-outlined text-xl">shopping_bag</span><span class="absolute top-0.5 right-0.5 bg-primary text-on-primary font-label-badge text-caption rounded-full w-4 h-4 flex items-center justify-center font-bold">3</span></a><div class="flex items-center gap-space-xs pl-space-xs cursor-pointer group"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDieO7TEKe0To7Kr-fbXjC0eMX_C_FzHXaEBzKaNKRWQ3bgu_fqyxwjtNVytT0W2b6csJt2M7e_fM-zdR_sljKZ5RVX7PpoUFYSt6TUtdZoLJL_m2ORI6gmangHkmOV87MFuTBMDmp08dq7HBJZAHrgnToTs4StrBLsxkoevOGa2HunxmIUCAU7gLEvJ2zbKg5pYSd0WYvKpSIFmViozHMPu_44ic2PLJQZ1I1t8wrrH6H8OyT8N6fr"/><div class="hidden lg:flex flex-col text-left"><span class="font-label-prominent text-label-prominent text-on-surface font-semibold leading-tight">สมศรี ทอศิลป์</span><span class="font-caption text-caption text-on-surface-variant leading-tight">วิสาหกิจชุมชนสกลนคร</span></div><span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface text-base transition-colors">expand_more</span></div></div></div><div class="w-full flex items-center justify-between pt-space-xxs"><nav class="flex items-center gap-space-lg" data-active-classes="text-primary font-bold"><a aria-current="page" class="transition-colors py-1 text-primary font-bold" data-path="home" href="#">หน้าแรก (Home)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="all-products" href="#">สินค้าทั้งหมด (Products)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="categories" href="#">หมวดหมู่ (Categories)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="community-enterprises" href="#">วิสาหกิจชุมชน (Communities)</a><a class="font-label-prominent text-label-prominent text-on-surface-variant hover:text-on-surface transition-colors py-1" data-path="craft-stories" href="#">เรื่องราวภูมิปัญญา (Stories)</a></nav><div class="hidden md:flex items-center gap-space-sm"><span class="font-label-badge text-label-badge bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-0.5 rounded-full font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-xs">verified</span>รับรองมาตรฐาน OTOP</span><span class="font-label-badge text-label-badge bg-secondary-fixed text-on-secondary-fixed px-space-xs py-0.5 rounded-full font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-xs">local_shipping</span>จัดส่งตรงจากแหล่งผลิต</span></div></div></div></header><main class="w-full pt-28 bg-surface"><div class="flex flex-col w-full">
+<!-- Sticky Context / Top Action Sub-header -->
+<section class="w-full bg-surface-container-lowest/80 backdrop-blur-md sticky top-28 z-40 shadow-sm py-space-xs">
+<div class="max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<!-- Breadcrumb & Enterprise Indicator -->
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs font-caption text-caption text-on-surface-variant flex-wrap">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-xs">storefront</span>
+            ศูนย์ผู้ผลิตชุมชน (Seller Hub)
+          </a>
+<span class="text-outline">/</span>
+<a class="hover:text-primary transition-colors" href="#">จัดการสินค้าชุมชน</a>
+<span class="text-outline">/</span>
+<span class="text-on-surface font-semibold">แบบฟอร์มเพิ่มสินค้าและยื่นรับรอง (BR-07)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<p class="font-label-badge text-label-badge text-on-surface-variant">
+            วิสาหกิจ: <strong class="text-on-surface font-semibold">กลุ่มทอผ้าย้อมครามบ้านดอนกอย (SELLER-4702)</strong>
+<span class="ml-1 bg-surface-container-high px-1.5 py-0.5 rounded text-secondary font-medium">สกลนคร · ภาคอีสาน</span>
+</p>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-prominent text-label-prominent flex items-center gap-1.5 transition-all shadow-sm" id="btn-save-draft" type="button">
+<span class="material-symbols-outlined text-base">save</span>
+<span>บันทึกแบบร่าง</span>
+</button>
+<button class="px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-prominent text-label-prominent flex items-center gap-1.5 transition-all shadow-md active:scale-95" id="btn-submit-top" type="button">
+<span class="material-symbols-outlined text-base">verified_user</span>
+<span>ส่งพิจารณาอนุมัติ (Submit BR-07)</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Workflow Container -->
+<div class="max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-lg w-full flex flex-col gap-space-xl">
+<!-- Title & System Notice Banner -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xxs">
+<div class="inline-flex items-center gap-space-xs w-fit bg-secondary-fixed/50 text-on-secondary-fixed px-space-sm py-0.5 rounded-full font-label-badge text-label-badge">
+<span class="material-symbols-outlined text-sm">assignment_add</span>
+<span>ระบบยื่นคำขอตรวจสอบมาตรฐานผลิตภัณฑ์ชุมชนดิจิทัล</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+          เพิ่มสินค้าชุมชนและยื่นขอตรวจสอบมาตรฐาน OTOP / GI
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          บันทึกรายละเอียดสินค้า ข้อมูลภูมิปัญญาท้องถิ่น และแนบเอกสารรับรองมาตรฐานเพื่อส่งให้เจ้าหน้าที่กรมการพัฒนาชุมชน (CDD) ตรวจสอบความถูกต้องก่อนเปิดจำหน่ายสู่ตลาดสากล
+        </p>
+</div>
+<!-- Live Policy Notice Badge -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-start gap-space-xs max-w-sm shrink-0">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">policy</span>
+<div class="flex flex-col text-xs">
+<span class="font-label-prominent text-label-badge text-on-surface font-bold">เกณฑ์มาตรฐานความปลอดภัย BR-05 &amp; BR-07</span>
+<span class="text-on-surface-variant leading-relaxed">สินค้าใหม่จะเข้าสู่คิวตรวจสอบ (Pending Queue) โดยอัตโนมัติ และจะเผยแพร่เมื่อได้รับการอนุมัติจากสำนักงานพัฒนาชุมชนจังหวัด</span>
+</div>
+</div>
+</div>
+<!-- Stepper Navigation -->
+<div class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
+<!-- Step 1: Complete -->
+<div class="flex items-center gap-space-xs cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-prominent text-label-prominent flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-primary uppercase font-bold tracking-wider">ขั้นตอน 1</span>
+<span class="font-label-prominent text-body-sm text-on-surface font-semibold truncate">ข้อมูลพื้นฐาน &amp; ราคา</span>
+</div>
+</div>
+<!-- Step 2: Active -->
+<div class="flex items-center gap-space-xs cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-prominent text-label-prominent flex items-center justify-center shrink-0 shadow-sm ring-4 ring-primary/10">
+            2
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-primary uppercase font-bold tracking-wider">ขั้นตอน 2</span>
+<span class="font-label-prominent text-body-sm text-primary font-semibold truncate">ภูมิปัญญา &amp; ช่างทอ</span>
+</div>
+</div>
+<!-- Step 3: Active / Focused -->
+<div class="flex items-center gap-space-xs cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-prominent text-label-prominent flex items-center justify-center shrink-0 shadow-sm">
+            3
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-secondary uppercase font-bold tracking-wider">ขั้นตอน 3</span>
+<span class="font-label-prominent text-body-sm text-on-surface font-semibold truncate">ภาพ &amp; ใบรับรอง GI/OTOP</span>
+</div>
+</div>
+<!-- Step 4: Pending -->
+<div class="flex items-center gap-space-xs opacity-60">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant font-label-prominent text-label-prominent flex items-center justify-center shrink-0">
+            4
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-outline uppercase font-bold tracking-wider">ขั้นตอน 4</span>
+<span class="font-label-prominent text-body-sm text-on-surface-variant font-medium truncate">ยืนยัน &amp; ส่งอนุมัติ</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 2-Column Split Layout: Form 65% / Live Preview & Policy 35% -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- LEFT COLUMN: Main Multi-Section Form (8 Cols) -->
+<form class="lg:col-span-8 flex flex-col gap-space-xl" id="product-registration-form">
+<!-- SECTION A: Product Essentials -->
+<div class="bg-surface-container-lowest p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">inventory_2</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                ส่วนที่ 1: ข้อมูลสินค้าและหมวดหมู่ผลิตภัณฑ์
+              </h2>
+</div>
+<span class="font-caption text-caption bg-surface-container-high px-2 py-0.5 rounded text-on-surface-variant font-medium">บังคับระบุ *</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Product Name (Full Span) -->
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface flex items-center gap-1" for="input-product-name">
+                ชื่อสินค้าชุมชน (Product Name) <span class="text-error">*</span>
+</label>
+<input class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md focus:bg-surface-container-lowest focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)] outline-none transition-all shadow-sm" id="input-product-name" placeholder="ระบุชื่อสินค้า เช่น ผ้าคลุมไหล่ย้อมครามลายโบราณ..." type="text" value="ผ้าคลุมไหล่ย้อมคราม ลายเกล็ดพญานาคโบราณ ทอมือ 100%"/>
+<p class="font-caption text-caption text-on-surface-variant">ระบุชื่อลายโบราณ เอกลักษณ์ท้องถิ่น หรือกระบวนการเด่นชัดเพื่อผลการค้นหาที่ดี</p>
+</div>
+<!-- Category -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="select-category">
+                หมวดหมู่หลัก (Main Category) <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<select class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md appearance-none outline-none shadow-sm focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)] cursor-pointer" id="select-category">
+<option selected="">ผ้าและเครื่องแต่งกาย (Textiles &amp; Apparel)</option>
+<option>ของใช้ ของตกแต่ง และของที่ระลึก</option>
+<option>อาหารและเครื่องดื่มแปรรูป</option>
+<option>สมุนไพรที่ไม่ใช่อาหารและสุคนธบำบัด</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-on-surface-variant text-base">expand_more</span>
+</div>
+</div>
+<!-- Auto-generated SKU -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface flex items-center justify-between">
+<span>รหัสสินค้าชุมชน (SKU Code)</span>
+<span class="font-caption text-caption text-primary font-normal">สร้างอัตโนมัติตามระเบียบ BR-05</span>
+</label>
+<div class="h-12 px-space-md bg-surface-container-high rounded-lg flex items-center justify-between text-on-surface font-body-md font-mono">
+<span id="display-sku">DON-KHOI-06</span>
+<span class="material-symbols-outlined text-on-surface-variant text-base">lock</span>
+</div>
+</div>
+<!-- Verified Enterprise Profile (Read-only banner) -->
+<div class="md:col-span-2 bg-surface-container-low p-space-md rounded-xl flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold font-headline-sm shrink-0">
+                  ดค
+                </div>
+<div class="flex flex-col">
+<span class="font-label-prominent text-label-prominent text-on-surface">กลุ่มวิสาหกิจชุมชนทอผ้าย้อมครามบ้านดอนกอย</span>
+<span class="font-caption text-caption text-on-surface-variant">รหัสทะเบียน CDD: 47020104 · ม.2 ต.สว่าง อ.พรรณานิคม จ.สกลนคร (ภาคอีสาน)</span>
+</div>
+</div>
+<span class="font-label-badge text-label-badge bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-1 rounded font-semibold shrink-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> ยืนยันตัวตนแล้ว
+              </span>
+</div>
+<!-- Regular Price -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="input-regular-price">
+                ราคาจำหน่ายปกติ (บาท ฿) <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-label-prominent text-outline">฿</span>
+<input class="w-full h-12 pl-8 pr-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)]" id="input-regular-price" type="number" value="1200"/>
+</div>
+</div>
+<!-- Community Promotional Price -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="input-promo-price">
+                ราคาพิเศษส่งเสริมชุมชน (บาท ฿)
+              </label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-label-prominent text-primary font-bold">฿</span>
+<input class="w-full h-12 pl-8 pr-space-md bg-surface-container-lowest rounded-lg text-primary font-headline-sm font-bold shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)]" id="input-promo-price" type="number" value="890"/>
+</div>
+</div>
+<!-- Stock Quantity with Ledger sync -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="input-stock">
+                จำนวนสินค้าพร้อมส่งมอบ (สต็อก) <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)]" id="input-stock" type="number" value="25"/>
+<span class="absolute right-3 font-label-badge text-caption text-on-surface-variant">ผืน / ชิ้น</span>
+</div>
+<span class="font-caption text-caption text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">sync</span> เชื่อมโยงบัญชีสต็อกชุมชนอัตโนมัติ (BR-02/BR-08)
+              </span>
+</div>
+<!-- Unit of Measurement -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface">
+                ขนาด / มิติชิ้นงาน (กว้าง x ยาว)
+              </label>
+<input class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)]" type="text" value="70 x 200 เซนติเมตร (พู่ชายผ้า 8 ซม.)"/>
+</div>
+</div>
+</div>
+<!-- SECTION B: OTOP & GI Certification Upload (High Priority Feature) -->
+<div class="bg-surface-container-lowest p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">workspace_premium</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                  ส่วนที่ 2: การรับรองมาตรฐานและเอกสารประกอบ (OTOP &amp; GI)
+                </h2>
+<p class="font-caption text-caption text-on-surface-variant">
+                  ข้อมูลนี้ใช้ประเมินตราสัญลักษณ์ OTOP Stars และความถูกต้องตามกฎหมายสิ่งบ่งชี้ทางภูมิศาสตร์
+                </p>
+</div>
+</div>
+<span class="font-label-badge text-label-badge bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-0.5 rounded font-bold">
+              ความน่าเชื่อถือสูง
+            </span>
+</div>
+<!-- OTOP Star Selection Radio Pills -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-prominent text-label-prominent text-on-surface">
+              ระดับมาตรฐานดาว OTOP ที่ผ่านการคัดสรรล่าสุด <span class="text-error">*</span>
+</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs">
+<!-- 5 Stars (Checked) -->
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="otop-star" type="radio" value="5"/>
+<div class="p-space-sm rounded-xl bg-surface-container-low peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1 shadow-sm text-center">
+<div class="flex text-amber-400 peer-checked:text-white">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-prominent text-label-prominent font-bold">OTOP 5 ดาว</span>
+<span class="font-caption text-caption opacity-80">ระดับประเทศสากล</span>
+</div>
+</label>
+<!-- 4 Stars -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="otop-star" type="radio" value="4"/>
+<div class="p-space-sm rounded-xl bg-surface-container-low peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1 shadow-sm text-center">
+<div class="flex text-amber-400">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-prominent text-label-prominent font-bold">OTOP 4 ดาว</span>
+<span class="font-caption text-caption opacity-80">ระดับส่งออกได้</span>
+</div>
+</label>
+<!-- 3 Stars -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="otop-star" type="radio" value="3"/>
+<div class="p-space-sm rounded-xl bg-surface-container-low peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1 shadow-sm text-center">
+<div class="flex text-amber-400">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-prominent text-label-prominent font-bold">OTOP 3 ดาว</span>
+<span class="font-caption text-caption opacity-80">ระดับภูมิภาค</span>
+</div>
+</label>
+<!-- Pending Assessment -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="otop-star" type="radio" value="pending"/>
+<div class="p-space-sm rounded-xl bg-surface-container-low peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1 shadow-sm text-center">
+<span class="material-symbols-outlined text-base text-on-surface-variant">hourglass_top</span>
+<span class="font-label-prominent text-label-prominent font-bold">รอประเมินดาว</span>
+<span class="font-caption text-caption opacity-80">ยื่นเข้าโครงการใหม่</span>
+</div>
+</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Community Standard Cert No. -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="input-tcps">
+                เลขที่ใบรับรองมาตรฐานผลิตภัณฑ์ชุมชน (มผช. / มสช.)
+              </label>
+<input class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)]" id="input-tcps" type="text" value="มผช. 142/2565 (มาตรฐานผ้าฝ้ายทอมือ)"/>
+</div>
+<!-- Expire Date -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="input-cert-expiry">
+                วันหมดอายุใบรับรอง มผช.
+              </label>
+<input class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)] cursor-pointer" id="input-cert-expiry" type="date" value="2027-11-30"/>
+</div>
+</div>
+<!-- GI Thailand Toggle Box -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-emerald-700 text-2xl">eco</span>
+<div class="flex flex-col">
+<span class="font-label-prominent text-label-prominent text-on-surface font-bold">
+                    การขึ้นทะเบียนสิ่งบ่งชี้ทางภูมิศาสตร์ (GI Thailand)
+                  </span>
+<span class="font-caption text-caption text-on-surface-variant">
+                    ได้รับตราสัญลักษณ์รับรองสินค้าอัตลักษณ์เฉพาะถิ่นจากกรมทรัพย์สินทางปัญญา
+                  </span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-gi" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-700"></div>
+</label>
+</div>
+<div class="pt-space-xs grid grid-cols-1 md:grid-cols-2 gap-space-md" id="gi-details-panel">
+<div class="flex flex-col gap-1">
+<span class="font-caption text-caption text-on-surface-variant font-medium">ทะเบียน GI สิทธิประโยชน์</span>
+<input class="w-full h-11 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-sm shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(47,107,79,0.2)]" id="input-gi-number" type="text" value="ทะเบียน GI เลขที่ สช 58-0012 (ผ้าครามธรรมชาติสกลนคร)"/>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-caption text-caption text-on-surface-variant font-medium">ผู้ทรงสิทธิ์ควบคุมมาตรฐาน</span>
+<div class="h-11 px-space-md bg-surface-container-lowest rounded-lg flex items-center text-body-sm text-emerald-900 font-medium">
+                  สำนักงานพาณิชย์จังหวัดสกลนคร / คณะกรรมการบริหาร GI
+                </div>
+</div>
+</div>
+</div>
+<!-- Document Upload Dropzone -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-prominent text-label-prominent text-on-surface flex items-center justify-between">
+<span>แนบสำเนาใบรับรองมาตรฐาน (Certification Proof) <span class="text-error">*</span></span>
+<span class="font-caption text-caption text-outline">รองรับ PDF, JPG, PNG ขนาดสูงสุด 10MB</span>
+</label>
+<div class="p-space-lg rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-space-xs group" id="dropzone-cert">
+<div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">upload_file</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-prominent text-label-prominent text-on-surface font-semibold">
+                  คลิกเพื่ออัปโหลด หรือลากไฟล์เอกสารมาวางที่นี่
+                </span>
+<span class="font-caption text-caption text-on-surface-variant">
+                  สำเนาหนังสือรับรองดาว OTOP (CDD), มผช., อย. หรือ ใบอนุญาตใช้ตรา GI ไทย
+                </span>
+</div>
+</div>
+<!-- Uploaded File Chips -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<!-- File 1: OTOP 5-Star -->
+<div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-prominent text-body-sm text-on-surface font-semibold">cert_otop5star_cdd_2024.pdf</span>
+<div class="flex items-center gap-2 font-caption text-caption text-on-surface-variant">
+<span>1.4 MB</span>
+<span>·</span>
+<span class="text-emerald-700 font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">verified</span> ตรวจสอบตราครุฑราชการแล้ว
+                      </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors" title="ดูตัวอย่างเอกสาร" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="ลบไฟล์" type="button">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<!-- File 2: GI License -->
+<div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-emerald-800/10 text-emerald-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-prominent text-body-sm text-on-surface font-semibold">gi_sakonnakhon_indigo_license.pdf</span>
+<div class="flex items-center gap-2 font-caption text-caption text-on-surface-variant">
+<span>890 KB</span>
+<span>·</span>
+<span class="text-emerald-700 font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">check_circle</span> สิทธิ์ใช้ตรา GI สกลนครถูกต้อง
+                      </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors" title="ดูตัวอย่างเอกสาร" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="ลบไฟล์" type="button">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION C: Storytelling & Community Heritage -->
+<div class="bg-surface-container-lowest p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">auto_stories</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                  ส่วนที่ 3: เรื่องราวภูมิปัญญาและกระบวนการผลิต (Craft Story)
+                </h2>
+<p class="font-caption text-caption text-on-surface-variant">
+                  พลังแห่งการเล่าเรื่องช่วยเพิ่มมูลค่าสินค้าและดึงดูดผู้ซื้อระดับสากล
+                </p>
+</div>
+</div>
+</div>
+<!-- Product Origin Story (Rich Text Area) -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface flex items-center justify-between" for="textarea-story">
+<span>เรื่องราวเบื้องหลังผลิตภัณฑ์และรากเหง้าวัฒนธรรม (Product Cultural Origin)</span>
+<span class="font-caption text-caption text-outline">ระบบรองรับแปลภาษาอังกฤษอัตโนมัติ</span>
+</label>
+<div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden">
+<!-- Simple formatting bar -->
+<div class="flex items-center gap-1 px-3 py-1.5 bg-surface-container-low text-on-surface-variant text-xs">
+<button class="p-1 hover:bg-surface-container-highest rounded font-bold" type="button">B</button>
+<button class="p-1 hover:bg-surface-container-highest rounded italic" type="button">I</button>
+<button class="p-1 hover:bg-surface-container-highest rounded underline" type="button">U</button>
+<span class="text-outline">|</span>
+<button class="p-1 hover:bg-surface-container-highest rounded flex items-center" type="button"><span class="material-symbols-outlined text-sm">format_list_bulleted</span></button>
+<button class="p-1 hover:bg-surface-container-highest rounded flex items-center" type="button"><span class="material-symbols-outlined text-sm">transcribe</span></button>
+</div>
+<textarea class="w-full p-space-md bg-transparent text-on-surface font-body-md outline-none resize-y" id="textarea-story" rows="4">สืบทอดเทคนิคการย้อมครามธรรมชาติจากรุ่นสู่รุ่นกว่า 4 ชั่วอายุคน ใช้น้ำครามหมักจากใบครามสดที่ปลูกริมลุ่มน้ำสงคราม ปราศจากสารเคมีสังเคราะห์ 100% ลวดลายเกล็ดพญานาคโบราณสื่อถึงความอุดมสมบูรณ์และสิริมงคลตามความเชื่อลุ่มน้ำโขง ทอด้วยกี่กระตุกไม้เนื้อแข็ง ใช้เวลาทอชิ้นต่อชิ้นกว่า 14 วัน จึงได้สัมผัสที่นุ่มเบาสบาย ระบายอากาศได้ดีเยี่ยม และมีกลิ่นหอมสมุนไพรอ่อนๆ เฉพาะตัว</textarea>
+</div>
+</div>
+<!-- Sequential Craft Process Steps -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-prominent text-label-prominent text-on-surface">
+              3 ขั้นตอนเด่นแห่งภูมิปัญญาช่างทอ (Key Heritage Steps)
+            </label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<div class="p-space-sm bg-surface-container-low rounded-xl flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-primary font-label-prominent text-xs font-bold">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-[10px]">1</span>
+                  การเก็บใบคราม &amp; หมักน้ำซึม
+                </div>
+<input class="bg-surface-container-lowest p-1.5 rounded text-xs text-on-surface outline-none shadow-sm" type="text" value="เก็บใบครามก่อนรุ่งสาง หมักน้ำขี้เถ้าและน้ำซาวข้าว"/>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-xl flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-primary font-label-prominent text-xs font-bold">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-[10px]">2</span>
+                  มัดหมี่ลายเกล็ดพญานาค
+                </div>
+<input class="bg-surface-container-lowest p-1.5 rounded text-xs text-on-surface outline-none shadow-sm" type="text" value="ผูกเชือกฟางกั้นสีลายโบราณความละเอียดสูง"/>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-xl flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-primary font-label-prominent text-xs font-bold">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-[10px]">3</span>
+                  ทอมือด้วยกี่กระตุกไม้
+                </div>
+<input class="bg-surface-container-lowest p-1.5 rounded text-xs text-on-surface outline-none shadow-sm" type="text" value="สอดกระสวยเส้นต่อเส้นโดยช่างทอชั้นครู 60 ปี"/>
+</div>
+</div>
+</div>
+<!-- Natural Raw Materials -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-prominent text-label-prominent text-on-surface" for="input-materials">
+              วัสดุธรรมชาติและส่วนประกอบหลัก (Materials &amp; Ingredients)
+            </label>
+<input class="w-full h-12 px-space-md bg-surface-container-lowest rounded-lg text-on-surface font-body-md shadow-sm outline-none focus:shadow-[0_0_0_3px_rgba(184,84,52,0.18)]" id="input-materials" type="text" value="เส้นใยฝ้ายอินทรีย์เข็นมือ 100%, สีย้อมธรรมชาติจากใบครามสดและเปลือกไม้พยุง, น้ำด่างขี้เถ้ากาบมะพร้าว"/>
+</div>
+</div>
+<!-- SECTION D: Product Photo Gallery -->
+<div class="bg-surface-container-lowest p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">add_photo_alternate</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                  ส่วนที่ 4: รูปภาพผลิตภัณฑ์และกระบวนการทำจริง
+                </h2>
+<p class="font-caption text-caption text-on-surface-variant">
+                  รูปถ่ายชัดเจนและแสดงภูมิปัญญาจริงช่วยให้ผ่านการอนุมัติได้ใน 24 ชั่วโมง
+                </p>
+</div>
+</div>
+<span class="font-label-badge text-label-badge bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded font-semibold">
+              อัปโหลดแล้ว 5/8 รูป
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start">
+<!-- Hero Cover Slot (5 Cols) -->
+<div class="md:col-span-5 flex flex-col gap-1.5">
+<span class="font-label-prominent text-label-prominent text-on-surface">ภาพหน้าปกหลัก (Main Hero Cover)</span>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-md group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Editorial artisanal product photography of an authentic Thai handcrafted indigo blue scarf folded elegantly on raw natural wood loom texture with warm sunbeam highlighting deep indigo botanical dye textures, minimalist studio craftsmanship style, terracotta accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPvMUuywt1pvpt8SdhMmUDmMCyBdEweF0N8x6NeAH9DqXn-To3MrDgcz8Bpm9tM1BB9OTmha7ZrGVmVqnwz1OcSxd6uxVrMqG6TZurEwfTbKR9Cx0-245RNGoPlToZUIO2xbvYm48JBQBwtznIsPxP4RB1vmpcgTcr9L6SNy-N4UQwF8uh1a4x44WqGieuHJHLB2SLd3F5FIT5l9saPNgSL_RU4aH1MCho9zcS_mDxXdit6Ta7pBqh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-space-sm justify-between">
+<span class="font-label-badge text-label-badge bg-primary text-on-primary px-2 py-0.5 rounded font-bold">หน้าปกหลัก</span>
+<button class="bg-surface-container-lowest/90 text-on-surface p-1.5 rounded-full hover:text-primary transition-colors shadow" type="button">
+<span class="material-symbols-outlined text-base">cached</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 4 Thumbnail Gallery Slots (7 Cols) -->
+<div class="md:col-span-7 flex flex-col gap-1.5">
+<span class="font-label-prominent text-label-prominent text-on-surface">ภาพรายละเอียดเพิ่มเติม (Gallery Details)</span>
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Slot 1: Fabric Macro -->
+<div class="relative aspect-square rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Extreme macro close-up of intricate handwoven indigo blue cotton fabric weave pattern with delicate sacred naga scales detailing, organic natural raw fibers, soft tactile lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJG_M2VrUCYMIlFUiMO96XlR63pu6oRT22g_I0mtzEurISKCU4dVKesFNwDPPzU1vQVk4IHeyJVtdmqK389qZGUsFp_IVTam_Vg1leIX2wogsTPZq5gXHRJ6lhm8QpHcLQuW0MheyO29IPJWw1SmN6YyyLLjBPMhZcxupvzYu6bwuuylCoglsZisXrhwkCXAbQMmPBLH3lXZ3yRooa93RXoHq5MzGdEMJMvC87DizXOXdNclYBjTmV"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded text-[10px] font-medium text-on-surface">
+                    เนื้อผ้าซูมละเอียด
+                  </div>
+</div>
+<!-- Slot 2: Artisan at Loom -->
+<div class="relative aspect-square rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A portrait of an elderly Thai female master artisan weaver smiling warmly while working at a wooden handloom in rural Sakon Nakhon workshop with natural indigo vats in background, warm authentic heritage atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwH1mqWiXVsA-Wpb8Gn84dWqHb2AK_QTlO_dEX4I5JYp94-6p9Ffc6CKdOuqr_-7FGosTEUq650BZTjOJLfyJ5OR8rFyXGpJ1X0P_tm50cEME8KJBqZ1TEeZ33_5B7on7YGuHWhatmugQ0KNieT_lt3_g9InvlmuZBmKaisFpS9bnjFeNa_bJWFvNziAYsLIEKkJOfCf6bLotDuIOMP95nsGGl0PsCNI3ApR09S8T_jE9gEo_8wQPc"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded text-[10px] font-medium text-on-surface">
+                    ช่างทอขณะปฏิบัติงาน
+                  </div>
+</div>
+<!-- Slot 3: Natural Dye Vat -->
+<div class="relative aspect-square rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Earthenware ceramic fermentation vats of bubbling organic indigo blue dye with natural plant leaves in a traditional Thai open-air craft studio, warm earthy shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo7ndAkDUDsQ2MKX5b7isitf1o0f5J0MqIGx5I8brY8i29lp0m4YEJ1L4CirnszINTMZN2UyMcxRKGSy7khKsG4U38zbWDefvyiZZeAATYgqrwCR76zsggKwQ2x5fePgwqJK1PXiEHYUD3aOWeDgF1ED46sWfItaFxsnF9M6KGJZ4XkrPp8Yq_oRzpE4UXsnb0hJIanl8UDayvvFnv_sz4e1i33vwuPpmX10pXh3oFGaHECuZ5sK1d"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded text-[10px] font-medium text-on-surface">
+                    การหมักครามธรรมชาติ
+                  </div>
+</div>
+<!-- Slot 4: Sustainable Kraft Packaging -->
+<div class="relative aspect-square rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Eco-friendly premium brown kraft gift box packaging with golden OTOP five star seal stamp and handmade mulberry paper tag tied with jute twine, minimalist boutique setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7dM5rX-C3sz5KszUTmmdXB5BhhZX094_62Tz8LjQwaHQWSv0CFRrRltf6b-CnXH4i5j59Plcpo9Pj2XsgAvqKPixbcwOQY4TJ-Wn5EEq6f7fP_3a12f56LWG9cXV706cUbZgr28Ohb46FI-u2wBgJpbUZPmMpIiA_pqulDJLRjjbRFbrCmQ53LZVlna5xSIUpnUC0D1sJ9wCKQggnhAE0-9Mf3gaSIOrA0oa4FxQZYV1eZ7Xn_nUg"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded text-[10px] font-medium text-on-surface">
+                    บรรจุภัณฑ์รักษ์โลก
+                  </div>
+</div>
+</div>
+<!-- Upload Additional Button -->
+<button class="w-full py-2 bg-surface-container-low hover:bg-surface-container rounded-lg font-label-prominent text-label-badge text-on-surface-variant flex items-center justify-center gap-1 mt-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-base">add</span>
+<span>เพิ่มภาพถ่ายมุมมองอื่น (เหลืออีก 3 ภาพ)</span>
+</button>
+</div>
+</div>
+</div>
+</form>
+<!-- RIGHT COLUMN: Sticky Real-time Preview & CDD Review Checklist (4 Cols) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg lg:sticky lg:top-48">
+<!-- Live Preview Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+<span class="font-label-prominent text-label-prominent text-on-surface font-bold">
+              ตัวอย่างการแสดงผลหน้าร้านจริง
+            </span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Real-time Preview</span>
+</div>
+<!-- MOCK PRODUCT CARD (Elevated Crafts Style) -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all flex flex-col">
+<!-- Card Image & Badges -->
+<div class="relative aspect-[4/3] w-full bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Editorial product shot of folded indigo scarf with authentic artisan certification badges, terracotta lighting, boutique studio look" id="preview-card-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnQC6hhHJjWmC38aGUN3I8aYiI8-SgxIVNLRe2g-l6rssdOv6pgz9Lp49KvES5IGSAEHn7n9wGZwXr_atEMIIaby8n2ATtUf6rmKvTX23jUDlKKYXcAi13gWx0i2qNMQurpRqO9eSjyTAHnBHd5V3ct-ED7NuO3uDdMRslHoDqltIlgM68uVgfR1Cu5BgvCJczCeL3JkYMxuQswZfIUTD9xIT1OsETPJxbJgODWFVY9Mt2cTPn4Kea"/>
+<!-- Province & Origin Pill -->
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-secondary font-label-badge text-label-badge font-bold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">location_on</span>
+              สกลนคร / Sakon Nakhon
+            </div>
+<!-- Heart Bookmark (Mock) -->
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface-variant flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+<!-- Bottom Badges: OTOP 5-Star + GI -->
+<div class="absolute bottom-3 left-3 flex flex-wrap items-center gap-1.5">
+<span class="bg-surface-container-lowest/95 backdrop-blur-sm px-2 py-0.5 rounded-full font-label-badge text-caption text-tertiary font-bold flex items-center gap-1 shadow-sm" id="preview-badge-otop">
+<span class="material-symbols-outlined text-xs text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                OTOP 5 ดาว
+              </span>
+<span class="bg-emerald-950/85 backdrop-blur-sm px-2 py-0.5 rounded-full font-label-badge text-caption text-emerald-100 font-bold flex items-center gap-1 shadow-sm" id="preview-badge-gi">
+<span class="material-symbols-outlined text-xs">eco</span>
+                GI ไทยแลนด์
+              </span>
+</div>
+</div>
+<!-- Card Content -->
+<div class="p-space-md flex flex-col gap-space-xs">
+<span class="font-caption text-caption text-on-surface-variant uppercase font-medium tracking-wide truncate">
+              กลุ่มวิสาหกิจชุมชนทอผ้าย้อมครามบ้านดอนกอย
+            </span>
+<h3 class="font-headline-sm text-title-editorial text-on-surface font-bold line-clamp-2 leading-snug" id="preview-card-title">
+              ผ้าคลุมไหล่ย้อมคราม ลายเกล็ดพญานาคโบราณ ทอมือ 100%
+            </h3>
+<!-- Star Rating & Review count -->
+<div class="flex items-center gap-1 text-xs">
+<div class="flex text-amber-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-on-surface font-bold">5.0</span>
+<span class="text-on-surface-variant">(สินค้าใหม่)</span>
+</div>
+<!-- Price & Stock Status -->
+<div class="flex items-end justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-outline line-through" id="preview-card-regular-price">฿1,200</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold" id="preview-card-promo-price">฿890</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-badge text-caption text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-medium">มีของ 25 ผืน</span>
+<span class="font-caption text-[10px] text-on-surface-variant mt-0.5">จัดส่งตรงจากชุมชน</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CDD Verification Checklist Box -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">fact_check</span>
+<span class="font-label-prominent text-label-prominent text-on-surface font-bold">
+              เกณฑ์ความพร้อมเพื่อรับรอง (CDD Checklist)
+            </span>
+</div>
+<ul class="flex flex-col gap-2 font-body-sm text-on-surface-variant text-xs">
+<li class="flex items-start gap-2 text-on-surface">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0">check_circle</span>
+<span>ระบุข้อมูลชุมชนตรงกับฐานข้อมูลกรมการพัฒนาชุมชน (CDD 4702)</span>
+</li>
+<li class="flex items-start gap-2 text-on-surface">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0">check_circle</span>
+<span>แนบไฟล์หนังสือรับรอง OTOP 5 ดาว และสิทธิ์ใช้ตรา GI ถูกต้อง</span>
+</li>
+<li class="flex items-start gap-2 text-on-surface">
+<span class="material-symbols-outlined text-emerald-600 text-base shrink-0">check_circle</span>
+<span>ภาพถ่ายแสดงการปฏิบัติงานจริงและบรรจุภัณฑ์รักษ์โลกครบถ้วน</span>
+</li>
+<li class="flex items-start gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary text-base shrink-0">schedule</span>
+<span>ระยะเวลาตรวจสอบโดยเฉลี่ย: 1-2 วันทำการ (สพจ. สกลนคร)</span>
+</li>
+</ul>
+</div>
+<!-- Social Impact Estimator -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-prominent text-label-badge text-on-surface font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-sm">volunteer_activism</span>
+              ผลประโยชน์ส่งตรงสู่กลุ่มช่างทอ
+            </span>
+<span class="font-label-badge text-label-badge bg-tertiary-fixed text-on-tertiary-fixed px-1.5 py-0.5 rounded font-bold">
+              85% สู่ชุมชน
+            </span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-relaxed">
+            เมื่อจำหน่ายที่ราคา ฿890 ชุมชนจะได้รับรายได้สุทธิประมาณ <strong class="text-primary font-bold">฿756.50 ต่อผืน</strong> เข้าสู่กองทุนกลุ่มสตรีทอผ้าบ้านดอนกอยโดยตรง โดยไม่มีการหักค่านายหน้าแอบแฝง
+          </p>
+</div>
+</aside>
+</div>
+</div>
+<!-- Bottom Floating / Sticky Submission Bar -->
+<aside class="sticky bottom-0 w-full bg-surface-container-lowest/95 backdrop-blur-lg shadow-[0_-4px_20px_rgba(0,0,0,0.06)] py-space-sm z-40">
+<div class="max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-emerald-600 text-base">cloud_done</span>
+<span>บันทึกแบบร่างอัตโนมัติล่าสุดเมื่อ 2 นาทีที่แล้ว</span>
+<span class="hidden md:inline text-outline">·</span>
+<span class="hidden md:inline">พร้อมส่งเจ้าหน้าที่พิจารณาตามมาตรฐาน BR-07</span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+<button class="flex-1 sm:flex-initial px-space-md py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-prominent text-label-prominent transition-colors" type="button">
+          ยกเลิก
+        </button>
+<button class="flex-1 sm:flex-initial px-space-xl py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-prominent text-label-prominent flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 transition-all" id="btn-submit-main" type="button">
+<span class="material-symbols-outlined text-lg">send</span>
+<span>ส่งสินค้าเพื่อขออนุมัติเผยแพร่ (Submit for Review)</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Interactive Logic for Real-time Card Updating and Feedback -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputName = document.getElementById('input-product-name');
+      const inputRegularPrice = document.getElementById('input-regular-price');
+      const inputPromoPrice = document.getElementById('input-promo-price');
+      const previewTitle = document.getElementById('preview-card-title');
+      const previewRegular = document.getElementById('preview-card-regular-price');
+      const previewPromo = document.getElementById('preview-card-promo-price');
+      const toggleGi = document.getElementById('toggle-gi');
+      const giDetails = document.getElementById('gi-details-panel');
+      const previewGiBadge = document.getElementById('preview-badge-gi');
+      const btnSaveDraft = document.getElementById('btn-save-draft');
+      const btnSubmitTop = document.getElementById('btn-submit-top');
+      const btnSubmitMain = document.getElementById('btn-submit-main');
+
+      // Sync Title
+      inputName.addEventListener('input', (e) => {
+        previewTitle.textContent = e.target.value.trim() || 'ชื่อสินค้าตัวอย่าง';
+      });
+
+      // Sync Regular Price
+      inputRegularPrice.addEventListener('input', (e) => {
+        const val = Number(e.target.value) || 0;
+        previewRegular.textContent = '฿' + val.toLocaleString('th-TH');
+      });
+
+      // Sync Promo Price
+      inputPromoPrice.addEventListener('input', (e) => {
+        const val = Number(e.target.value) || 0;
+        previewPromo.textContent = '฿' + val.toLocaleString('th-TH');
+      });
+
+      // Toggle GI Badge & Form details
+      toggleGi.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          giDetails.classList.remove('hidden');
+          previewGiBadge.classList.remove('hidden');
+        } else {
+          giDetails.classList.add('hidden');
+          previewGiBadge.classList.add('hidden');
+        }
+      });
+
+      // Star Radio toggles
+      const starRadios = document.querySelectorAll('input[name="otop-star"]');
+      const previewOtopBadge = document.getElementById('preview-badge-otop');
+      starRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (e.target.value === 'pending') {
+            previewOtopBadge.innerHTML = '<span class="material-symbols-outlined text-xs">hourglass_top</span> รอผล OTOP';
+          } else {
+            previewOtopBadge.innerHTML = `<span class="material-symbols-outlined text-xs text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span> OTOP ${e.target.value} ดาว`;
+          }
+        });
+      });
+
+      // Simple alert simulation for submission
+      function notifySubmission() {
+        const originalText = btnSubmitMain.innerHTML;
+        btnSubmitMain.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">refresh</span> กำลังส่งข้อมูลไปยัง สพจ. สกลนคร...';
+        btnSubmitMain.disabled = true;
+
+        setTimeout(() => {
+          btnSubmitMain.innerHTML = '<span class="material-symbols-outlined text-lg">check</span> ส่งคำขออนุมัติเรียบร้อยแล้ว (สถานะ: Pending)';
+          btnSubmitMain.classList.remove('bg-primary');
+          btnSubmitMain.classList.add('bg-emerald-700');
+        }, 1200);
+      }
+
+      btnSubmitMain.addEventListener('click', notifySubmission);
+      btnSubmitTop.addEventListener('click', notifySubmission);
+
+      btnSaveDraft.addEventListener('click', () => {
+        const originalText = btnSaveDraft.innerHTML;
+        btnSaveDraft.innerHTML = '<span class="material-symbols-outlined text-base text-emerald-600">done</span> บันทึกแล้ว!';
+        setTimeout(() => {
+          btnSaveDraft.innerHTML = originalText;
+        }, 1500);
+      });
+    });
+  </script>
+</div></main><footer class="w-full bg-surface-container-low mt-space-3xl py-space-2xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="max-w-max-content-width mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-xl pb-space-2xl"><div class="lg:col-span-2 flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-headline-md text-primary font-bold">OTOP Connect</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-md">แพลตฟอร์มตลาดออนไลน์เพื่อส่งเสริมผลิตภัณฑ์ชุมชน พัฒนาภูมิปัญญาไทยสู่สากล เชื่อมโยงผู้ผลิตวิสาหกิจชุมชนโดยตรงสู่ผู้บริโภค พร้อมระบบตรวจสอบมาตรฐานและแหล่งกำเนิดสินค้า GI</p><div class="flex flex-wrap items-center gap-space-xs pt-space-xs"><span class="font-label-badge text-label-badge bg-surface-container-highest text-on-surface-variant px-space-sm py-1 rounded-md font-semibold">ความร่วมมือ กรมการพัฒนาชุมชน (CDD)</span><span class="font-label-badge text-label-badge bg-surface-container-highest text-on-surface-variant px-space-sm py-1 rounded-md font-semibold">กรมส่งเสริมการค้าระหว่างประเทศ (DITP)</span></div></div><div class="flex flex-col gap-space-xs"><h4 class="font-headline-sm text-title-editorial text-on-surface font-semibold mb-space-xxs">ภูมิปัญญา 5 ภาค</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" href="#">ภาคเหนือ (Lanna Craft &amp; Silk)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคอีสาน (Indigo &amp; Pottery)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคกลาง (Traditional Crafts)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคใต้ (Batik &amp; Herbal Care)</a></li><li><a class="hover:text-primary transition-colors" href="#">ภาคตะวันออก (Gourmet &amp; Fruits)</a></li></ul></div><div class="flex flex-col gap-space-xs"><h4 class="font-headline-sm text-title-editorial text-on-surface font-semibold mb-space-xxs">บริการลูกค้า</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" href="#">ติดตามสถานะคำสั่งซื้อ</a></li><li><a class="hover:text-primary transition-colors" href="#">มาตรฐานรับรอง OTOP 5 ดาว</a></li><li><a class="hover:text-primary transition-colors" href="#">นโยบายการคืนสินค้าและการรับประกัน</a></li><li><a class="hover:text-primary transition-colors" href="#">สมัครเป็นผู้ประกอบการวิสาหกิจ</a></li><li><a class="hover:text-primary transition-colors" href="#">ศูนย์ช่วยเหลือชุมชน</a></li></ul></div><div class="flex flex-col gap-space-xs"><h4 class="font-headline-sm text-title-editorial text-on-surface font-semibold mb-space-xxs">ความปลอดภัยและการชำระเงิน</h4><p class="font-body-sm text-body-sm text-on-surface-variant">ธุรกรรมมั่นคงปลอดภัย มาตรฐานระดับสากล สนับสนุน PromptPay, บัตรเครดิต และกระเป๋าเงินดิจิทัลชุมชน</p><div class="flex flex-wrap gap-space-xs mt-space-xs"><span class="material-symbols-outlined text-primary bg-surface-container-lowest p-space-xs rounded shadow-sm">lock</span><span class="material-symbols-outlined text-secondary bg-surface-container-lowest p-space-xs rounded shadow-sm">credit_card</span><span class="material-symbols-outlined text-tertiary bg-surface-container-lowest p-space-xs rounded shadow-sm">qr_code_2</span><span class="material-symbols-outlined text-primary bg-surface-container-lowest p-space-xs rounded shadow-sm">shield_with_heart</span></div></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-caption text-caption text-on-surface-variant"><p>© 2025 OTOP Connect Thailand. สงวนลิขสิทธิ์ทุกประการ สนับสนุนเศรษฐกิจฐานรากไทย</p><div class="flex items-center gap-space-lg"><a class="hover:text-on-surface transition-colors" href="#">ข้อกำหนดการใช้งาน</a><a class="hover:text-on-surface transition-colors" href="#">นโยบายความเป็นส่วนตัว</a><a class="hover:text-on-surface transition-colors" href="#">แผนผังเว็บไซต์</a></div></div></div></footer></body></html>
