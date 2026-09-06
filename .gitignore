@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env
+**/.env.local
+
+# Next.js
+.next/
+**/.next/
+out/
+**/out/
+
+# Build
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads / generated files
+uploads/*
+!uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Backend database
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+
+# Backend uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Project archives
+*.zip
