@@ -13,6 +13,7 @@ import {
   setUserRole,
   adminDeleteUser,
 } from '../services/categoryService';
+import { useAuthStore } from '../store/authStore';
 import { getAdminCarts } from '../services/cartService';
 import { updateProductStatusApi } from '../services/productService';
 import { createCommunity, updateCommunity, deleteCommunity, uploadCommunityBanner } from '../services/communityService';
@@ -496,6 +497,7 @@ const AdminDashboard = () => {
                     <th>ติดต่อ</th>
                     <th>สิทธิ์</th>
                     <th>สถานะ</th>
+                    <th>คำใบ้ (Hint)</th>
                     <th>สมัครเมื่อ</th>
                     <th>ดำเนินการ</th>
                   </tr>
@@ -527,10 +529,32 @@ const AdminDashboard = () => {
                           {u.is_active !== false ? 'ใช้งานได้' : 'ระงับ / ยกเลิก'}
                         </span>
                       </td>
+                      <td data-label="คำใบ้ (Hint)">{u.hint || '-'}</td>
                       <td data-label="สมัครเมื่อ">{formatDate(u.created_at)}</td>
                       <td data-label="ดำเนินการ">
                         {u.role !== 'admin' ? (
                           <div className="admin-row-actions">
+                            <button
+                              className="admin-action-btn"
+                              style={{ background: '#3b82f6', color: 'white' }}
+                              type="button"
+                              onClick={async () => {
+                                const newPassword = window.prompt(`ตั้งรหัสผ่านใหม่ให้บัญชี ${u.email}\n(ความยาวอย่างน้อย 6 ตัวอักษร)`);
+                                if (!newPassword) return;
+                                if (newPassword.length < 6) {
+                                  toast.error('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
+                                  return;
+                                }
+                                const result = await useAuthStore.getState().adminResetPassword(u.id, newPassword);
+                                if (result.success) {
+                                  toast.success('เปลี่ยนรหัสผ่านให้ผู้ใช้สำเร็จ');
+                                } else {
+                                  toast.error(result.error);
+                                }
+                              }}
+                            >
+                              รีเซ็ตรหัส
+                            </button>
                             <button className={`admin-action-btn ${u.is_active !== false ? 'reject' : 'approve'}`} onClick={() => handleToggleUserBlock(u.id, u.is_active)} type="button">
                               {u.is_active !== false ? 'ระงับ' : 'ปลดระงับ'}
                             </button>
@@ -559,7 +583,7 @@ const AdminDashboard = () => {
                     </tr>
                   ))}
                   {filteredUsers.length === 0 && (
-                    <tr><td colSpan={7} className="empty-note">ไม่พบสมาชิกตามเงื่อนไขที่เลือก</td></tr>
+                    <tr><td colSpan={8} className="empty-note">ไม่พบสมาชิกตามเงื่อนไขที่เลือก</td></tr>
                   )}
                 </tbody>
               </table>

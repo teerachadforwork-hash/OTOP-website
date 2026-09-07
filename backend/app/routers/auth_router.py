@@ -36,6 +36,7 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         avatar_url=user.avatar_url,
         role=role,
         is_active=True,
+        private_key=secrets.token_urlsafe(9),
         created_at=datetime.now(timezone.utc),
     )
     db.add(new_user)
@@ -61,28 +62,6 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@router.post("/forgot-password")
-def forgot_password(payload: schemas.ForgotPasswordIn, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.email == payload.email).first()
-    if not user:
-        # Prevent email enumeration by returning a generic success message
-        return {"success": True, "message": "หากมีอีเมลนี้ในระบบ จะมีการส่งลิงก์รีเซ็ตรหัสผ่านไปให้"}
-    
-    # Generate token and set expiration to 15 minutes
-    token = secrets.token_urlsafe(32)
-    user.reset_token = token
-    user.reset_token_expires = datetime.now(timezone.utc) + timedelta(minutes=15)
-    db.commit()
-    
-    # Host URL could be passed from frontend or read from env
-    host_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
-    
-    success = send_reset_password_email(user.email, token, host_url)
-    if not success:
-        raise HTTPException(status_code=500, detail="ไม่สามารถส่งอีเมลได้ในขณะนี้ กรุณาลองใหม่ภายหลัง")
-        
-    return {"success": True, "message": "ส่งลิงก์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว (หากมีในระบบ)"}
-
 @router.post("/reset-password")
 def reset_password(payload: schemas.ResetPasswordIn, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == payload.email).first()
@@ -90,6 +69,9 @@ def reset_password(payload: schemas.ResetPasswordIn, db: Session = Depends(get_d
     if not user:
         raise HTTPException(status_code=404, detail="ไม่พบบัญชีผู้ใช้นี้ในระบบ")
         
+    if user.private_key != payload.private_key:
+        raise HTTPException(status_code=400, detail="Private Key ไม่ถูกต้อง")
+
     # Validate new password
     if len(payload.new_password) < 6:
         raise HTTPException(status_code=400, detail="รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร")
@@ -103,7 +85,11 @@ def reset_password(payload: schemas.ResetPasswordIn, db: Session = Depends(get_d
     return {"success": True, "message": "เปลี่ยนรหัสผ่านสำเร็จแล้ว สามารถเข้าสู่ระบบด้วยรหัสผ่านใหม่ได้ทันที"}
 
 @router.get("/me", response_model=schemas.UserOut)
-def read_users_me(current_user: models.User = Depends(auth.get_current_user)):
+def read_users_me(current_user: models.User = Depends(auth.get_current_user), db: Session = Depends(get_db)):
+    if not current_user.private_key:
+        current_user.private_key = secrets.token_urlsafe(9)
+        db.commit()
+        db.refresh(current_user)
     return current_user
 
 @router.put("/profile", response_model=schemas.UserOut)
@@ -118,6 +104,8 @@ def update_profile(user_update: schemas.UserUpdate, db: Session = Depends(get_db
     current_user.full_name = user_update.full_name
     if user_update.phone_number is not None:
         current_user.phone_number = user_update.phone_number
+    if user_update.hint is not None:
+        current_user.hint = user_update.hint
     
     if user_update.password:
         current_user.hashed_password = auth.get_password_hash(user_update.password)
@@ -199,6 +187,26 @@ def set_user_active(
     db.commit()
     db.refresh(user)
     return user
+
+
+@router.post("/admin-reset-password")
+def admin_reset_password(payload: schemas.AdminResetPasswordIn, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    if not auth.is_admin(current_user):
+        raise HTTPException(status_code=403, detail="Admin only")
+        
+    user = db.query(models.User).filter(models.User.id == payload.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    if len(payload.new_password) < 6:
+        raise HTTPException(status_code=400, detail="รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร")
+        
+    user.hashed_password = auth.get_password_hash(payload.new_password)
+    user.reset_token = None
+    user.reset_token_expires = None
+    db.commit()
+    
+    return {"success": True, "message": "เปลี่ยนรหัสผ่านให้ผู้ใช้สำเร็จ"}
 
 
 class UserRoleUpdateBody(BaseModel):

@@ -5,6 +5,7 @@ import { useCartStore } from '../store/cartStore';
 import { useOrderStore } from '../store/orderStore';
 import { useAuthStore } from '../store/authStore';
 import { useReviewStore } from '../store/reviewStore';
+import { useChatStore } from '../store/chatStore';
 import { getProductImage, apiErrorMessage, ORDER_STATUS, normalizeOrderStatus } from '../utils/catalog';
 import './ProductDetail.css';
 
@@ -250,7 +251,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="pd-description">
-              <p>{product.description || 'สินค้า OTOP คุณภาพสูงจากภูมิปัญญาท้องถิ่น คัดสรรวัตถุดิบอย่างพิถีพิถัน ปราณีตทุกขั้นตอน'}</p>
+              <p>{product.description || '-'}</p>
             </div>
 
             {/* Quantity Selector */}
@@ -328,14 +329,16 @@ const ProductDetail = () => {
               ข้อมูลผู้ขาย & พิกัดร้านค้า
             </h3>
             <div className="pd-seller-info">
-              <div className="pd-seller-avatar">
-                {product.seller_id ? `S${product.seller_id}` : 'OTOP'}
+              <div className="pd-seller-avatar" style={{ cursor: 'pointer' }} onClick={() => navigate(`/profile/${product.seller_id}`)}>
+                {product.seller_id ? `S${product.seller_id}` : 'ไม่มีข้อมูล'}
               </div>
               <div>
-                <div className="pd-seller-name">{product.seller?.full_name || 'ร้านค้าวิสาหกิจชุมชน OTOP'}</div>
+                <div className="pd-seller-name" style={{ cursor: 'pointer' }} onClick={() => navigate(`/profile/${product.seller_id}`)}>
+                  {product.seller?.full_name || 'ไม่ทราบชื่อผู้ขาย'}
+                </div>
                 <div className="pd-seller-location">
                   📍 {product.community?.district ? `อ.${product.community.district} ` : ''}
-                  จ.{product.community?.province || product.province || 'ประเทศไทย'}
+                  จ.{product.community?.province || product.province || '-'}
                 </div>
                 {product.community?.name && (
                   <div className="pd-seller-location">ชุมชน: {product.community.name}</div>
@@ -449,7 +452,7 @@ const ProductDetail = () => {
 
               {productReviews.length === 0 && (
                 <div style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                  ยังไม่มีรีวิวสำหรับสินค้านี้ เป็นคนแรกที่สั่งซื้อและเขียนรีวิว!
+                  ยังไม่มีรีวิวสำหรับสินค้านี้
                 </div>
               )}
             </div>

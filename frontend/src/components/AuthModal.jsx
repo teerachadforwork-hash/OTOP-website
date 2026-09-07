@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Lock, Loader2, Mail, Phone, Store, User, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
 import { useOrderStore } from '../store/orderStore';
@@ -8,7 +9,8 @@ import './AuthModal.css';
 
 const AuthModal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [registeredPrivateKey, setRegisteredPrivateKey] = useState(null);
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +33,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     setStoreDetails('');
     setShowPassword(false);
     setIsLogin(true);
-    setIsForgotPassword(false);
+    setRegisteredPrivateKey(null);
     onClose();
   };
 
@@ -49,15 +51,6 @@ const AuthModal = ({ isOpen, onClose }) => {
       } else {
         toast.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
       }
-    } else if (isForgotPassword) {
-      const result = await useAuthStore.getState().forgotPassword(email);
-      if (result.success) {
-        toast.success(result.message);
-        setIsForgotPassword(false);
-        setIsLogin(true);
-      } else {
-        toast.error(result.error);
-      }
     } else {
       // Register logic
       const result = await register({
@@ -72,7 +65,12 @@ const AuthModal = ({ isOpen, onClose }) => {
         useCartStore.getState().reloadForUser();
         useOrderStore.getState().reloadForUser();
         toast.success('ลงทะเบียนสำเร็จ! ยินดีต้อนรับเข้าสู่ระบบ');
-        handleClose();
+        const userState = useAuthStore.getState().user;
+        if (userState && userState.private_key) {
+           setRegisteredPrivateKey(userState.private_key);
+        } else {
+           handleClose();
+        }
       } else {
         toast.error(result.error || 'ลงทะเบียนไม่สำเร็จ');
       }
@@ -80,6 +78,28 @@ const AuthModal = ({ isOpen, onClose }) => {
 
     setLoading(false);
   };
+
+  if (registeredPrivateKey) {
+    return (
+      <div className="otop-auth-modal-overlay">
+        <div className="otop-auth-modal">
+          <div className="auth-brand-panel" style={{ padding: '2rem' }}>
+            <h2 style={{ color: 'white', margin: 0 }}>ลงทะเบียนสำเร็จ</h2>
+          </div>
+          <div className="auth-modal-body" style={{ textAlign: 'center', padding: '2.5rem' }}>
+            <h3 style={{ marginBottom: '1rem' }}>รหัส Private Key ของคุณคือ:</h3>
+            <div style={{ padding: '1rem', background: '#f3f4f6', fontSize: '1.5rem', letterSpacing: '2px', margin: '1rem 0', borderRadius: '8px' }}>
+              <strong>{registeredPrivateKey}</strong>
+            </div>
+            <p style={{ color: '#ef4444', fontWeight: 'bold', marginBottom: '1.5rem' }}>
+              กรุณาจดบันทึกและเก็บเป็นความลับ ใช้สำหรับเปลี่ยนรหัสผ่านใหม่
+            </p>
+            <button className="auth-submit-btn" onClick={() => { setRegisteredPrivateKey(null); handleClose(); }}>ฉันได้จดบันทึกไว้แล้ว</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="otop-auth-modal-overlay" onClick={handleClose}>
@@ -92,25 +112,23 @@ const AuthModal = ({ isOpen, onClose }) => {
           <div className="auth-brand-mark">OTOP</div>
           <div>
             <p className="auth-eyebrow">OTOP Connect</p>
-            <h2>{isForgotPassword ? 'ลืมรหัสผ่าน' : (isLogin ? 'ยินดีต้อนรับกลับ' : 'เริ่มต้นใช้งาน')}</h2>
+            <h2>{isLogin ? 'ยินดีต้อนรับกลับ' : 'เริ่มต้นใช้งาน'}</h2>
             <p>
-              {isForgotPassword
-                ? 'กรอกอีเมลของคุณเพื่อรับลิงก์สำหรับตั้งรหัสผ่านใหม่'
-                : (isLogin
-                  ? 'เข้าสู่ระบบเพื่อจัดการคำสั่งซื้อ ตะกร้า และข้อมูลร้านค้าจากฐานข้อมูลจริง'
-                  : 'สร้างบัญชีสำหรับเลือกซื้อสินค้า หรือสมัครเป็นผู้ขายสินค้า OTOP')}
+              {isLogin
+                ? 'เข้าสู่ระบบเพื่อจัดการคำสั่งซื้อ ตะกร้า และข้อมูลร้านค้าจากฐานข้อมูลจริง'
+                : 'สร้างบัญชีสำหรับเลือกซื้อสินค้า หรือสมัครเป็นผู้ขายสินค้า OTOP'}
             </p>
           </div>
         </div>
 
         <div className="auth-modal-body">
           <div className="auth-modal-header">
-            <h3>{isForgotPassword ? 'ส่งลิงก์รีเซ็ตรหัสผ่าน' : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน')}</h3>
-            <p>{isForgotPassword ? 'กรอกอีเมลที่ลงทะเบียนไว้' : (isLogin ? 'กรอกอีเมลและรหัสผ่านของคุณ' : 'กรอกข้อมูลพื้นฐานให้ครบถ้วน')}</p>
+            <h3>{isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน'}</h3>
+            <p>{isLogin ? 'กรอกอีเมลและรหัสผ่านของคุณ' : 'กรอกข้อมูลพื้นฐานให้ครบถ้วน'}</p>
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
-            {!isLogin && !isForgotPassword && (
+            {!isLogin && (
               <>
                 <div className="form-group">
                   <label>ชื่อ-นามสกุล</label>
@@ -182,10 +200,9 @@ const AuthModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {!isForgotPassword && (
-              <div className="form-group">
-                <label>รหัสผ่าน</label>
-                <div className="input-shell">
+            <div className="form-group">
+              <label>รหัสผ่าน</label>
+              <div className="input-shell">
                   <Lock size={18} />
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -205,14 +222,16 @@ const AuthModal = ({ isOpen, onClose }) => {
                   </button>
                 </div>
               </div>
-            )}
 
-            {isLogin && !isForgotPassword && (
+            {isLogin && (
               <div style={{ textAlign: 'right', marginBottom: '15px' }}>
                 <button
                   type="button"
                   style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: '500' }}
-                  onClick={() => setIsForgotPassword(true)}
+                  onClick={() => {
+                    handleClose();
+                    navigate('/reset-password');
+                  }}
                 >
                   ลืมรหัสผ่าน?
                 </button>
@@ -220,23 +239,17 @@ const AuthModal = ({ isOpen, onClose }) => {
             )}
 
             <button type="submit" className="auth-submit-btn" disabled={loading}>
-              {loading ? <Loader2 className="animate-spin" style={{ margin: 'auto' }} size={20} /> : (isForgotPassword ? 'ส่งลิงก์รีเซ็ต' : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน'))}
+              {loading ? <Loader2 className="animate-spin" style={{ margin: 'auto' }} size={20} /> : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน')}
             </button>
           </form>
 
           <div className="auth-toggle">
-            {isForgotPassword ? (
-              <button type="button" onClick={() => setIsForgotPassword(false)}>
-                กลับไปหน้าเข้าสู่ระบบ
-              </button>
-            ) : (
               <>
                 {isLogin ? 'ยังไม่มีบัญชีผู้ใช้?' : 'มีบัญชีอยู่แล้ว?'}
                 <button type="button" onClick={() => setIsLogin(!isLogin)}>
                   {isLogin ? 'ลงทะเบียนที่นี่' : 'เข้าสู่ระบบ'}
                 </button>
               </>
-            )}
           </div>
         </div>
       </div>

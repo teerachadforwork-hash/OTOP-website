@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { resolveMediaUrl } from '../utils/catalog';
-import { User, MessageCircle, Heart, Share2, Calendar } from 'lucide-react';
+import { User, MessageCircle, Heart, Share2, Calendar, ShoppingBag, Package } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import { useChatStore } from '../store/chatStore';
 import './PublicProfilePage.css';
@@ -15,8 +15,10 @@ const PublicProfilePage = () => {
   
   const [profile, setProfile] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [sellerProducts, setSellerProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('feed');
 
   const [activePostId, setActivePostId] = useState(null);
   const [comments, setComments] = useState({});
@@ -42,6 +44,15 @@ const PublicProfilePage = () => {
         ]);
         setProfile(profileRes.data);
         setPosts(postsRes.data);
+        
+        if (profileRes.data.role === 'seller') {
+          try {
+            const productsRes = await api.get(`/products/?seller_id=${id}`);
+            setSellerProducts(productsRes.data || []);
+          } catch (e) {
+            console.error('Failed to load seller products', e);
+          }
+        }
       } catch (err) {
         setError('ไม่พบข้อมูลผู้ใช้นี้ หรือเกิดข้อผิดพลาด');
       } finally {
@@ -178,8 +189,29 @@ const PublicProfilePage = () => {
       </div>
 
       <div className="public-profile-content">
-        <h3>โพสต์ล่าสุด ({posts.length})</h3>
-        <div className="feed-posts-list">
+        {profile.role === 'seller' && (
+          <div className="profile-tabs" style={{ display: 'flex', gap: '1rem', borderBottom: '1px solid var(--border)', marginBottom: '1.5rem', paddingBottom: '0.5rem' }}>
+            <button 
+              className={`profile-tab-btn ${activeTab === 'feed' ? 'active' : ''}`}
+              onClick={() => setActiveTab('feed')}
+              style={{ background: 'none', border: 'none', padding: '0.5rem 1rem', cursor: 'pointer', fontWeight: activeTab === 'feed' ? 'bold' : 'normal', color: activeTab === 'feed' ? 'var(--primary)' : 'var(--text-muted)', borderBottom: activeTab === 'feed' ? '2px solid var(--primary)' : 'none' }}
+            >
+              <MessageCircle size={18} style={{ verticalAlign: 'middle', marginRight: '5px' }} /> โพสต์และกิจกรรม
+            </button>
+            <button 
+              className={`profile-tab-btn ${activeTab === 'products' ? 'active' : ''}`}
+              onClick={() => setActiveTab('products')}
+              style={{ background: 'none', border: 'none', padding: '0.5rem 1rem', cursor: 'pointer', fontWeight: activeTab === 'products' ? 'bold' : 'normal', color: activeTab === 'products' ? 'var(--primary)' : 'var(--text-muted)', borderBottom: activeTab === 'products' ? '2px solid var(--primary)' : 'none' }}
+            >
+              <ShoppingBag size={18} style={{ verticalAlign: 'middle', marginRight: '5px' }} /> สินค้าของร้าน ({sellerProducts.length})
+            </button>
+          </div>
+        )}
+
+        {activeTab === 'feed' && (
+          <>
+            <h3>โพสต์ล่าสุด ({posts.length})</h3>
+            <div className="feed-posts-list">
           {posts.map(post => (
             <div key={post.id} className="feed-post-card">
               <div className="post-header">
@@ -308,6 +340,38 @@ const PublicProfilePage = () => {
             </div>
           )}
         </div>
+        </>
+        )}
+
+        {activeTab === 'products' && (
+          <div className="seller-products-section">
+            <h3>สินค้าของร้าน</h3>
+            {sellerProducts.length === 0 ? (
+              <div className="empty-feed">
+                <Package size={48} color="#cbd5e1" style={{ marginBottom: '1rem' }} />
+                <p>ร้านค้านี้ยังไม่มีสินค้า</p>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                {sellerProducts.map(product => (
+                  <div key={product.id} className="product-card" onClick={() => navigate(`/product/${product.id}`)} style={{ cursor: 'pointer', border: '1px solid var(--border)', borderRadius: '12px', overflow: 'hidden', background: '#fff', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'none'}>
+                    <div style={{ height: '160px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {product.image_url ? (
+                        <img src={resolveMediaUrl(product.image_url)} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        <Package size={32} color="#94a3b8" />
+                      )}
+                    </div>
+                    <div style={{ padding: '1rem' }}>
+                      <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.name}</h4>
+                      <p style={{ margin: 0, color: 'var(--terracotta)', fontWeight: 'bold' }}>{Number(product.price).toLocaleString()} ฿</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

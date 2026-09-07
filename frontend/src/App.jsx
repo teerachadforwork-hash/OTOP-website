@@ -24,6 +24,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AuthModal from './components/AuthModal';
 import ProtectedRoute from './components/ProtectedRoute';
+import ScrollToTop from './components/ScrollToTop';
 import useAuthStore from './store/authStore';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
       <Navbar onOpenAuth={openAuthModal} />
       <main style={{ flex: 1 }}>

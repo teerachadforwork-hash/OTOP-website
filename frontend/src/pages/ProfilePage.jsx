@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '../store/authStore';
 import toast from 'react-hot-toast';
-import { User, Mail, Lock, Check, AlertCircle, Camera } from 'lucide-react';
+import { User, Mail, Lock, Check, AlertCircle, Camera, Eye, EyeOff, Key, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/cartStore';
 import { useOrderStore } from '../store/orderStore';
@@ -17,8 +17,10 @@ const ProfilePage = () => {
     full_name: '',
     email: '',
     password: '',
-    confirm_password: ''
+    confirm_password: '',
+    hint: ''
   });
+  const [showPrivateKey, setShowPrivateKey] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [error, setError] = useState('');
@@ -32,7 +34,8 @@ const ProfilePage = () => {
       setFormData(prev => ({
         ...prev,
         full_name: user.full_name || '',
-        email: user.email || ''
+        email: user.email || '',
+        hint: user.hint || ''
       }));
       setAvatarBroken(false);
     }
@@ -99,7 +102,8 @@ const ProfilePage = () => {
     const result = await updateProfile({
       full_name: formData.full_name,
       email: formData.email,
-      password: formData.password || null
+      password: formData.password || null,
+      hint: formData.hint
     });
 
     setSubmitting(false);
@@ -160,6 +164,21 @@ const ProfilePage = () => {
               <p className="profile-avatar-hint">
                 {uploadingAvatar ? 'กำลังอัปโหลดรูป...' : 'คลิกที่รูปเพื่อเปลี่ยนรูปโปรไฟล์'}
               </p>
+              <div style={{ marginTop: '1.5rem', textAlign: 'center', width: '100%' }}>
+                <div style={{ fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.25rem' }}><Key size={14}/> Private Key</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: '#f3f4f6', padding: '0.5rem', borderRadius: '4px' }}>
+                  <code style={{ letterSpacing: '2px', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                    {showPrivateKey ? user.private_key : '••••••••••••'}
+                  </code>
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPrivateKey(!showPrivateKey)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4b5563', padding: 0 }}
+                  >
+                    {showPrivateKey ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
             </div>
             <div>
               <h1 className="profile-title">จัดการโปรไฟล์</h1>
@@ -204,6 +223,21 @@ const ProfilePage = () => {
                 />
               </div>
               <p className="input-help">หากเปลี่ยนอีเมล คุณจะต้องใช้อีเมลใหม่นี้ในการเข้าสู่ระบบครั้งถัดไป</p>
+            </div>
+
+            <div className="form-group">
+              <label>Hint (คำใบ้สำหรับใช้ยืนยันตัวตนกับ Admin):</label>
+              <div className="input-with-icon">
+                <HelpCircle size={18} className="input-icon" />
+                <input
+                  type="text"
+                  name="hint"
+                  value={formData.hint}
+                  onChange={handleChange}
+                  placeholder="เช่น ชื่อสัตว์เลี้ยงตัวแรกของคุณ"
+                />
+              </div>
+              <p className="input-help">ตั้งคำใบ้ที่รู้เพียงคุณ เพื่อใช้ยืนยันตัวตนในกรณีที่ลืมรหัสผ่านและ Private Key</p>
             </div>
 
             <hr className="profile-divider" />

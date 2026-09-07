@@ -11,12 +11,12 @@ const ChatPage = () => {
   const { user } = useAuthStore();
   const location = useLocation();
   const { groups, privateRooms, currentChatMessages, loading, fetchGroups, fetchPrivateRooms, fetchGroupMessages, fetchPrivateMessages, sendGroupMessage, sendPrivateMessage, createGroup, updateGroup, deleteGroup, fetchGroupMembers, addGroupMember, leaveGroup } = useChatStore();
-  
+
   const [activeTab, setActiveTab] = useState(location.state?.activeTab || 'private'); // 'private' or 'group'
   const [activeChatId, setActiveChatId] = useState(location.state?.activeChatId || null);
   const [messageText, setMessageText] = useState('');
   const [newGroupName, setNewGroupName] = useState('');
-  
+
   // Group Info Modal State
   const [showGroupInfo, setShowGroupInfo] = useState(false);
   const [groupMembers, setGroupMembers] = useState([]);
@@ -98,7 +98,7 @@ const ChatPage = () => {
     }
   };
 
-  const activeChatDetails = activeTab === 'private' 
+  const activeChatDetails = activeTab === 'private'
     ? privateRooms.find(r => r.id === activeChatId)
     : groups.find(g => g.id === activeChatId);
 
@@ -162,10 +162,10 @@ const ChatPage = () => {
     <div className={`chat-container ${activeChatId ? 'chat-active' : ''}`}>
       <div className="chat-sidebar">
         <div className="chat-tabs">
-          <button className={`chat-tab ${activeTab === 'private' ? 'active' : ''}`} onClick={() => {setActiveTab('private'); setActiveChatId(null);}}>
+          <button className={`chat-tab ${activeTab === 'private' ? 'active' : ''}`} onClick={() => { setActiveTab('private'); setActiveChatId(null); }}>
             <MessageSquare size={16} /> แชทส่วนตัว
           </button>
-          <button className={`chat-tab ${activeTab === 'group' ? 'active' : ''}`} onClick={() => {setActiveTab('group'); setActiveChatId(null);}}>
+          <button className={`chat-tab ${activeTab === 'group' ? 'active' : ''}`} onClick={() => { setActiveTab('group'); setActiveChatId(null); }}>
             <Users size={16} /> แชทกลุ่ม
           </button>
         </div>
@@ -212,7 +212,7 @@ const ChatPage = () => {
                   <ArrowLeft size={20} />
                 </button>
                 <h3>
-                  {activeTab === 'private' 
+                  {activeTab === 'private'
                     ? activeChatDetails?.other_user_name || 'สนทนาส่วนตัว'
                     : activeChatDetails?.name || 'สนทนากลุ่ม'}
                 </h3>
@@ -223,11 +223,11 @@ const ChatPage = () => {
                 </button>
               )}
             </div>
-            
+
             <div className="chat-messages">
               {currentChatMessages.map(msg => {
                 const isMine = msg.sender_id === user?.id;
-                
+
                 // Map roles to Thai
                 const getRoleLabel = (role) => {
                   if (role === 'admin') return 'แอดมิน';
@@ -268,9 +268,9 @@ const ChatPage = () => {
             </div>
 
             <form className="chat-input-area" onSubmit={handleSendMessage}>
-              <input 
-                type="text" 
-                placeholder="พิมพ์ข้อความ..." 
+              <input
+                type="text"
+                placeholder="พิมพ์ข้อความ..."
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
               />
@@ -294,16 +294,16 @@ const ChatPage = () => {
               <h3>ข้อมูลกลุ่ม</h3>
               <button className="close-btn" onClick={() => setShowGroupInfo(false)}>×</button>
             </div>
-            
+
             <div className="group-info-body">
               {isOwner ? (
                 <div className="group-edit-section">
                   {isEditingGroup ? (
                     <div className="edit-group-form">
-                      <input 
-                        type="text" 
-                        value={editingGroupName} 
-                        onChange={e => setEditingGroupName(e.target.value)} 
+                      <input
+                        type="text"
+                        value={editingGroupName}
+                        onChange={e => setEditingGroupName(e.target.value)}
                       />
                       <button onClick={handleUpdateGroupName} className="save-btn">บันทึก</button>
                       <button onClick={() => setIsEditingGroup(false)} className="cancel-btn">ยกเลิก</button>
@@ -338,9 +338,9 @@ const ChatPage = () => {
 
               {isOwner && (
                 <form className="add-member-form" onSubmit={handleAddMember}>
-                  <input 
-                    type="email" 
-                    placeholder="เชิญด้วยอีเมล..." 
+                  <input
+                    type="email"
+                    placeholder="เชิญด้วยอีเมล..."
                     value={newMemberEmail}
                     onChange={e => setNewMemberEmail(e.target.value)}
                   />

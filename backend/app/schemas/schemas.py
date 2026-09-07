@@ -10,11 +10,13 @@ class UserBase(BaseModel):
     phone_number: Optional[str] = None
     avatar_url: Optional[str] = None
 
-class ForgotPasswordIn(BaseModel):
-    email: EmailStr
-
 class ResetPasswordIn(BaseModel):
     email: EmailStr
+    private_key: str
+    new_password: str
+
+class AdminResetPasswordIn(BaseModel):
+    user_id: int
     new_password: str
 
 class UserCreate(UserBase):
@@ -26,6 +28,7 @@ class UserUpdate(BaseModel):
     email: EmailStr
     password: Optional[str] = None
     phone_number: Optional[str] = None
+    hint: Optional[str] = None
 
 class AccountDeleteIn(BaseModel):
     password: str
@@ -38,6 +41,8 @@ class UserOut(UserBase):
     role: RoleEnum
     is_active: bool = True
     created_at: Optional[datetime] = None
+    private_key: Optional[str] = None
+    hint: Optional[str] = None
     
     class Config:
         from_attributes = True
@@ -52,6 +57,7 @@ class AdminUserOut(BaseModel):
     is_active: bool = True
     created_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
+    hint: Optional[str] = None
 
     class Config:
         from_attributes = True

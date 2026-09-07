@@ -95,6 +95,7 @@ const useAuthStore = create((set, get) => ({
     const cleanEmail = (userData.email || '').trim().toLowerCase();
     const cleanName = (userData.full_name || '').trim();
     const cleanPassword = userData.password || null;
+    const cleanHint = userData.hint || null;
 
     if (!cleanEmail || !cleanName) {
       return { success: false, error: 'กรุณากรอกข้อมูลให้ครบถ้วน' };
@@ -105,6 +106,7 @@ const useAuthStore = create((set, get) => ({
         email: cleanEmail,
         full_name: cleanName,
         password: cleanPassword,
+        hint: cleanHint,
       });
       setCurrentUserEmail(cleanEmail);
       set({ user: response.data });
@@ -153,20 +155,24 @@ const useAuthStore = create((set, get) => ({
     set({ user: null, token: null, isAuthenticated: false });
   },
 
-  forgotPassword: async (email) => {
+  resetPassword: async (email, privateKey, newPassword) => {
     try {
-      const response = await api.post('/api/auth/forgot-password', { email });
+      const response = await api.post('/api/auth/reset-password', {
+        email: email,
+        private_key: privateKey,
+        new_password: newPassword
+      });
       return { success: true, message: response.data.message };
     } catch (error) {
-      const detail = error?.response?.data?.detail || 'เกิดข้อผิดพลาดในการส่งอีเมล';
+      const detail = error?.response?.data?.detail || 'เกิดข้อผิดพลาด';
       return { success: false, error: detail };
     }
   },
 
-  resetPassword: async (email, newPassword) => {
+  adminResetPassword: async (userId, newPassword) => {
     try {
-      const response = await api.post('/api/auth/reset-password', {
-        email: email,
+      const response = await api.post('/api/auth/admin-reset-password', {
+        user_id: userId,
         new_password: newPassword
       });
       return { success: true, message: response.data.message };
