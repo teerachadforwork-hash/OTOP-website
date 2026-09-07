@@ -139,6 +139,8 @@ origins = [
     "http://localhost:5174",
     "http://127.0.0.1:5174",
 
+    "https://otop-website-ji1y.vercel.app",
+
     "https://otop-website-ji1y-1553kfqn3-boy-8ebe.vercel.app",
     "https://otop-website-ji1y-ocx7k11gz-boy-8ebe.vercel.app",
     "https://otop-website-ji1y-8jdmch4f9-boy-8ebe.vercel.app",
@@ -148,7 +150,7 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origin_regex=r"(http://(localhost|127\.0\.0\.1):\d+|https://otop-website-ji1y-[a-z0-9-]+-boy-8ebe\.vercel\.app)",
+    allow_origin_regex=r"(http://(localhost|127\.0\.0\.1):\d+|https://otop-website-ji1y\.vercel\.app|https://otop-website-ji1y-[a-z0-9-]+-boy-8ebe\.vercel\.app)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
