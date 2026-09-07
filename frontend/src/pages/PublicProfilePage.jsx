@@ -60,8 +60,8 @@ const PublicProfilePage = () => {
       return;
     }
     try {
-      await startPrivateChat(profile.id);
-      navigate('/chat');
+      const room = await startPrivateChat(profile.id);
+      navigate('/chat', { state: { activeChatId: room.id, activeTab: 'private' } });
     } catch (err) {
       console.error(err);
     }
@@ -115,6 +115,21 @@ const PublicProfilePage = () => {
       setPosts(posts.map(p => p.id === postId ? { ...p, comments_count: p.comments_count + 1 } : p));
       setReplyText('');
       setReplyingToCommentId(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleToggleLike = async (postId) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    try {
+      const { data } = await api.post(`/feed/posts/${postId}/like`);
+      setPosts(posts.map(p => 
+        p.id === postId ? { ...p, likes_count: data.likes_count, is_liked: data.is_liked } : p
+      ));
     } catch (error) {
       console.error(error);
     }
@@ -184,7 +199,13 @@ const PublicProfilePage = () => {
                 {post.image_url && <img src={resolveMediaUrl(post.image_url)} alt="post media" className="post-image" />}
               </div>
               <div className="post-actions">
-                <button className="post-action-btn"><Heart size={18} /> ถูกใจ</button>
+                <button 
+                  className={`post-action-btn ${post.is_liked ? 'liked' : ''}`} 
+                  onClick={() => handleToggleLike(post.id)}
+                  style={{ color: post.is_liked ? 'var(--primary)' : 'inherit' }}
+                >
+                  <Heart size={18} fill={post.is_liked ? 'var(--primary)' : 'none'} /> ถูกใจ {post.likes_count > 0 ? `(${post.likes_count})` : ''}
+                </button>
                 <button className="post-action-btn" onClick={() => toggleComments(post.id)}>
                   <MessageCircle size={18} /> ความคิดเห็น ({post.comments_count})
                 </button>

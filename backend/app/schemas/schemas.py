@@ -14,7 +14,7 @@ class ForgotPasswordIn(BaseModel):
     email: EmailStr
 
 class ResetPasswordIn(BaseModel):
-    token: str
+    email: EmailStr
     new_password: str
 
 class UserCreate(UserBase):
@@ -454,6 +454,8 @@ class PostOut(BaseModel):
     author_avatar: Optional[str] = None
     author_role: Optional[str] = None
     comments_count: int = 0
+    likes_count: int = 0
+    is_liked: bool = False
     
     class Config:
         from_attributes = True

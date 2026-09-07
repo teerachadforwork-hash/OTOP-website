@@ -12,6 +12,7 @@ const OrderList = () => {
   const { orders, loading, error, fetchOrders } = useOrderStore();
   const { addItem } = useCartStore();
   const [activeTab, setActiveTab] = useState('ALL');
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   useEffect(() => {
     fetchOrders();
@@ -180,7 +181,7 @@ const OrderList = () => {
                   <div className="order-actions">
                     <button
                       className="order-btn-secondary"
-                      onClick={() => alert(`ที่อยู่จัดส่ง:\n${order.shipping_address || 'ไม่มีข้อมูลที่อยู่'}`)}
+                      onClick={() => setSelectedAddress(order.shipping_address || 'ไม่มีข้อมูลที่อยู่')}
                     >
                       📍 ดูที่อยู่จัดส่ง
                     </button>
@@ -284,6 +285,18 @@ const OrderList = () => {
           </div>
         )}
       </div>
+
+      {selectedAddress && (
+        <div className="shipping-address-modal-overlay" onClick={() => setSelectedAddress(null)}>
+          <div className="shipping-address-modal" onClick={e => e.stopPropagation()}>
+            <h3>📍 ที่อยู่จัดส่ง</h3>
+            <p>{selectedAddress}</p>
+            <button className="order-btn-primary" onClick={() => setSelectedAddress(null)}>
+              ปิด
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

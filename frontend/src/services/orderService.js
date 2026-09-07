@@ -33,7 +33,19 @@ export const downloadOrderInvoiceHtml = async (orderId, filename = 'invoice.html
 };
 
 export const openOrderInvoiceHtml = async (orderId) => {
-  const response = await api.get(`/orders/${orderId}/invoice.html`, { responseType: 'blob' });
-  const url = window.URL.createObjectURL(new Blob([response.data], { type: 'text/html' }));
-  window.open(url, '_blank', 'noopener,noreferrer');
+  // Open window synchronously to avoid mobile popup blockers
+  const newWindow = window.open('about:blank', '_blank');
+  try {
+    const response = await api.get(`/orders/${orderId}/invoice.html`, { responseType: 'blob' });
+    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'text/html' }));
+    if (newWindow) {
+      newWindow.location.href = url;
+    } else {
+      // Fallback if window.open was totally blocked
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  } catch (err) {
+    if (newWindow) newWindow.close();
+    throw err;
+  }
 };

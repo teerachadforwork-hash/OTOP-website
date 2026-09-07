@@ -71,5 +71,20 @@ export const useFeedStore = create((set, get) => ({
     }));
     
     return data;
+  },
+
+  toggleLike: async (postId) => {
+    try {
+      const { data } = await api.post(`/feed/posts/${postId}/like`);
+      set((state) => ({
+        posts: state.posts.map(p => 
+          p.id === postId ? { ...p, likes_count: data.likes_count, is_liked: data.is_liked } : p
+        )
+      }));
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }));

@@ -85,20 +85,16 @@ def forgot_password(payload: schemas.ForgotPasswordIn, db: Session = Depends(get
 
 @router.post("/reset-password")
 def reset_password(payload: schemas.ResetPasswordIn, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.reset_token == payload.token).first()
+    user = db.query(models.User).filter(models.User.email == payload.email).first()
     
     if not user:
-        raise HTTPException(status_code=400, detail="ลิงก์ไม่ถูกต้องหรือหมดอายุแล้ว")
-        
-    # Check expiration
-    if user.reset_token_expires is None or datetime.now(timezone.utc) > user.reset_token_expires:
-        raise HTTPException(status_code=400, detail="ลิงก์รีเซ็ตรหัสผ่านนี้หมดอายุแล้ว")
+        raise HTTPException(status_code=404, detail="ไม่พบบัญชีผู้ใช้นี้ในระบบ")
         
     # Validate new password
     if len(payload.new_password) < 6:
         raise HTTPException(status_code=400, detail="รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร")
         
-    # Update password and clear token
+    # Update password
     user.hashed_password = auth.get_password_hash(payload.new_password)
     user.reset_token = None
     user.reset_token_expires = None

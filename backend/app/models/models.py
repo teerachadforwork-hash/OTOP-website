@@ -353,6 +353,7 @@ class Post(Base):
 
     author = relationship("User")
     comments = relationship("PostComment", back_populates="post", cascade="all, delete-orphan")
+    likes = relationship("PostLike", back_populates="post", cascade="all, delete-orphan")
 
 class PostComment(Base):
     __tablename__ = "post_comments"
@@ -382,6 +383,19 @@ class PostComment(Base):
         back_populates="parent",
         cascade="all, delete-orphan"
     )
+
+class PostLike(Base):
+    __tablename__ = "post_likes"
+    __table_args__ = (
+        UniqueConstraint("post_id", "user_id", name="uq_post_likes_post_user"),
+    )
+    id = Column(Integer, primary_key=True, index=True)
+    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    post = relationship("Post", back_populates="likes")
+    user = relationship("User")
 # --- New Models for Auth/OTP ---
 
 class OTPCode(Base):

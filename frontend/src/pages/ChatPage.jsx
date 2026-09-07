@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useChatStore } from '../store/chatStore';
 import useAuthStore from '../store/authStore';
 import { resolveMediaUrl } from '../utils/catalog';
-import { User, Send, Users, MessageSquare, Info, Settings, Trash2, LogOut, Plus } from 'lucide-react';
+import { User, Send, Users, MessageSquare, Info, Settings, Trash2, LogOut, Plus, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './ChatPage.css';
 
 const ChatPage = () => {
   const { user } = useAuthStore();
+  const location = useLocation();
   const { groups, privateRooms, currentChatMessages, loading, fetchGroups, fetchPrivateRooms, fetchGroupMessages, fetchPrivateMessages, sendGroupMessage, sendPrivateMessage, createGroup, updateGroup, deleteGroup, fetchGroupMembers, addGroupMember, leaveGroup } = useChatStore();
   
-  const [activeTab, setActiveTab] = useState('private'); // 'private' or 'group'
-  const [activeChatId, setActiveChatId] = useState(null);
+  const [activeTab, setActiveTab] = useState(location.state?.activeTab || 'private'); // 'private' or 'group'
+  const [activeChatId, setActiveChatId] = useState(location.state?.activeChatId || null);
   const [messageText, setMessageText] = useState('');
   const [newGroupName, setNewGroupName] = useState('');
   
@@ -28,6 +30,15 @@ const ChatPage = () => {
       fetchPrivateRooms();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (location.state?.activeChatId) {
+      setActiveTab(location.state.activeTab || 'private');
+      setActiveChatId(location.state.activeChatId);
+      // Clear state to avoid reopening if user navigates back to /chat without state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     if (activeChatId) {
@@ -148,7 +159,7 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="chat-container">
+    <div className={`chat-container ${activeChatId ? 'chat-active' : ''}`}>
       <div className="chat-sidebar">
         <div className="chat-tabs">
           <button className={`chat-tab ${activeTab === 'private' ? 'active' : ''}`} onClick={() => {setActiveTab('private'); setActiveChatId(null);}}>
@@ -196,11 +207,16 @@ const ChatPage = () => {
         {activeChatId ? (
           <>
             <div className="chat-header">
-              <h3>
-                {activeTab === 'private' 
-                  ? activeChatDetails?.other_user_name || 'สนทนาส่วนตัว'
-                  : activeChatDetails?.name || 'สนทนากลุ่ม'}
-              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <button className="mobile-back-btn" onClick={() => setActiveChatId(null)} title="กลับ">
+                  <ArrowLeft size={20} />
+                </button>
+                <h3>
+                  {activeTab === 'private' 
+                    ? activeChatDetails?.other_user_name || 'สนทนาส่วนตัว'
+                    : activeChatDetails?.name || 'สนทนากลุ่ม'}
+                </h3>
+              </div>
               {activeTab === 'group' && (
                 <button className="group-info-btn" onClick={handleOpenGroupInfo} title="ข้อมูลกลุ่ม">
                   <Info size={20} />

@@ -9,7 +9,7 @@ import './FeedPage.css';
 const FeedPage = () => {
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  const { posts, loading, fetchPosts, createPost, deletePost, updatePost, currentPostComments, fetchComments, createComment } = useFeedStore();
+  const { posts, loading, fetchPosts, createPost, deletePost, updatePost, currentPostComments, fetchComments, createComment, toggleLike } = useFeedStore();
   
   const [newPostContent, setNewPostContent] = useState('');
   const [activePostId, setActivePostId] = useState(null);
@@ -164,11 +164,22 @@ const FeedPage = () => {
                 )}
               </div>
               <div className="post-actions">
-                <button className="post-action-btn"><Heart size={18} /> ถูกใจ</button>
+                <button 
+                  className={`post-action-btn ${post.is_liked ? 'liked' : ''}`} 
+                  onClick={() => {
+                    if (!user) {
+                      navigate('/login');
+                      return;
+                    }
+                    toggleLike(post.id);
+                  }}
+                  style={{ color: post.is_liked ? 'var(--primary)' : 'inherit' }}
+                >
+                  <Heart size={18} fill={post.is_liked ? 'var(--primary)' : 'none'} /> ถูกใจ {post.likes_count > 0 ? `(${post.likes_count})` : ''}
+                </button>
                 <button className="post-action-btn" onClick={() => toggleComments(post.id)}>
                   <MessageCircle size={18} /> ความคิดเห็น ({post.comments_count})
                 </button>
-                <button className="post-action-btn"><Share2 size={18} /> แชร์</button>
               </div>
 
               {activePostId === post.id && (

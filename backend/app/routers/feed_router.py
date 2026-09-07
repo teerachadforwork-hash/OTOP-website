@@ -7,12 +7,17 @@ from .. import models, schemas, auth
 router = APIRouter(prefix="/api/feed", tags=["feed"])
 
 @router.get("/posts", response_model=List[schemas.PostOut])
-def get_posts(db: Session = Depends(get_db)):
+def get_posts(db: Session = Depends(get_db), current_user: models.User | None = Depends(auth.get_current_user_optional)):
     posts = db.query(models.Post).order_by(models.Post.created_at.desc()).limit(50).all()
     result = []
     for post in posts:
         author = post.author
         comments_count = db.query(models.PostComment).filter(models.PostComment.post_id == post.id).count()
+        likes_count = db.query(models.PostLike).filter(models.PostLike.post_id == post.id).count()
+        is_liked = False
+        if current_user:
+            is_liked = db.query(models.PostLike).filter(models.PostLike.post_id == post.id, models.PostLike.user_id == current_user.id).first() is not None
+            
         result.append(schemas.PostOut(
             id=post.id,
             author_id=post.author_id,
@@ -23,17 +28,24 @@ def get_posts(db: Session = Depends(get_db)):
             author_name=author.full_name if author else None,
             author_avatar=author.avatar_url if author else None,
             author_role=author.role if author else None,
-            comments_count=comments_count
+            comments_count=comments_count,
+            likes_count=likes_count,
+            is_liked=is_liked
         ))
     return result
 
 @router.get("/users/{user_id}/posts", response_model=List[schemas.PostOut])
-def get_user_posts(user_id: int, db: Session = Depends(get_db)):
+def get_user_posts(user_id: int, db: Session = Depends(get_db), current_user: models.User | None = Depends(auth.get_current_user_optional)):
     posts = db.query(models.Post).filter(models.Post.author_id == user_id).order_by(models.Post.created_at.desc()).limit(50).all()
     result = []
     for post in posts:
         author = post.author
         comments_count = db.query(models.PostComment).filter(models.PostComment.post_id == post.id).count()
+        likes_count = db.query(models.PostLike).filter(models.PostLike.post_id == post.id).count()
+        is_liked = False
+        if current_user:
+            is_liked = db.query(models.PostLike).filter(models.PostLike.post_id == post.id, models.PostLike.user_id == current_user.id).first() is not None
+            
         result.append(schemas.PostOut(
             id=post.id,
             author_id=post.author_id,
@@ -44,7 +56,9 @@ def get_user_posts(user_id: int, db: Session = Depends(get_db)):
             author_name=author.full_name if author else None,
             author_avatar=author.avatar_url if author else None,
             author_role=author.role if author else None,
-            comments_count=comments_count
+            comments_count=comments_count,
+            likes_count=likes_count,
+            is_liked=is_liked
         ))
     return result
 
@@ -68,7 +82,9 @@ def create_post(payload: schemas.PostCreate, db: Session = Depends(get_db), curr
         author_name=current_user.full_name,
         author_avatar=current_user.avatar_url,
         author_role=current_user.role,
-        comments_count=0
+        comments_count=0,
+        likes_count=0,
+        is_liked=False
     )
 
 @router.put("/posts/{post_id}", response_model=schemas.PostOut)
@@ -88,6 +104,9 @@ def update_post(post_id: int, payload: schemas.PostUpdate, db: Session = Depends
     db.refresh(post)
     
     comments_count = db.query(models.PostComment).filter(models.PostComment.post_id == post.id).count()
+    likes_count = db.query(models.PostLike).filter(models.PostLike.post_id == post.id).count()
+    is_liked = db.query(models.PostLike).filter(models.PostLike.post_id == post.id, models.PostLike.user_id == current_user.id).first() is not None
+    
     return schemas.PostOut(
         id=post.id,
         author_id=post.author_id,
@@ -98,7 +117,9 @@ def update_post(post_id: int, payload: schemas.PostUpdate, db: Session = Depends
         author_name=current_user.full_name,
         author_avatar=current_user.avatar_url,
         author_role=current_user.role,
-        comments_count=comments_count
+        comments_count=comments_count,
+        likes_count=likes_count,
+        is_liked=is_liked
     )
 
 @router.delete("/posts/{post_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -183,3 +204,25 @@ def create_comment(post_id: int, payload: schemas.PostCommentCreate, db: Session
         author_avatar=current_user.avatar_url,
         replies=[]
     )
+
+@router.post("/posts/{post_id}/like")
+def toggle_post_like(post_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    post = db.query(models.Post).filter(models.Post.id == post_id).first()
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+        
+    existing_like = db.query(models.PostLike).filter(models.PostLike.post_id == post_id, models.PostLike.user_id == current_user.id).first()
+    
+    if existing_like:
+        db.delete(existing_like)
+        is_liked = False
+    else:
+        new_like = models.PostLike(post_id=post_id, user_id=current_user.id)
+        db.add(new_like)
+        is_liked = True
+        
+    db.commit()
+    
+    likes_count = db.query(models.PostLike).filter(models.PostLike.post_id == post_id).count()
+    
+    return {"likes_count": likes_count, "is_liked": is_liked}

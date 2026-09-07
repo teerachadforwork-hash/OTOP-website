@@ -335,14 +335,41 @@
   font-size: 1.1rem;
 }
 
+.mobile-back-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.mobile-back-btn:hover {
+  background: #f3f4f6;
+  color: var(--primary);
+}
+
 @media (max-width: 768px) {
   .chat-container {
     margin: 0;
     height: calc(100vh - 60px);
     border-radius: 0;
   }
-  .chat-sidebar {
-    display: none; /* simple responsive approach: hide sidebar on mobile when a chat is open */
+  
+  .chat-container.chat-active .chat-sidebar {
+    display: none;
+  }
+  
+  .chat-container:not(.chat-active) .chat-main {
+    display: none;
+  }
+
+  .mobile-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

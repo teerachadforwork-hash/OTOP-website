@@ -163,15 +163,15 @@ const useAuthStore = create((set, get) => ({
     }
   },
 
-  resetPassword: async (token, newPassword) => {
+  resetPassword: async (email, newPassword) => {
     try {
       const response = await api.post('/api/auth/reset-password', {
-        token: token,
+        email: email,
         new_password: newPassword
       });
       return { success: true, message: response.data.message };
     } catch (error) {
-      const detail = error?.response?.data?.detail || 'ลิงก์ไม่ถูกต้องหรือหมดอายุแล้ว';
+      const detail = error?.response?.data?.detail || 'เกิดข้อผิดพลาด';
       return { success: false, error: detail };
     }
   },

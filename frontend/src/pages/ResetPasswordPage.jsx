@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Lock, Eye, EyeOff, Loader2, CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Mail, Lock, Eye, EyeOff, Loader2, CheckCircle } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import toast from 'react-hot-toast';
 import './ResetPasswordPage.css';
 
 const ResetPasswordPage = () => {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const token = searchParams.get('token');
   
+  const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -17,16 +16,11 @@ const ResetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    if (!token) {
-      toast.error('ลิงก์ไม่ถูกต้อง หรือไม่มี Token สำหรับรีเซ็ตรหัสผ่าน');
-    }
-  }, [token]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!token) {
-      toast.error('ไม่พบ Token สำหรับเปลี่ยนรหัสผ่าน');
+
+    if (!email.trim()) {
+      toast.error('กรุณากรอกอีเมล (Username)');
       return;
     }
 
@@ -41,7 +35,7 @@ const ResetPasswordPage = () => {
     }
 
     setLoading(true);
-    const result = await useAuthStore.getState().resetPassword(token, newPassword);
+    const result = await useAuthStore.getState().resetPassword(email, newPassword);
     setLoading(false);
 
     if (result.success) {
@@ -51,18 +45,6 @@ const ResetPasswordPage = () => {
       toast.error(result.error);
     }
   };
-
-  if (!token) {
-    return (
-      <div className="reset-password-page">
-        <div className="reset-password-card">
-          <h2>เกิดข้อผิดพลาด</h2>
-          <p>ลิงก์ที่คุณเข้าสู่ไม่ถูกต้อง หรือไม่มี Token สำหรับรีเซ็ตรหัสผ่าน</p>
-          <Link to="/" className="back-to-home-btn">กลับสู่หน้าแรก</Link>
-        </div>
-      </div>
-    );
-  }
 
   if (success) {
     return (
@@ -81,9 +63,23 @@ const ResetPasswordPage = () => {
     <div className="reset-password-page">
       <div className="reset-password-card">
         <h2>ตั้งรหัสผ่านใหม่</h2>
-        <p>กรุณากำหนดรหัสผ่านใหม่ของคุณ (อย่างน้อย 6 ตัวอักษร)</p>
+        <p>กรุณากรอกอีเมล (Username) เดิม และกำหนดรหัสผ่านใหม่ของคุณ</p>
 
         <form className="reset-password-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>อีเมล (Username)</label>
+            <div className="input-shell">
+              <Mail size={18} />
+              <input
+                type="email"
+                placeholder="example@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
           <div className="form-group">
             <label>รหัสผ่านใหม่</label>
             <div className="input-shell">
