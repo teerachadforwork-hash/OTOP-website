@@ -134,26 +134,29 @@ ensure_postgres_schema()
 app = FastAPI(title="OTOP Connect API", version="1.0.0")
 
 origins = [
-    # Local development
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
 
-    # Vercel production
     "https://otop-website-ji1y-1553kfqn3-boy-8ebe.vercel.app",
-
-    # Vercel current deployment
     "https://otop-website-ji1y-ocx7k11gz-boy-8ebe.vercel.app",
-
-    # Vercel main branch
     "https://otop-website-ji1y-git-main-boy-8ebe.vercel.app",
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
+    allow_origin_regex=r"(http://(localhost|127\.0\.0\.1):\d+|https://otop-website-ji1y-[a-z0-9-]+-boy-8ebe\.vercel\.app)",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_origin_regex=r"(http://(localhost|127\.0\.0\.1):\d+|https://otop-website-ji1y-[a-z0-9-]+-boy-8ebe\.vercel\.app)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
