@@ -2,6 +2,14 @@
 
 ## Commands
 
+Configure Neon PostgreSQL before running backend commands:
+
+```powershell
+cd backend
+Copy-Item .env.example .env
+# Edit .env and set DATABASE_URL to your Neon connection string.
+```
+
 Open the backend API:
 
 ```powershell

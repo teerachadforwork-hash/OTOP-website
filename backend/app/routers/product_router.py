@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List, Optional
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from ..database.database import get_db
 from .. import models, schemas, auth
@@ -12,6 +12,14 @@ def _dump(model):
     return model.model_dump() if hasattr(model, "model_dump") else model.dict()
 
 
+def _product_query(db: Session):
+    return db.query(models.Product).options(
+        joinedload(models.Product.seller),
+        joinedload(models.Product.community),
+        joinedload(models.Product.category),
+    )
+
+
 @router.get("/", response_model=List[schemas.ProductOut])
 def read_products(
     skip: int = 0,
@@ -21,7 +29,7 @@ def read_products(
     db: Session = Depends(get_db),
     current_user: Optional[models.User] = Depends(auth.get_current_user_optional),
 ):
-    query = db.query(models.Product)
+    query = _product_query(db)
     if seller_id is not None:
         query = query.filter(models.Product.seller_id == seller_id)
         is_owner = current_user and (current_user.id == seller_id or current_user.role == models.RoleEnum.admin.value)
@@ -39,7 +47,7 @@ def read_my_products(db: Session = Depends(get_db), current_user: models.User = 
     if current_user.role != models.RoleEnum.seller.value:
         raise HTTPException(status_code=403, detail="Only sellers can list store products")
     return (
-        db.query(models.Product)
+        _product_query(db)
         .filter(models.Product.seller_id == current_user.id)
         .order_by(models.Product.created_at.desc())
         .all()
@@ -48,7 +56,7 @@ def read_my_products(db: Session = Depends(get_db), current_user: models.User = 
 
 @router.get("/{product_id}", response_model=schemas.ProductDetailOut)
 def read_product(product_id: int, db: Session = Depends(get_db)):
-    product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    product = _product_query(db).filter(models.Product.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
@@ -65,8 +73,7 @@ def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)
     db_product = models.Product(**_dump(product), seller_id=current_user.id, status=models.ProductStatusEnum.pending.value)
     db.add(db_product)
     db.commit()
-    db.refresh(db_product)
-    return db_product
+    return _product_query(db).filter(models.Product.id == db_product.id).first()
 
 
 @router.put("/{product_id}", response_model=schemas.ProductOut)
@@ -76,7 +83,7 @@ def update_product(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_user),
 ):
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    db_product = _product_query(db).filter(models.Product.id == product_id).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
     if current_user.role == models.RoleEnum.admin.value:
@@ -91,8 +98,7 @@ def update_product(
         setattr(db_product, key, value.value if hasattr(value, "value") else value)
 
     db.commit()
-    db.refresh(db_product)
-    return db_product
+    return _product_query(db).filter(models.Product.id == product_id).first()
 
 
 @router.put("/{product_id}/status", response_model=schemas.ProductOut)
@@ -104,15 +110,14 @@ def update_product_status(
 ):
     if current_user.role != models.RoleEnum.admin.value:
         raise HTTPException(status_code=403, detail="Only admins can change product status")
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    db_product = _product_query(db).filter(models.Product.id == product_id).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
     if not product_update.status:
         raise HTTPException(status_code=400, detail="กรุณาระบุสถานะสินค้า")
     db_product.status = product_update.status.value
     db.commit()
-    db.refresh(db_product)
-    return db_product
+    return _product_query(db).filter(models.Product.id == product_id).first()
 
 
 @router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)

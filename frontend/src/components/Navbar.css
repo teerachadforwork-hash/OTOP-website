@@ -385,6 +385,7 @@
   .otop-topbar-right .topbar-trust-item {
     display: none;
   }
+
   .sub-nav-certifications {
     display: none;
   }
@@ -394,29 +395,37 @@
   .otop-topbar {
     display: none;
   }
+
   .search-category-select {
     display: none;
   }
+
   .search-btn-text {
     display: none;
   }
+
   .action-label {
     display: none;
   }
+
   .mobile-hamburger-btn {
     display: block;
   }
+
   .otop-sub-nav {
     display: none;
   }
+
   .otop-sub-nav.mobile-expanded {
     display: block;
     padding: 0.75rem 0;
   }
+
   .otop-sub-nav.mobile-expanded .sub-nav-list {
     flex-direction: column;
     gap: 0.5rem;
   }
+
   .otop-sub-nav.mobile-expanded .sub-nav-link {
     padding: 0.5rem 0;
     border-bottom: none;

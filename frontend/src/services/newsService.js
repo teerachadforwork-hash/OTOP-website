@@ -10,6 +10,20 @@ export const getNewsArticle = async (id) => {
   return response.data;
 };
 
+export const getNewsComments = async (id) => {
+  const response = await api.get(`/news/${id}/comments`);
+  return response.data;
+};
+
+export const createNewsComment = async (id, content) => {
+  const response = await api.post(`/news/${id}/comments`, { content });
+  return response.data;
+};
+
+export const deleteNewsComment = async (newsId, commentId) => {
+  await api.delete(`/news/${newsId}/comments/${commentId}`);
+};
+
 export const createNews = async (payload) => {
   const response = await api.post('/news/', payload);
   return response.data;

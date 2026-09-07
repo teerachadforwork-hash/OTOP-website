@@ -32,8 +32,6 @@ pnpm-debug.log*
 
 # Database
 *.db
-*.sqlite
-*.sqlite3
 
 # Uploads / generated files
 uploads/*

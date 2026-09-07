@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, ShieldCheck, Store, ArrowRight, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Lock, Loader2, Mail, Phone, Store, User, X } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
 import { useOrderStore } from '../store/orderStore';
@@ -15,6 +15,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [role, setRole] = useState('customer');
   const [storeDetails, setStoreDetails] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login, register } = useAuthStore();
 
   if (!isOpen) return null;
@@ -27,30 +28,15 @@ const AuthModal = ({ isOpen, onClose }) => {
     setPhone('');
     setRole('customer');
     setStoreDetails('');
+    setShowPassword(false);
     setIsLogin(true);
     onClose();
-  };
-
-  const handleDemoLogin = async (demoEmail, demoPassword) => {
-    setLoading(true);
-    const success = await login(demoEmail, demoPassword);
-    setLoading(false);
-    
-    if (success) {
-      // Reload user-scoped data
-      useCartStore.getState().reloadForUser();
-      useOrderStore.getState().reloadForUser();
-      toast.success('เข้าสู่ระบบสำเร็จ');
-      handleClose();
-    } else {
-      toast.error('เข้าสู่ระบบไม่สำเร็จ');
-    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     if (isLogin) {
       const success = await login(email, password);
       if (success) {
@@ -74,13 +60,13 @@ const AuthModal = ({ isOpen, onClose }) => {
       if (result.success) {
         useCartStore.getState().reloadForUser();
         useOrderStore.getState().reloadForUser();
-        toast.success('สมัครสมาชิกสำเร็จ! ยินดีต้อนรับเข้าสู่ระบบ');
+        toast.success('ลงทะเบียนสำเร็จ! ยินดีต้อนรับเข้าสู่ระบบ');
         handleClose();
       } else {
-        toast.error(result.error || 'สมัครสมาชิกไม่สำเร็จ');
+        toast.error(result.error || 'ลงทะเบียนไม่สำเร็จ');
       }
     }
-    
+
     setLoading(false);
   };
 
@@ -90,105 +76,72 @@ const AuthModal = ({ isOpen, onClose }) => {
         <button className="auth-close-btn" onClick={handleClose}>
           <X size={20} />
         </button>
-        
-        <div className="auth-modal-header">
-          <h2>{isLogin ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก'} OTOP Connect</h2>
-          <p>{isLogin ? 'เข้าสู่ระบบเพื่อสั่งซื้อ หรือจัดการร้านค้าวิสาหกิจชุมชนของคุณ' : 'สร้างบัญชีใหม่เพื่อเข้าใช้งานระบบและซื้อสินค้า OTOP'}</p>
+
+        <div className="auth-brand-panel">
+          <div className="auth-brand-mark">OTOP</div>
+          <div>
+            <p className="auth-eyebrow">OTOP Connect</p>
+            <h2>{isLogin ? 'ยินดีต้อนรับกลับ' : 'เริ่มต้นใช้งาน'}</h2>
+            <p>
+              {isLogin
+                ? 'เข้าสู่ระบบเพื่อจัดการคำสั่งซื้อ ตะกร้า และข้อมูลร้านค้าจากฐานข้อมูลจริง'
+                : 'สร้างบัญชีสำหรับเลือกซื้อสินค้า หรือสมัครเป็นผู้ขายสินค้า OTOP'}
+            </p>
+          </div>
         </div>
-        
+
         <div className="auth-modal-body">
-          {/* Demo Logins */}
-          {isLogin && (
-            <div className="demo-login-section">
-              <button 
-                type="button" 
-                className="demo-login-btn customer"
-                onClick={() => handleDemoLogin('customer@otop.th', 'customer123')}
-                disabled={loading}
-              >
-                <div className="demo-role">
-                  <div className="demo-icon-wrapper"><User size={20} /></div>
-                  <span>บัญชีลูกค้า (Customer)</span>
-                </div>
-                <div className="demo-action">ทดสอบซื้อ <ArrowRight size={14} /></div>
-              </button>
-              
-              <button 
-                type="button" 
-                className="demo-login-btn seller"
-                onClick={() => handleDemoLogin('seller@otop.th', 'seller123')}
-                disabled={loading}
-              >
-                <div className="demo-role">
-                  <div className="demo-icon-wrapper"><Store size={20} /></div>
-                  <span>บัญชีวิสาหกิจชุมชน (Seller)</span>
-                </div>
-                <div className="demo-action">แดชบอร์ด <ArrowRight size={14} /></div>
-              </button>
-              
-              <button 
-                type="button" 
-                className="demo-login-btn admin"
-                onClick={() => handleDemoLogin('admin@otop.th', 'admin123')}
-                disabled={loading}
-              >
-                <div className="demo-role">
-                  <div className="demo-icon-wrapper"><ShieldCheck size={20} /></div>
-                  <span>ผู้ดูแลระบบ (Admin)</span>
-                </div>
-                <div className="demo-action">จัดการระบบ <ArrowRight size={14} /></div>
-              </button>
-            </div>
-          )}
+          <div className="auth-modal-header">
+            <h3>{isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน'}</h3>
+            <p>{isLogin ? 'กรอกอีเมลและรหัสผ่านของคุณ' : 'กรอกข้อมูลพื้นฐานให้ครบถ้วน'}</p>
+          </div>
 
-          {isLogin && <div className="auth-divider">หรือเข้าสู่ระบบด้วยอีเมล</div>}
-
-          {/* Form */}
           <form className="auth-form" onSubmit={handleSubmit}>
             {!isLogin && (
               <>
                 <div className="form-group">
                   <label>ชื่อ-นามสกุล</label>
-                  <input
-                    type="text"
-                    placeholder="ชื่อ-นามสกุล"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    required
-                  />
+                  <div className="input-shell">
+                    <User size={18} />
+                    <input
+                      type="text"
+                      placeholder="ชื่อ-นามสกุล"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label>เบอร์โทรศัพท์</label>
-                  <input
-                    type="tel"
-                    placeholder="081-234-5678"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
+                  <div className="input-shell">
+                    <Phone size={18} />
+                    <input
+                      type="tel"
+                      placeholder="081-234-5678"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label>ประเภทบัญชี</label>
-                  <select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem 0.9rem',
-                      borderRadius: 'var(--radius-md)',
-                      border: '1px solid var(--border)',
-                      fontSize: '0.95rem',
-                      outline: 'none',
-                    }}
-                  >
-                    <option value="customer">ลูกค้าทั่วไป (Customer)</option>
-                    <option value="seller">ผู้ขาย / วิสาหกิจชุมชน (Seller)</option>
-                  </select>
+                  <div className="input-shell select-shell">
+                    <Store size={18} />
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                    >
+                      <option value="customer">ลูกค้าทั่วไป</option>
+                      <option value="seller">ผู้ขาย / วิสาหกิจชุมชน</option>
+                    </select>
+                  </div>
                 </div>
-                
+
                 {role === 'seller' && (
-                  <div className="form-group" style={{ marginTop: '0.5rem' }}>
+                  <div className="form-group">
                     <label>รายละเอียดร้านค้า / วิสาหกิจชุมชน</label>
                     <textarea
                       rows="3"
@@ -196,15 +149,6 @@ const AuthModal = ({ isOpen, onClose }) => {
                       value={storeDetails}
                       onChange={(e) => setStoreDetails(e.target.value)}
                       required
-                      style={{
-                        width: '100%',
-                        padding: '0.75rem 0.9rem',
-                        borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--border)',
-                        fontSize: '0.95rem',
-                        outline: 'none',
-                        resize: 'vertical'
-                      }}
                     ></textarea>
                   </div>
                 )}
@@ -213,35 +157,50 @@ const AuthModal = ({ isOpen, onClose }) => {
 
             <div className="form-group">
               <label>อีเมล</label>
-              <input 
-                type="email" 
-                placeholder="email@example.com" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required 
-              />
+              <div className="input-shell">
+                <Mail size={18} />
+                <input
+                  type="email"
+                  placeholder="email@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
             <div className="form-group">
               <label>รหัสผ่าน</label>
-              <input 
-                type="password" 
-                placeholder="••••••••" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required 
-              />
+              <div className="input-shell">
+                <Lock size={18} />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle-btn"
+                  onClick={() => setShowPassword((current) => !current)}
+                  aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
+                  title={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
-            
+
             <button type="submit" className="auth-submit-btn" disabled={loading}>
-              {loading ? <Loader2 className="animate-spin" style={{ margin: 'auto' }} size={20} /> : (isLogin ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก')}
+              {loading ? <Loader2 className="animate-spin" style={{ margin: 'auto' }} size={20} /> : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน')}
             </button>
           </form>
 
           <div className="auth-toggle">
             {isLogin ? 'ยังไม่มีบัญชีผู้ใช้?' : 'มีบัญชีอยู่แล้ว?'}
             <button type="button" onClick={() => setIsLogin(!isLogin)}>
-              {isLogin ? 'สมัครสมาชิกที่นี่' : 'เข้าสู่ระบบ'}
+              {isLogin ? 'ลงทะเบียนที่นี่' : 'เข้าสู่ระบบ'}
             </button>
           </div>
         </div>

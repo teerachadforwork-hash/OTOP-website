@@ -304,8 +304,14 @@ const ProductDetail = () => {
                 {product.seller_id ? `S${product.seller_id}` : 'OTOP'}
               </div>
               <div>
-                <div className="pd-seller-name">ร้านค้าวิสาหกิจชุมชน (ID: {product.seller_id || '1'})</div>
-                <div className="pd-seller-location">📍 เชียงใหม่, ประเทศไทย</div>
+                <div className="pd-seller-name">{product.seller?.full_name || 'ร้านค้าวิสาหกิจชุมชน OTOP'}</div>
+                <div className="pd-seller-location">
+                  📍 {product.community?.district ? `อ.${product.community.district} ` : ''}
+                  จ.{product.community?.province || product.province || 'ประเทศไทย'}
+                </div>
+                {product.community?.name && (
+                  <div className="pd-seller-location">ชุมชน: {product.community.name}</div>
+                )}
               </div>
             </div>
             <div className="pd-map-placeholder">
@@ -404,4 +410,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-

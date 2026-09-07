@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { 
-  Search, 
-  ShoppingBag, 
-  User, 
-  Menu, 
-  X, 
-  Award, 
-  ShieldCheck, 
-  Store, 
+import {
+  Search,
+  ShoppingBag,
+  User,
+  Menu,
+  X,
+  Award,
+  ShieldCheck,
+  Store,
   Package
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
@@ -125,8 +125,8 @@ const Navbar = ({ onOpenAuth }) => {
           {/* Search Form */}
           <form className="otop-search-bar" onSubmit={handleSearch}>
             <div className="search-category-select">
-              <select 
-                value={selectedCategory} 
+              <select
+                value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 aria-label="เลือกหมวดหมู่"
               >
@@ -138,9 +138,9 @@ const Navbar = ({ onOpenAuth }) => {
                 <option value="หัตถกรรม">หัตถกรรมพื้นบ้าน</option>
               </select>
             </div>
-            <input 
-              type="text" 
-              placeholder="ค้นหาสินค้า OTOP, ภูมิปัญญาชุมชน, หรือจังหวัด..." 
+            <input
+              type="text"
+              placeholder="ค้นหาสินค้า OTOP, ภูมิปัญญาชุมชน, หรือจังหวัด..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -209,8 +209,8 @@ const Navbar = ({ onOpenAuth }) => {
             )}
 
             {/* Mobile Menu Hamburger */}
-            <button 
-              className="mobile-hamburger-btn" 
+            <button
+              className="mobile-hamburger-btn"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="เปิดเมนู"
             >
@@ -225,8 +225,8 @@ const Navbar = ({ onOpenAuth }) => {
         <div className="otop-container otop-sub-nav-inner">
           <ul className="sub-nav-list">
             <li>
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className={`sub-nav-link ${location.pathname === '/' ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -234,8 +234,8 @@ const Navbar = ({ onOpenAuth }) => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/products" 
+              <Link
+                to="/products"
                 className={`sub-nav-link ${location.pathname === '/products' ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -243,8 +243,8 @@ const Navbar = ({ onOpenAuth }) => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/communities" 
+              <Link
+                to="/communities"
                 className={`sub-nav-link ${location.pathname.startsWith('/communit') ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -252,8 +252,8 @@ const Navbar = ({ onOpenAuth }) => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/news" 
+              <Link
+                to="/news"
                 className={`sub-nav-link ${location.pathname.startsWith('/news') ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -261,8 +261,8 @@ const Navbar = ({ onOpenAuth }) => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/orders" 
+              <Link
+                to="/orders"
                 className={`sub-nav-link ${location.pathname === '/orders' ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -273,8 +273,8 @@ const Navbar = ({ onOpenAuth }) => {
             {/* Seller Only / Admin Links */}
             {userRole === 'seller' && (
               <li>
-                <Link 
-                  to="/seller-dashboard" 
+                <Link
+                  to="/seller-dashboard"
                   className={`sub-nav-link ${location.pathname === '/seller-dashboard' ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -286,8 +286,8 @@ const Navbar = ({ onOpenAuth }) => {
             {/* Admin Only Link */}
             {userRole === 'admin' && (
               <li>
-                <Link 
-                  to="/admin-dashboard" 
+                <Link
+                  to="/admin-dashboard"
                   className={`sub-nav-link ${location.pathname === '/admin-dashboard' ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >

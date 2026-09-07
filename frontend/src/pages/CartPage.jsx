@@ -21,7 +21,6 @@ const CartPage = () => {
 
   // Modal Checkout State
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('promptpay');
   const [submittingOrder, setSubmittingOrder] = useState(false);
   const [savedAddresses, setSavedAddresses] = useState([]);
   const [selectedSavedAddressId, setSelectedSavedAddressId] = useState('new');
@@ -186,7 +185,7 @@ const CartPage = () => {
       const orderPayload = {
         shipping_address: fullAddress,
         shipping_cost: shippingFee,
-        payment_method: paymentMethod,
+        payment_method: 'promptpay',
         coupon_code: discount > 0 ? couponCode : null,
         items: items.map(i => ({
           product_id: i.product_id,
@@ -210,14 +209,14 @@ const CartPage = () => {
       handleCloseCheckoutModal();
       await clearCart();
 
-      if (paymentMethod === 'cod' || createdOrder?.order_status === ORDER_STATUS.PREPARING) {
+      if (createdOrder?.order_status === ORDER_STATUS.PREPARING) {
         toast.success(`สั่งซื้อสำเร็จ #${createdOrder.id} สามารถเปิดใบกำกับสินค้าได้ทันที`);
         navigate(`/orders/${createdOrder.id}/invoice`);
         return;
       }
 
       toast.success(`สั่งซื้อสำเร็จ #${createdOrder.id} กรุณาชำระเงิน`);
-      navigate(`/payment?orderId=${createdOrder.id}&amount=${createdOrder.grand_total}&method=${paymentMethod}`);
+      navigate(`/payment?orderId=${createdOrder.id}&amount=${createdOrder.grand_total}`);
     } catch (err) {
       setSubmittingOrder(false);
       toast.error(apiErrorMessage(err, 'เกิดข้อผิดพลาดในการทำรายการ'));
@@ -390,7 +389,7 @@ const CartPage = () => {
       {showCheckoutModal && (
         <div className="checkout-modal-backdrop" onClick={handleCloseCheckoutModal}>
           <div className="checkout-modal" onClick={(e) => e.stopPropagation()}>
-            <h2 className="checkout-modal-title">📦 ข้อมูลการจัดส่ง & ชำระเงิน</h2>
+            <h2 className="checkout-modal-title">📦 ข้อมูลการจัดส่ง</h2>
             <form onSubmit={handleCreateOrderSubmit}>
               
               {savedAddresses.length > 0 && (
@@ -506,30 +505,6 @@ const CartPage = () => {
                 </div>
               </div>
 
-              <div className="checkout-form-group">
-                <label>เลือกวิธีชำระเงิน:</label>
-                <div className="payment-methods">
-                  <div
-                    className={`payment-method-card ${paymentMethod === 'promptpay' ? 'selected' : ''}`}
-                    onClick={() => setPaymentMethod('promptpay')}
-                  >
-                    📱 สแกน QR (PromptPay)
-                  </div>
-                  <div
-                    className={`payment-method-card ${paymentMethod === 'bank' ? 'selected' : ''}`}
-                    onClick={() => setPaymentMethod('bank')}
-                  >
-                    🏦 โอนผ่านธนาคาร
-                  </div>
-                  <div
-                    className={`payment-method-card ${paymentMethod === 'cod' ? 'selected' : ''}`}
-                    onClick={() => setPaymentMethod('cod')}
-                  >
-                    💵 เก็บเงินปลายทาง
-                  </div>
-                </div>
-              </div>
-
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
                 <button
                   type="button"
@@ -545,7 +520,7 @@ const CartPage = () => {
                   style={{ flex: 2, margin: 0 }}
                   disabled={submittingOrder}
                 >
-                  {submittingOrder ? 'กำลังบันทึก...' : `ยืนยันชำระเงิน (${grandTotal.toLocaleString()} ฿)`}
+                  {submittingOrder ? 'กำลังบันทึก...' : `ยืนยันข้อมูลจัดส่ง (${grandTotal.toLocaleString()} ฿)`}
                 </button>
               </div>
             </form>

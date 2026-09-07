@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Float, Text
+from sqlalchemy import Boolean, CheckConstraint, Column, DateTime, Float, ForeignKey, Index, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import enum
@@ -32,6 +32,9 @@ class ProductStatusEnum(str, enum.Enum):
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = (
+        CheckConstraint("role IN ('admin', 'seller', 'customer')", name="ck_users_role"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), unique=True, index=True, nullable=False)
     hashed_password = Column(String(255), nullable=False)
@@ -50,6 +53,9 @@ class User(Base):
 
 class Community(Base):
     __tablename__ = "communities"
+    __table_args__ = (
+        Index("ix_communities_location", "province", "district", "subdistrict"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(200), nullable=False)
     province = Column(String(100), nullable=False)
@@ -79,6 +85,18 @@ class Category(Base):
 
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = (
+        CheckConstraint("price > 0", name="ck_products_price_positive"),
+        CheckConstraint("stock >= 0", name="ck_products_stock_nonnegative"),
+        CheckConstraint("rating_cache >= 0 AND rating_cache <= 5", name="ck_products_rating_range"),
+        CheckConstraint("review_count >= 0", name="ck_products_review_count_nonnegative"),
+        CheckConstraint(
+            "status IN ('pending', 'approved', 'rejected', 'inactive', 'out_of_stock')",
+            name="ck_products_status",
+        ),
+        Index("ix_products_public_catalog", "status", "province", "category_id", "community_id"),
+        Index("ix_products_seller_status", "seller_id", "status"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     seller_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     community_id = Column(Integer, ForeignKey("communities.id"), nullable=False)
@@ -104,6 +122,18 @@ class Product(Base):
 
 class Order(Base):
     __tablename__ = "orders"
+    __table_args__ = (
+        CheckConstraint("total_price >= 0", name="ck_orders_total_price_nonnegative"),
+        CheckConstraint("shipping_cost >= 0", name="ck_orders_shipping_cost_nonnegative"),
+        CheckConstraint("discount_amount >= 0", name="ck_orders_discount_amount_nonnegative"),
+        CheckConstraint("grand_total >= 0", name="ck_orders_grand_total_nonnegative"),
+        CheckConstraint(
+            "order_status IN ('pending_payment', 'payment_verification', 'preparing', 'shipped', 'completed', 'cancelled')",
+            name="ck_orders_status",
+        ),
+        Index("ix_orders_customer_created", "customer_id", "created_at"),
+        Index("ix_orders_status_created", "order_status", "created_at"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     customer_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     total_price = Column(Float, nullable=False)
@@ -123,6 +153,13 @@ class Order(Base):
 
 class OrderItem(Base):
     __tablename__ = "order_items"
+    __table_args__ = (
+        CheckConstraint("unit_price >= 0", name="ck_order_items_unit_price_nonnegative"),
+        CheckConstraint("quantity > 0", name="ck_order_items_quantity_positive"),
+        CheckConstraint("subtotal >= 0", name="ck_order_items_subtotal_nonnegative"),
+        Index("ix_order_items_seller_order", "seller_id", "order_id"),
+        Index("ix_order_items_product_order", "product_id", "order_id"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
@@ -136,6 +173,14 @@ class OrderItem(Base):
 
 class Payment(Base):
     __tablename__ = "payments"
+    __table_args__ = (
+        CheckConstraint("amount >= 0", name="ck_payments_amount_nonnegative"),
+        CheckConstraint(
+            "status IN ('pending', 'waiting_verification', 'paid', 'rejected')",
+            name="ck_payments_status",
+        ),
+        Index("ix_payments_status_uploaded", "status", "uploaded_at"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     order_id = Column(Integer, ForeignKey("orders.id"), unique=True, nullable=False)
     amount = Column(Float, nullable=False)
@@ -149,6 +194,12 @@ class Payment(Base):
 
 class Review(Base):
     __tablename__ = "reviews"
+    __table_args__ = (
+        UniqueConstraint("order_id", "customer_id", "product_id", name="uq_reviews_order_customer_product"),
+        CheckConstraint("rating >= 1 AND rating <= 5", name="ck_reviews_rating_range"),
+        Index("ix_reviews_product_created", "product_id", "created_at"),
+        Index("ix_reviews_customer_created", "customer_id", "created_at"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
     customer_id = Column(Integer, ForeignKey("users.id"), nullable=False)
@@ -162,6 +213,11 @@ class Review(Base):
 
 class CartItem(Base):
     __tablename__ = "cart_items"
+    __table_args__ = (
+        UniqueConstraint("user_id", "product_id", name="uq_cart_items_user_product"),
+        CheckConstraint("quantity > 0", name="ck_cart_items_quantity_positive"),
+        Index("ix_cart_items_user_updated", "user_id", "updated_at"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
@@ -174,6 +230,9 @@ class CartItem(Base):
 
 class NewsArticle(Base):
     __tablename__ = "news_articles"
+    __table_args__ = (
+        Index("ix_news_published_created", "is_published", "created_at"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(250), nullable=False)
     excerpt = Column(Text)
@@ -186,10 +245,34 @@ class NewsArticle(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
 
     author = relationship("User")
+    comments = relationship("NewsComment", back_populates="article", cascade="all, delete-orphan")
+
+
+class NewsComment(Base):
+    __tablename__ = "news_comments"
+    __table_args__ = (
+        CheckConstraint("length(trim(content)) > 0", name="ck_news_comments_content_not_blank"),
+        Index("ix_news_comments_article_created", "news_id", "created_at"),
+        Index("ix_news_comments_user_created", "user_id", "created_at"),
+    )
+    id = Column(Integer, primary_key=True, index=True)
+    news_id = Column(Integer, ForeignKey("news_articles.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
+
+    article = relationship("NewsArticle", back_populates="comments")
+    user = relationship("User")
 
 
 class UserBehaviorLog(Base):
     __tablename__ = "user_behavior_logs"
+    __table_args__ = (
+        Index("ix_behavior_user_created", "user_id", "created_at"),
+        Index("ix_behavior_event_created", "event_type", "created_at"),
+        Index("ix_behavior_product_created", "product_id", "created_at"),
+    )
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer)
     session_id = Column(String(100))

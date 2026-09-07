@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session, joinedload
 from ..database.database import get_db
 from .. import models, schemas, auth
 from ..services.image_service import save_image
-from ..utils.serializers import serialize_news
+from ..utils.serializers import serialize_news, serialize_news_comment
 
 router = APIRouter(prefix="/api/news", tags=["news"])
 
@@ -15,7 +15,24 @@ def _dump(model):
 
 
 def _query(db: Session):
-    return db.query(models.NewsArticle).options(joinedload(models.NewsArticle.author))
+    return db.query(models.NewsArticle).options(
+        joinedload(models.NewsArticle.author),
+        joinedload(models.NewsArticle.comments),
+    )
+
+
+def _visible_article(
+    db: Session,
+    news_id: int,
+    current_user: Optional[models.User] = None,
+) -> models.NewsArticle:
+    article = _query(db).filter(models.NewsArticle.id == news_id).first()
+    if not article:
+        raise HTTPException(status_code=404, detail="ไม่พบข่าวนี้")
+    can_read_draft = current_user and current_user.role == models.RoleEnum.admin.value
+    if not article.is_published and not can_read_draft:
+        raise HTTPException(status_code=404, detail="ไม่พบข่าวนี้")
+    return article
 
 
 @router.get("/", response_model=List[schemas.NewsOut])
@@ -37,12 +54,71 @@ def get_news(
     db: Session = Depends(get_db),
     current_user: Optional[models.User] = Depends(auth.get_current_user_optional),
 ):
-    article = _query(db).filter(models.NewsArticle.id == news_id).first()
-    if not article:
-        raise HTTPException(status_code=404, detail="ไม่พบข่าวนี้")
-    if not article.is_published and not (current_user and current_user.role == models.RoleEnum.admin.value):
-        raise HTTPException(status_code=404, detail="ไม่พบข่าวนี้")
+    article = _visible_article(db, news_id, current_user)
     return serialize_news(article)
+
+
+@router.get("/{news_id}/comments", response_model=List[schemas.NewsCommentOut])
+def list_news_comments(
+    news_id: int,
+    db: Session = Depends(get_db),
+    current_user: Optional[models.User] = Depends(auth.get_current_user_optional),
+):
+    _visible_article(db, news_id, current_user)
+    comments = (
+        db.query(models.NewsComment)
+        .options(joinedload(models.NewsComment.user))
+        .filter(models.NewsComment.news_id == news_id)
+        .order_by(models.NewsComment.created_at.asc(), models.NewsComment.id.asc())
+        .all()
+    )
+    return [serialize_news_comment(comment) for comment in comments]
+
+
+@router.post("/{news_id}/comments", response_model=schemas.NewsCommentOut, status_code=status.HTTP_201_CREATED)
+def create_news_comment(
+    news_id: int,
+    payload: schemas.NewsCommentCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(auth.get_current_user),
+):
+    article = _visible_article(db, news_id, current_user)
+    if not article.is_published and current_user.role != models.RoleEnum.admin.value:
+        raise HTTPException(status_code=403, detail="ยังไม่สามารถแสดงความคิดเห็นในข่าวฉบับร่างได้")
+    content = payload.content.strip()
+    if not content:
+        raise HTTPException(status_code=400, detail="กรุณาพิมพ์ข้อความก่อนส่ง")
+    comment = models.NewsComment(news_id=news_id, user_id=current_user.id, content=content)
+    db.add(comment)
+    db.commit()
+    comment = (
+        db.query(models.NewsComment)
+        .options(joinedload(models.NewsComment.user))
+        .filter(models.NewsComment.id == comment.id)
+        .first()
+    )
+    return serialize_news_comment(comment)
+
+
+@router.delete("/{news_id}/comments/{comment_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_news_comment(
+    news_id: int,
+    comment_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(auth.get_current_user),
+):
+    comment = (
+        db.query(models.NewsComment)
+        .filter(models.NewsComment.id == comment_id, models.NewsComment.news_id == news_id)
+        .first()
+    )
+    if not comment:
+        raise HTTPException(status_code=404, detail="ไม่พบความคิดเห็นนี้")
+    if comment.user_id != current_user.id and current_user.role != models.RoleEnum.admin.value:
+        raise HTTPException(status_code=403, detail="ไม่มีสิทธิ์ลบความคิดเห็นนี้")
+    db.delete(comment)
+    db.commit()
+    return None
 
 
 @router.post("/", response_model=schemas.NewsOut, status_code=status.HTTP_201_CREATED)
@@ -110,6 +186,7 @@ def delete_news(
     article = db.query(models.NewsArticle).filter(models.NewsArticle.id == news_id).first()
     if not article:
         raise HTTPException(status_code=404, detail="ไม่พบข่าวนี้")
+    db.query(models.NewsComment).filter(models.NewsComment.news_id == news_id).delete()
     db.delete(article)
     db.commit()
     return None

@@ -35,7 +35,7 @@
 |---|---|
 | Frontend | React, HTML5, CSS3, JavaScript, Responsive Web Design |
 | Backend | Python, FastAPI |
-| Database | SQLite + SQLAlchemy ORM |
+| Database | Neon PostgreSQL + SQLAlchemy ORM |
 | Authentication | JWT Authentication, Password Hashing |
 | API | RESTful API |
 
@@ -173,7 +173,7 @@
 
 **กราฟ:** ยอดขายรายวัน, ยอดขายรายเดือน, จำนวน Order, จำนวนผู้ใช้งาน, สินค้าขายดี
 
-## 17. Database Design (SQLite + SQLAlchemy)
+## 17. Database Design (Neon PostgreSQL + SQLAlchemy)
 
 **ตารางหลัก:** `users`, `communities`, `categories`, `products`, `product_images`, `cart`, `cart_items`, `orders`, `order_items`, `payments`, `reviews`, `addresses`
 
@@ -284,7 +284,7 @@ backend/
     utils/
 
 database/
-  otop.db
+  Neon PostgreSQL (configured through backend/.env DATABASE_URL)
 
 uploads/
   products/
@@ -348,7 +348,7 @@ uploads/
 ## 27. Important Development Rules
 
 1. ห้ามสร้างระบบที่ไม่มี Database
-2. ใช้ SQLite เป็น Database หลัก
+2. ใช้ Neon PostgreSQL เป็น Database หลัก
 3. Backend ต้อง Validate ข้อมูลทุกครั้ง
 4. Frontend ห้ามเป็นแค่ Mockup ต้องเชื่อม API จริง
 5. ต้องสร้าง CRUD ให้ครบตาม Requirement
@@ -369,7 +369,7 @@ uploads/
 5. Project Folder Structure
 6. Frontend
 7. Backend
-8. SQLite Database
+8. Neon PostgreSQL Database
 9. Seed Data
 10. Authentication
 11. Customer Interface

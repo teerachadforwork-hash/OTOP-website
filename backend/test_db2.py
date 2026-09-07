@@ -1,7 +1,10 @@
-import sqlite3
+from app.database.database import SessionLocal
+from app.models.models import User
 
-conn = sqlite3.connect('otop.db')
-cursor = conn.cursor()
-cursor.execute("SELECT id, email, created_at, deleted_at FROM users")
-for row in cursor.fetchall():
-    print(row)
+db = SessionLocal()
+try:
+    users = db.query(User.id, User.email, User.created_at, User.deleted_at).all()
+    for row in users:
+        print(row)
+finally:
+    db.close()

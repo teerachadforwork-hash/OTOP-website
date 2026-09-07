@@ -1,28 +1,29 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.engine import make_url
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-# Using an absolute path relative to the backend directory, or we can just specify the path directly
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'otop.db')}"
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-# SQLite requires check_same_thread=False
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-# For SQLite, it's recommended to enable WAL mode and foreign keys
-from sqlalchemy import event
-from sqlalchemy.engine import Engine
+if not DATABASE_URL:
+    raise RuntimeError(
+        "DATABASE_URL must be set to a Neon/PostgreSQL connection string."
+    )
 
-@event.listens_for(Engine, "connect")
-def set_sqlite_pragma(dbapi_connection, connection_record):
-    cursor = dbapi_connection.cursor()
-    cursor.execute("PRAGMA foreign_keys=ON")
-    cursor.execute("PRAGMA journal_mode=WAL")
-    cursor.execute("PRAGMA synchronous=NORMAL")
-    cursor.close()
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+database_url = make_url(DATABASE_URL)
+if not database_url.drivername.startswith("postgresql"):
+    raise RuntimeError(
+        "Only Neon/PostgreSQL is supported. Set DATABASE_URL to a postgresql:// URL."
+    )
+
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

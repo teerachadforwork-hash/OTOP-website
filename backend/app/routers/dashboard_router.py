@@ -1,10 +1,12 @@
-import os
+from datetime import datetime, timedelta, timezone
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func
+from sqlalchemy.orm import Session
+
 from ..database.database import get_db
 from .. import models, auth
 from ..schemas import schemas
-from sqlalchemy.orm import Session
 
 router = APIRouter()
 
@@ -40,8 +42,7 @@ def admin_summary(
     )
     top_products = [schemas.TopProductOut(product_id=pid, name=name, sold=sold) for pid, name, sold in top_products_query]
     # User growth (last 30 days)
-    from datetime import datetime, timedelta
-    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+    thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
     growth = (
         db.query(func.date(models.User.created_at).label("date"), func.count(models.User.id).label("count"))
         .filter(models.User.created_at >= thirty_days_ago)
@@ -66,18 +67,21 @@ def seller_summary(
         raise HTTPException(status_code=403, detail="Cannot view another seller dashboard")
     if current_user.role not in (models.RoleEnum.seller.value, models.RoleEnum.admin.value):
         raise HTTPException(status_code=403, detail="Seller or admin only")
-    # Sales summary for seller
-    sales = (
+    # Sales summary for seller: aggregate only this seller's order items.
+    seller_order_totals = (
         db.query(
-            func.count(models.Order.id).label("total_orders"),
-            func.sum(models.Order.grand_total).label("total_revenue"),
-            func.avg(models.Order.grand_total).label("avg_order_value"),
+            models.OrderItem.order_id.label("order_id"),
+            func.sum(models.OrderItem.subtotal).label("seller_total"),
         )
-        .join(models.OrderItem, models.OrderItem.order_id == models.Order.id)
-        .join(models.Product, models.Product.id == models.OrderItem.product_id)
-        .filter(models.Product.seller_id == seller_id)
-        .one()
+        .filter(models.OrderItem.seller_id == seller_id)
+        .group_by(models.OrderItem.order_id)
+        .subquery()
     )
+    sales = db.query(
+        func.count(seller_order_totals.c.order_id).label("total_orders"),
+        func.sum(seller_order_totals.c.seller_total).label("total_revenue"),
+        func.avg(seller_order_totals.c.seller_total).label("avg_order_value"),
+    ).one()
     total_orders = sales.total_orders or 0
     total_revenue = float(sales.total_revenue or 0)
     avg_order_value = float(sales.avg_order_value or 0)
@@ -98,8 +102,7 @@ def seller_summary(
     )
     top_products = [schemas.TopProductOut(product_id=pid, name=name, sold=sold) for pid, name, sold in top_products_query]
     # User growth (same as admin, could be filtered by seller customers if needed)
-    from datetime import datetime, timedelta
-    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+    thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
     growth = (
         db.query(func.date(models.User.created_at).label("date"), func.count(models.User.id).label("count"))
         .filter(models.User.created_at >= thirty_days_ago)

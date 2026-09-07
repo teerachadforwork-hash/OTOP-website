@@ -84,6 +84,7 @@ def serialize_community(community: models.Community, products_count: int = 0) ->
 
 
 def serialize_news(article: models.NewsArticle) -> schemas.NewsOut:
+    comments = getattr(article, "comments", None)
     return schemas.NewsOut(
         id=article.id,
         title=article.title,
@@ -94,8 +95,23 @@ def serialize_news(article: models.NewsArticle) -> schemas.NewsOut:
         is_published=bool(article.is_published),
         author_id=article.author_id,
         author_name=article.author.full_name if article.author else None,
+        comment_count=len(comments) if comments is not None else 0,
         created_at=article.created_at,
         updated_at=article.updated_at,
+    )
+
+
+def serialize_news_comment(comment: models.NewsComment) -> schemas.NewsCommentOut:
+    user = comment.user
+    return schemas.NewsCommentOut(
+        id=comment.id,
+        news_id=comment.news_id,
+        user_id=comment.user_id,
+        user_name=user.full_name if user else None,
+        user_role=_role_value(user.role) if user else None,
+        content=comment.content,
+        created_at=comment.created_at,
+        updated_at=comment.updated_at,
     )
 
 

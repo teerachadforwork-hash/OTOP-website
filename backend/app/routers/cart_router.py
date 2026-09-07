@@ -82,6 +82,8 @@ def update_cart_item(
     if payload.quantity <= 0:
         raise HTTPException(status_code=400, detail="จำนวนต้องมากกว่า 0")
     max_stock = cart_item.product.stock if cart_item.product else payload.quantity
+    if max_stock <= 0:
+        raise HTTPException(status_code=400, detail="สินค้าหมด")
     cart_item.quantity = min(payload.quantity, max_stock)
     db.commit()
     db.refresh(cart_item)

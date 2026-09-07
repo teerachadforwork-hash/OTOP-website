@@ -136,8 +136,9 @@ class ProductOut(ProductBase):
     status: ProductStatusEnum
     created_at: datetime
     updated_at: datetime
-    
-    # We can include related data in extended schemas if needed
+    seller: Optional[UserOut] = None
+    community: Optional[CommunityOut] = None
+    category: Optional[CategoryOut] = None
     
     class Config:
         from_attributes = True
@@ -267,6 +268,23 @@ class NewsOut(NewsBase):
     id: int
     author_id: Optional[int] = None
     author_name: Optional[str] = None
+    comment_count: int = 0
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+class NewsCommentCreate(BaseModel):
+    content: str = Field(..., min_length=1, max_length=1000)
+
+class NewsCommentOut(BaseModel):
+    id: int
+    news_id: int
+    user_id: int
+    user_name: Optional[str] = None
+    user_role: Optional[str] = None
+    content: str
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 

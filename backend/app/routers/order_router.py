@@ -70,21 +70,30 @@ def create_order(order_in: schemas.OrderCreate, db: Session = Depends(get_db), c
     if not order_in.items:
         raise HTTPException(status_code=400, detail="กรุณาเลือกสินค้าอย่างน้อย 1 รายการ")
 
+    quantities_by_product = {}
+    for item in order_in.items:
+        quantities_by_product[item.product_id] = quantities_by_product.get(item.product_id, 0) + item.quantity
+
     total_price = 0.0
     order_items = []
-    for item in order_in.items:
-        product = db.query(models.Product).filter(models.Product.id == item.product_id).first()
+    for product_id, quantity in sorted(quantities_by_product.items()):
+        product = (
+            db.query(models.Product)
+            .filter(models.Product.id == product_id)
+            .with_for_update()
+            .first()
+        )
         if not product:
-            raise HTTPException(status_code=404, detail=f"ไม่พบสินค้า {item.product_id}")
+            raise HTTPException(status_code=404, detail=f"ไม่พบสินค้า {product_id}")
         if product.status != models.ProductStatusEnum.approved.value:
             raise HTTPException(status_code=400, detail=f"สินค้า {product.name} ยังไม่พร้อมจำหน่าย")
-        if product.stock < item.quantity:
+        if product.stock < quantity:
             raise HTTPException(status_code=400, detail=f"สินค้า {product.name} มีคงเหลือไม่พอ")
-        subtotal = product.price * item.quantity
+        subtotal = product.price * quantity
         total_price += subtotal
         order_items.append({
             "product": product,
-            "quantity": item.quantity,
+            "quantity": quantity,
             "unit_price": product.price,
             "subtotal": subtotal,
         })

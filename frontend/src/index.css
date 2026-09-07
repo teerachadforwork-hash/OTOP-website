@@ -4,7 +4,7 @@
   --primary-hover: #9e4325;
   --primary-light: #fff2ee;
   --primary-surface: #faece7;
-  
+
   --secondary: #2b4764;
   --secondary-hover: #1f354c;
   --secondary-light: #edf3f8;
@@ -40,7 +40,7 @@
 
   --font-thai: 'Prompt', 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Epilogue', 'Prompt', sans-serif;
-  
+
   --max-width: 1280px;
 }
 
@@ -88,7 +88,9 @@ button {
   outline: none;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: 1rem;
 }

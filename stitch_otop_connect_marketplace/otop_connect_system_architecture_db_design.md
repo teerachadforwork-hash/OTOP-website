@@ -47,9 +47,9 @@
                                                      |
                                                      v
                                   +---------------------------------------+
-                                  |           SQLite Database             |
-                                  |             (otop.db)                 |
-                                  |  WAL mode enabled, FK constraints on  |
+                                  |        Neon PostgreSQL Database       |
+                                  |   DATABASE_URL + sslmode=require      |
+                                  |   Managed relational persistence      |
                                   +---------------------------------------+
 ```
 
@@ -73,28 +73,26 @@
 * `Order (1) ---- (1) Payment`
 * `User (1) ---- (N) UserBehaviorLog` (AI Data Foundation)
 
-### Database DDL (SQLite)
+### Database DDL (PostgreSQL)
 
 ```sql
-PRAGMA foreign_keys = ON;
-
 -- 1. Users
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
     full_name VARCHAR(150) NOT NULL,
     phone_number VARCHAR(20),
     role VARCHAR(20) DEFAULT 'customer' CHECK(role IN ('admin', 'seller', 'customer')),
     avatar_url TEXT,
-    is_active BOOLEAN DEFAULT 1,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- 2. Communities
 CREATE TABLE communities (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     province VARCHAR(100) NOT NULL,
     district VARCHAR(100) NOT NULL,
@@ -105,12 +103,12 @@ CREATE TABLE communities (
     banner_image TEXT,
     contact_phone VARCHAR(50),
     contact_email VARCHAR(100),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- 3. Categories
 CREATE TABLE categories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL,
     icon_name VARCHAR(50),
     description TEXT
@@ -118,7 +116,7 @@ CREATE TABLE categories (
 
 -- 4. Products
 CREATE TABLE products (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     seller_id INTEGER NOT NULL,
     community_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
@@ -132,8 +130,8 @@ CREATE TABLE products (
     rating_cache DECIMAL(3,2) DEFAULT 5.0,
     review_count INTEGER DEFAULT 0,
     status VARCHAR(20) DEFAULT 'approved' CHECK(status IN ('pending', 'approved', 'rejected', 'inactive', 'out_of_stock')),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
     FOREIGN KEY (seller_id) REFERENCES users(id),
     FOREIGN KEY (community_id) REFERENCES communities(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
@@ -141,19 +139,19 @@ CREATE TABLE products (
 
 -- 5. Orders & Order Items
 CREATE TABLE orders (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
     shipping_cost DECIMAL(10,2) NOT NULL DEFAULT 50.0,
     grand_total DECIMAL(10,2) NOT NULL,
     shipping_address TEXT NOT NULL,
     order_status VARCHAR(30) DEFAULT 'pending_payment' CHECK(order_status IN ('pending_payment', 'payment_verification', 'preparing', 'shipped', 'completed', 'cancelled')),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
     FOREIGN KEY (customer_id) REFERENCES users(id)
 );
 
 CREATE TABLE order_items (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     order_id INTEGER NOT NULL,
     product_id INTEGER NOT NULL,
     seller_id INTEGER NOT NULL,
@@ -167,26 +165,26 @@ CREATE TABLE order_items (
 
 -- 6. Payments
 CREATE TABLE payments (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     order_id INTEGER UNIQUE NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
     payment_method VARCHAR(50) DEFAULT 'bank_transfer',
     slip_url TEXT,
     status VARCHAR(30) DEFAULT 'pending' CHECK(status IN ('pending', 'waiting_verification', 'paid', 'rejected')),
-    uploaded_at DATETIME,
-    verified_at DATETIME,
+    uploaded_at TIMESTAMPTZ,
+    verified_at TIMESTAMPTZ,
     FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 -- 7. Reviews
 CREATE TABLE reviews (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     product_id INTEGER NOT NULL,
     customer_id INTEGER NOT NULL,
     order_id INTEGER NOT NULL,
     rating INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5),
     comment TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
     FOREIGN KEY (product_id) REFERENCES products(id),
     FOREIGN KEY (customer_id) REFERENCES users(id),
     FOREIGN KEY (order_id) REFERENCES orders(id)
@@ -194,14 +192,14 @@ CREATE TABLE reviews (
 
 -- 8. Future AI Event Store
 CREATE TABLE user_behavior_logs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     user_id INTEGER,
     session_id VARCHAR(100),
     event_type VARCHAR(50) NOT NULL, -- view_product, search, add_to_cart, purchase
     product_id INTEGER,
     query_text TEXT,
     metadata_json TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 ```
 
