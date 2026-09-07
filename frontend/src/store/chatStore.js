@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import api from '../utils/api';
+import api from '../services/api';
 
 export const useChatStore = create((set, get) => ({
   groups: [],

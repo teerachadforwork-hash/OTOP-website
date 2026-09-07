@@ -18,7 +18,7 @@ import { updateProductStatusApi } from '../services/productService';
 import { createCommunity, updateCommunity, deleteCommunity, uploadCommunityBanner } from '../services/communityService';
 import { getNews, createNews, updateNews, deleteNews, uploadNewsCover } from '../services/newsService';
 import { apiErrorMessage, ORDER_STATUS, ORDER_STATUS_LABELS, normalizeOrderStatus } from '../utils/catalog';
-import api from '../utils/api';
+import api from '../services/api';
 import toast from 'react-hot-toast';
 import './SellerDashboard.css';
 import './AdminDashboard.css';
@@ -328,9 +328,7 @@ const AdminDashboard = () => {
           </button>
           <a href="/" className="admin-tab-btn no-print">กลับสู่หน้าแรก</a>
         </div>
-      </header>
-        </div>
-
+      </div>
         <div className="admin-tabs" role="tablist" aria-label="เมนูผู้ดูแลระบบ">
           {[
             ['overview', 'ภาพรวม'],

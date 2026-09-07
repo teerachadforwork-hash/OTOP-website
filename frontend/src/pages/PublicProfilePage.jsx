@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../utils/api';
+import api from '../services/api';
 import { resolveMediaUrl } from '../utils/catalog';
 import { User, MessageCircle, Heart, Share2, Calendar } from 'lucide-react';
 import useAuthStore from '../store/authStore';

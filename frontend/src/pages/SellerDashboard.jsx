@@ -6,7 +6,7 @@ import { useAuthStore } from '../store/authStore';
 import { getCategories } from '../services/categoryService';
 import { getCommunities } from '../services/communityService';
 import { normalizeOrderStatus, ORDER_STATUS, ORDER_STATUS_LABELS, resolveMediaUrl, apiErrorMessage } from '../utils/catalog';
-import api from '../utils/api';
+import api from '../services/api';
 import toast from 'react-hot-toast';
 import './SellerDashboard.css';
 
