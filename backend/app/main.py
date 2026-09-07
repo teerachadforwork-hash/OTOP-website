@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from .database.database import engine, SessionLocal
 from .models import models
-from .routers import auth_router, product_router, community_router, category_router, cart_router, order_router, payment_router, dashboard_router, review_router, news_router
+from .routers import auth_router, product_router, community_router, category_router, cart_router, order_router, payment_router, dashboard_router, review_router, news_router, chat_router, feed_router
 from .utils.news_seed import seed_default_news
 
 models.Base.metadata.create_all(bind=engine)
@@ -156,6 +156,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from starlette.middleware.base import BaseHTTPMiddleware
+from fastapi import Request
+
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        return response
+
+app.add_middleware(SecurityHeadersMiddleware)
+
 BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 upload_dir = os.path.join(BACKEND_DIR, "uploads")
 os.makedirs(os.path.join(upload_dir, "products"), exist_ok=True)
@@ -177,6 +191,8 @@ app.include_router(payment_router.router)
 app.include_router(dashboard_router.router, prefix="/api/dashboard")
 app.include_router(review_router.router, prefix="/api/reviews")
 app.include_router(news_router.router)
+app.include_router(chat_router.router)
+app.include_router(feed_router.router)
 
 def _seed_news_if_needed():
     db = SessionLocal()

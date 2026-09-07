@@ -37,6 +37,8 @@ def list_all_carts(db: Session = Depends(get_db), current_user: models.User = De
 
 @router.post("/", response_model=schemas.CartItemOut, status_code=status.HTTP_201_CREATED)
 def add_to_cart(item: schemas.CartItemCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    if auth.user_role(current_user) == models.RoleEnum.seller.value:
+        raise HTTPException(status_code=403, detail="ผู้ขายไม่สามารถสั่งซื้อสินค้าได้")
     product = db.query(models.Product).filter(models.Product.id == item.product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")

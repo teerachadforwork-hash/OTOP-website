@@ -16,6 +16,7 @@ const ProductDetail = () => {
   const { orders, fetchOrders } = useOrderStore();
   const { user, openAuthModal } = useAuthStore();
   const { fetchReviewsForProduct, addReview, getReviewsByProduct, getProductRatingSummary } = useReviewStore();
+  const { startPrivateChat } = useChatStore();
 
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -133,6 +134,25 @@ const ProductDetail = () => {
       navigate('/cart');
     } catch (e) {
       alert('เกิดข้อผิดพลาดในการซื้อสินค้าด่วน');
+    }
+  };
+
+  const handleStartChatWithSeller = async () => {
+    if (!user) {
+      if (window.confirm('กรุณาเข้าสู่ระบบก่อนเริ่มการสนทนา\n\nต้องการเข้าสู่ระบบหรือไม่?')) {
+        openAuthModal();
+      }
+      return;
+    }
+    if (user.id === product.seller_id) {
+      alert('คุณไม่สามารถแชทกับตัวเองได้');
+      return;
+    }
+    try {
+      await startPrivateChat(product.seller_id);
+      navigate('/chat');
+    } catch (error) {
+      alert('ไม่สามารถเริ่มการสนทนาได้');
     }
   };
 
@@ -261,30 +281,38 @@ const ProductDetail = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="pd-actions">
-              <button
-                className="pd-btn-cart"
-                onClick={handleAddToCart}
-                disabled={cartLoading || productStock <= 0}
-                style={productStock <= 0 ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                {productStock <= 0 ? 'สินค้าหมด' : cartLoading ? 'กำลังบันทึก...' : 'เพิ่มลงตะกร้า'}
-              </button>
+            {(!user || user.role !== 'seller') ? (
+              <div className="pd-actions">
+                <button
+                  className="pd-btn-cart"
+                  onClick={handleAddToCart}
+                  disabled={cartLoading || productStock <= 0}
+                  style={productStock <= 0 ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                  </svg>
+                  {productStock <= 0 ? 'สินค้าหมด' : cartLoading ? 'กำลังบันทึก...' : 'เพิ่มลงตะกร้า'}
+                </button>
 
-              <button
-                className="pd-btn-buy"
-                onClick={handleBuyNow}
-                disabled={productStock <= 0}
-                style={productStock <= 0 ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-              >
-                {productStock <= 0 ? '✕ สินค้าหมด' : '⚡ ซื้อเลย (ซื้อด่วน)'}
-              </button>
-            </div>
+                <button
+                  className="pd-btn-buy"
+                  onClick={handleBuyNow}
+                  disabled={productStock <= 0}
+                  style={productStock <= 0 ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                >
+                  {productStock <= 0 ? '✕ สินค้าหมด' : '⚡ ซื้อเลย (ซื้อด่วน)'}
+                </button>
+              </div>
+            ) : (
+              <div className="pd-actions">
+                <button className="pd-btn-cart" disabled style={{ opacity: 0.5, cursor: 'not-allowed', width: '100%' }}>
+                  🛍️ บัญชีผู้ขายไม่สามารถสั่งซื้อสินค้าได้
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -311,6 +339,29 @@ const ProductDetail = () => {
                 </div>
                 {product.community?.name && (
                   <div className="pd-seller-location">ชุมชน: {product.community.name}</div>
+                )}
+                {product.seller_id && user?.id !== product.seller_id && (
+                  <button 
+                    onClick={handleStartChatWithSeller}
+                    style={{
+                      marginTop: '10px',
+                      background: 'var(--primary)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '6px 16px',
+                      borderRadius: '20px',
+                      fontSize: '0.85rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px'
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    ทักแชทร้านค้า
+                  </button>
                 )}
               </div>
             </div>

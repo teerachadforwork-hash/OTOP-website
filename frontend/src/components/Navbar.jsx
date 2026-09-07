@@ -9,7 +9,9 @@ import {
   Award,
   ShieldCheck,
   Store,
-  Package
+  Package,
+  Users,
+  MessageSquare
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
@@ -152,20 +154,33 @@ const Navbar = ({ onOpenAuth }) => {
 
           {/* Action Links */}
           <div className="otop-nav-actions">
-            <Link to="/orders" className="nav-action-btn" title="ประวัติการสั่งซื้อ">
-              <Package size={20} />
-              <span className="action-label">คำสั่งซื้อ</span>
+            <Link to="/feed" className="nav-action-btn" title="ชุมชน (Feed)">
+              <Users size={20} />
+              <span className="action-label">ชุมชน</span>
             </Link>
+            
+            <Link to="/chat" className="nav-action-btn" title="ข้อความ">
+              <MessageSquare size={20} />
+              <span className="action-label">ข้อความ</span>
+            </Link>
+            {userRole !== 'seller' && (
+              <>
+                <Link to="/orders" className="nav-action-btn" title="ประวัติการสั่งซื้อ">
+                  <Package size={20} />
+                  <span className="action-label">คำสั่งซื้อ</span>
+                </Link>
 
-            <Link to="/cart" className="nav-action-btn otop-cart-btn" title="ตะกร้าสินค้า">
-              <div className="cart-icon-wrapper">
-                <ShoppingBag size={21} />
-                {cartItemCount > 0 && (
-                  <span className="cart-count-badge">{cartItemCount}</span>
-                )}
-              </div>
-              <span className="action-label">ตะกร้า</span>
-            </Link>
+                <Link to="/cart" className="nav-action-btn otop-cart-btn" title="ตะกร้าสินค้า">
+                  <div className="cart-icon-wrapper">
+                    <ShoppingBag size={21} />
+                    {cartItemCount > 0 && (
+                      <span className="cart-count-badge">{cartItemCount}</span>
+                    )}
+                  </div>
+                  <span className="action-label">ตะกร้า</span>
+                </Link>
+              </>
+            )}
 
             {isAuthenticated ? (
               <div className="user-profile-menu">
@@ -262,13 +277,33 @@ const Navbar = ({ onOpenAuth }) => {
             </li>
             <li>
               <Link
-                to="/orders"
-                className={`sub-nav-link ${location.pathname === '/orders' ? 'active' : ''}`}
+                to="/feed"
+                className={`sub-nav-link ${location.pathname.startsWith('/feed') ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                รายการสั่งซื้อ (Orders)
+                ฟีดชุมชน (Feed)
               </Link>
             </li>
+            <li>
+              <Link
+                to="/chat"
+                className={`sub-nav-link ${location.pathname.startsWith('/chat') ? 'active' : ''}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                แชทสนทนา
+              </Link>
+            </li>
+            {userRole !== 'seller' && (
+              <li>
+                <Link
+                  to="/orders"
+                  className={`sub-nav-link ${location.pathname === '/orders' ? 'active' : ''}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  รายการสั่งซื้อ (Orders)
+                </Link>
+              </li>
+            )}
 
             {/* Seller Only / Admin Links */}
             {userRole === 'seller' && (

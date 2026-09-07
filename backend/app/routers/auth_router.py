@@ -12,6 +12,9 @@ from ..schemas import schemas
 from ..auth import auth
 from ..services.image_service import save_image
 from ..utils.serializers import serialize_admin_user
+from ..services.email_service import send_reset_password_email
+import secrets
+import os
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -57,6 +60,51 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
         data={"sub": user.email, "role": user.role}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
+@router.post("/forgot-password")
+def forgot_password(payload: schemas.ForgotPasswordIn, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == payload.email).first()
+    if not user:
+        # Prevent email enumeration by returning a generic success message
+        return {"success": True, "message": "หากมีอีเมลนี้ในระบบ จะมีการส่งลิงก์รีเซ็ตรหัสผ่านไปให้"}
+    
+    # Generate token and set expiration to 15 minutes
+    token = secrets.token_urlsafe(32)
+    user.reset_token = token
+    user.reset_token_expires = datetime.now(timezone.utc) + timedelta(minutes=15)
+    db.commit()
+    
+    # Host URL could be passed from frontend or read from env
+    host_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+    
+    success = send_reset_password_email(user.email, token, host_url)
+    if not success:
+        raise HTTPException(status_code=500, detail="ไม่สามารถส่งอีเมลได้ในขณะนี้ กรุณาลองใหม่ภายหลัง")
+        
+    return {"success": True, "message": "ส่งลิงก์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว (หากมีในระบบ)"}
+
+@router.post("/reset-password")
+def reset_password(payload: schemas.ResetPasswordIn, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.reset_token == payload.token).first()
+    
+    if not user:
+        raise HTTPException(status_code=400, detail="ลิงก์ไม่ถูกต้องหรือหมดอายุแล้ว")
+        
+    # Check expiration
+    if user.reset_token_expires is None or datetime.now(timezone.utc) > user.reset_token_expires:
+        raise HTTPException(status_code=400, detail="ลิงก์รีเซ็ตรหัสผ่านนี้หมดอายุแล้ว")
+        
+    # Validate new password
+    if len(payload.new_password) < 6:
+        raise HTTPException(status_code=400, detail="รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร")
+        
+    # Update password and clear token
+    user.hashed_password = auth.get_password_hash(payload.new_password)
+    user.reset_token = None
+    user.reset_token_expires = None
+    db.commit()
+    
+    return {"success": True, "message": "เปลี่ยนรหัสผ่านสำเร็จแล้ว สามารถเข้าสู่ระบบด้วยรหัสผ่านใหม่ได้ทันที"}
 
 @router.get("/me", response_model=schemas.UserOut)
 def read_users_me(current_user: models.User = Depends(auth.get_current_user)):
@@ -113,6 +161,24 @@ def list_users(db: Session = Depends(get_db), current_user: models.User = Depend
         raise HTTPException(status_code=403, detail="Admin only")
     users = db.query(models.User).order_by(models.User.id.desc()).all()
     return [serialize_admin_user(user) for user in users]
+
+class PublicUserOut(BaseModel):
+    id: int
+    full_name: str
+    avatar_url: str | None = None
+    role: str
+    created_at: datetime | None = None
+
+    class Config:
+        from_attributes = True
+
+@router.get("/users/{user_id}/public", response_model=PublicUserOut)
+def get_public_user_profile(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
 
 
 class UserActiveUpdate(BaseModel):

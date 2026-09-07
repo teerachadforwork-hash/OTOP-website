@@ -1,0 +1,149 @@
+.public-profile-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.public-profile-header-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.public-profile-cover {
+  height: 150px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.public-profile-info {
+  padding: 0 20px 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  position: relative;
+  margin-top: -50px;
+}
+
+.public-profile-avatar-wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid white;
+  background: white;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.public-profile-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.public-profile-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+}
+
+.public-profile-details {
+  flex: 1;
+  padding-bottom: 10px;
+}
+
+.public-profile-details h2 {
+  margin: 0 0 5px 0;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+.profile-role-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  background: #fef3c7;
+  color: #d97706;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.profile-meta {
+  font-size: 0.85rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.public-profile-actions {
+  padding-bottom: 10px;
+}
+
+.message-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.message-btn:hover {
+  opacity: 0.9;
+}
+
+.edit-profile-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-profile-btn:hover {
+  background: #e5e7eb;
+}
+
+.public-profile-content h3 {
+  margin: 0 0 15px 0;
+  color: #374151;
+  font-size: 1.2rem;
+}
+
+.profile-loading, .profile-error-msg {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.1rem;
+  color: #6b7280;
+}
+
+@media (max-width: 600px) {
+  .public-profile-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .public-profile-details {
+    padding-bottom: 0;
+    margin-bottom: 15px;
+  }
+  .public-profile-actions {
+    width: 100%;
+  }
+  .message-btn, .edit-profile-btn {
+    width: 100%;
+  }
+}

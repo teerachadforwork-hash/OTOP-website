@@ -10,6 +10,13 @@ class UserBase(BaseModel):
     phone_number: Optional[str] = None
     avatar_url: Optional[str] = None
 
+class ForgotPasswordIn(BaseModel):
+    email: EmailStr
+
+class ResetPasswordIn(BaseModel):
+    token: str
+    new_password: str
+
 class UserCreate(UserBase):
     password: str
     role: RoleEnum = RoleEnum.customer
@@ -347,3 +354,126 @@ class DashboardSummaryOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+# --- Social Features Schemas ---
+
+class GroupChatCreate(BaseModel):
+    name: str
+
+class GroupChatOut(BaseModel):
+    id: int
+    name: str
+    owner_id: int
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class GroupChatUpdate(BaseModel):
+    name: str
+
+class GroupChatMemberAdd(BaseModel):
+    email: str
+
+class GroupChatMemberOut(BaseModel):
+    user_id: int
+    user_name: Optional[str] = None
+    user_avatar: Optional[str] = None
+    role: str
+    joined_at: Optional[datetime] = None
+    
+    class Config:
+        from_attributes = True
+
+class GroupChatMessageCreate(BaseModel):
+    content: Optional[str] = None
+    image_url: Optional[str] = None
+
+class GroupChatMessageOut(BaseModel):
+    id: int
+    group_id: int
+    sender_id: int
+    content: Optional[str] = None
+    image_url: Optional[str] = None
+    created_at: datetime
+    sender_name: Optional[str] = None
+    sender_avatar: Optional[str] = None
+    sender_role: Optional[str] = None
+    
+    class Config:
+        from_attributes = True
+
+class PrivateChatRoomCreate(BaseModel):
+    user2_id: int
+
+class PrivateChatRoomOut(BaseModel):
+    id: int
+    user1_id: int
+    user2_id: int
+    created_at: datetime
+    other_user_name: Optional[str] = None
+    other_user_avatar: Optional[str] = None
+    
+    class Config:
+        from_attributes = True
+
+class PrivateChatMessageCreate(BaseModel):
+    content: Optional[str] = None
+    image_url: Optional[str] = None
+
+class PrivateChatMessageOut(BaseModel):
+    id: int
+    room_id: int
+    sender_id: int
+    content: Optional[str] = None
+    image_url: Optional[str] = None
+    created_at: datetime
+    sender_name: Optional[str] = None
+    sender_avatar: Optional[str] = None
+    sender_role: Optional[str] = None
+    
+    class Config:
+        from_attributes = True
+
+class PostCreate(BaseModel):
+    content: str
+    image_url: Optional[str] = None
+
+class PostUpdate(BaseModel):
+    content: Optional[str] = None
+    image_url: Optional[str] = None
+
+class PostOut(BaseModel):
+    id: int
+    author_id: int
+    content: str
+    image_url: Optional[str] = None
+    created_at: datetime
+    updated_at: datetime
+    author_name: Optional[str] = None
+    author_avatar: Optional[str] = None
+    author_role: Optional[str] = None
+    comments_count: int = 0
+    
+    class Config:
+        from_attributes = True
+
+class PostCommentCreate(BaseModel):
+    content: str
+    parent_comment_id: Optional[int] = None
+
+class PostCommentOut(BaseModel):
+    id: int
+    post_id: int
+    author_id: int
+    parent_comment_id: Optional[int] = None
+    content: str
+    created_at: datetime
+    author_name: Optional[str] = None
+    author_avatar: Optional[str] = None
+    replies: List["PostCommentOut"] = []
+    
+    class Config:
+        from_attributes = True
+
+PostCommentOut.model_rebuild()

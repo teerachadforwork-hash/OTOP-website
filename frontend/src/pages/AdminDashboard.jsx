@@ -18,6 +18,7 @@ import { updateProductStatusApi } from '../services/productService';
 import { createCommunity, updateCommunity, deleteCommunity, uploadCommunityBanner } from '../services/communityService';
 import { getNews, createNews, updateNews, deleteNews, uploadNewsCover } from '../services/newsService';
 import { apiErrorMessage, ORDER_STATUS, ORDER_STATUS_LABELS, normalizeOrderStatus } from '../utils/catalog';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import './SellerDashboard.css';
 import './AdminDashboard.css';
@@ -236,6 +237,22 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleExportCSV = async () => {
+    try {
+      const response = await api.get(`/dashboard/admin/export/csv`, { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'admin_report.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      toast.success('ดาวน์โหลดรายงาน CSV สำเร็จ');
+    } catch (err) {
+      toast.error('ไม่สามารถดาวน์โหลดรายงานได้');
+    }
+  };
+
   const saveCommunity = async (e) => {
     e.preventDefault();
     const payload = {
@@ -287,9 +304,31 @@ const AdminDashboard = () => {
             <p className="dashboard-subtitle">เน้นจัดการสมาชิก สิทธิ์ เวิร์กโฟลว์คำสั่งซื้อ ตะกร้า ชุมชน ข่าว และหมวดหมู่ โดยผู้ดูแลระบบไม่สามารถเพิ่มสินค้าแทนผู้ขายได้</p>
           </div>
           <div className="admin-header-actions">
-            <Link to="/" className="admin-action-btn">เปิดหน้าบ้าน</Link>
-            <Link to="/admin-dashboard" className="admin-action-btn approve">เปิดหลังบ้าน</Link>
-          </div>
+          <button 
+            className="admin-tab-btn no-print" 
+            onClick={handleExportCSV}
+            style={{ 
+              background: 'var(--primary)', 
+              color: 'white', 
+              borderColor: 'var(--primary)' 
+            }}
+          >
+            📥 ดาวน์โหลดรายงาน (CSV)
+          </button>
+          <button 
+            className="admin-tab-btn no-print" 
+            onClick={() => window.print()}
+            style={{ 
+              background: 'white', 
+              color: 'var(--primary)', 
+              borderColor: 'var(--primary)' 
+            }}
+          >
+            🖨️ พิมพ์ / PDF
+          </button>
+          <a href="/" className="admin-tab-btn no-print">กลับสู่หน้าแรก</a>
+        </div>
+      </header>
         </div>
 
         <div className="admin-tabs" role="tablist" aria-label="เมนูผู้ดูแลระบบ">
@@ -540,9 +579,10 @@ const AdminDashboard = () => {
                     <th>#</th>
                     <th>ลูกค้า</th>
                     <th>สินค้า</th>
+                    <th>ผู้ขาย</th>
                     <th>ยอดสุทธิ</th>
                     <th>สถานะ</th>
-                    <th>ใบกำกับ / ปรับสถานะ</th>
+                    <th className="no-print">ใบกำกับ / ปรับสถานะ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -556,9 +596,12 @@ const AdminDashboard = () => {
                       <td data-label="สินค้า">
                         {(order.items || []).map((item) => item.name).filter(Boolean).join(', ') || `${(order.items || []).length} รายการ`}
                       </td>
+                      <td data-label="ผู้ขาย">
+                        {Array.from(new Set((order.items || []).map(item => item.seller_name || `ID:${item.seller_id}`))).join(', ')}
+                      </td>
                       <td data-label="ยอดสุทธิ">{Number(order.grand_total || 0).toLocaleString()} ฿</td>
                       <td data-label="สถานะ">{ORDER_STATUS_LABELS[normalizeOrderStatus(order.order_status)] || order.order_status}</td>
-                      <td data-label="ใบกำกับ / ปรับสถานะ">
+                      <td data-label="ใบกำกับ / ปรับสถานะ" className="no-print">
                         <div className="admin-row-actions">
                           <Link to={`/orders/${order.id}/invoice`} className="admin-action-btn">เปิดใบกำกับ</Link>
                           <select

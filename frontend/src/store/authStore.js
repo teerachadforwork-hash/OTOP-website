@@ -153,6 +153,29 @@ const useAuthStore = create((set, get) => ({
     set({ user: null, token: null, isAuthenticated: false });
   },
 
+  forgotPassword: async (email) => {
+    try {
+      const response = await api.post('/api/auth/forgot-password', { email });
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      const detail = error?.response?.data?.detail || 'เกิดข้อผิดพลาดในการส่งอีเมล';
+      return { success: false, error: detail };
+    }
+  },
+
+  resetPassword: async (token, newPassword) => {
+    try {
+      const response = await api.post('/api/auth/reset-password', {
+        token: token,
+        new_password: newPassword
+      });
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      const detail = error?.response?.data?.detail || 'ลิงก์ไม่ถูกต้องหรือหมดอายุแล้ว';
+      return { success: false, error: detail };
+    }
+  },
+
   getSavedAddresses: () => {
     const currentEmail = getCurrentUserEmail();
     if (!currentEmail) return [];

@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy import func
 from sqlalchemy.orm import Session
+import csv
+import io
 
 from ..database.database import get_db
 from .. import models, auth
@@ -116,3 +118,65 @@ def seller_summary(
         top_products=top_products,
         user_growth=user_growth,
     )
+
+@router.get("/admin/export/csv")
+def admin_export_csv(db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    if current_user.role != models.RoleEnum.admin.value:
+        raise HTTPException(status_code=403, detail="Admin only")
+        
+    orders = db.query(models.Order).order_by(models.Order.created_at.desc()).all()
+    
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(['Order ID', 'Date', 'Customer ID', 'Total Price', 'Shipping Cost', 'Grand Total', 'Status', 'Payment Method'])
+    
+    for order in orders:
+        writer.writerow([
+            order.id, 
+            order.created_at.strftime("%Y-%m-%d %H:%M:%S") if order.created_at else "",
+            order.customer_id,
+            order.total_price,
+            order.shipping_cost,
+            order.grand_total,
+            order.order_status,
+            order.payment_method
+        ])
+        
+    response = Response(content=output.getvalue(), media_type="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=admin_report.csv"
+    return response
+
+@router.get("/seller/{seller_id}/export/csv")
+def seller_export_csv(seller_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    if current_user.role == models.RoleEnum.seller.value and current_user.id != seller_id:
+        raise HTTPException(status_code=403, detail="Cannot export another seller's report")
+    if current_user.role not in (models.RoleEnum.seller.value, models.RoleEnum.admin.value):
+        raise HTTPException(status_code=403, detail="Seller or admin only")
+        
+    order_items = (
+        db.query(models.OrderItem, models.Order)
+        .join(models.Order, models.OrderItem.order_id == models.Order.id)
+        .filter(models.OrderItem.seller_id == seller_id)
+        .order_by(models.Order.created_at.desc())
+        .all()
+    )
+    
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(['Order ID', 'Date', 'Product ID', 'Quantity', 'Unit Price', 'Subtotal', 'Status', 'Tracking Number'])
+    
+    for item, order in order_items:
+        writer.writerow([
+            order.id, 
+            order.created_at.strftime("%Y-%m-%d %H:%M:%S") if order.created_at else "",
+            item.product_id,
+            item.quantity,
+            item.unit_price,
+            item.subtotal,
+            order.order_status,
+            order.tracking_number or ""
+        ])
+        
+    response = Response(content=output.getvalue(), media_type="text/csv")
+    response.headers["Content-Disposition"] = f"attachment; filename=seller_report_{seller_id}.csv"
+    return response

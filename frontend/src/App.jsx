@@ -17,6 +17,11 @@ import ProfilePage from './pages/ProfilePage';
 import NewsList from './pages/NewsList';
 import NewsDetail from './pages/NewsDetail';
 import InvoicePage from './pages/InvoicePage';
+import ChatPage from './pages/ChatPage';
+import FeedPage from './pages/FeedPage';
+import PublicProfilePage from './pages/PublicProfilePage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import NotFoundPage from './pages/NotFoundPage';
 import AuthModal from './components/AuthModal';
 import ProtectedRoute from './components/ProtectedRoute';
 import useAuthStore from './store/authStore';
@@ -46,10 +51,14 @@ function App() {
           <Route path="/community/:id" element={<CommunityDetail />} />
           <Route path="/news" element={<NewsList />} />
           <Route path="/news/:id" element={<NewsDetail />} />
-          <Route path="/orders" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
-          <Route path="/orders/:id/invoice" element={<ProtectedRoute><InvoicePage /></ProtectedRoute>} />
-          <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
-          <Route path="/payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/profile/:id" element={<PublicProfilePage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+          <Route path="/orders" element={<ProtectedRoute allowedRoles={['customer', 'admin']}><OrderList /></ProtectedRoute>} />
+          <Route path="/orders/:id/invoice" element={<ProtectedRoute allowedRoles={['customer', 'admin']}><InvoicePage /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute allowedRoles={['customer', 'admin']}><CartPage /></ProtectedRoute>} />
+          <Route path="/payment" element={<ProtectedRoute allowedRoles={['customer', 'admin']}><PaymentPage /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
           {/* Role Protected Dashboards */}
@@ -69,6 +78,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Catch All 404 Route */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />

@@ -328,8 +328,8 @@
   gap: 1.5rem;
   padding: 0;
   margin: 0;
-  overflow-x: auto;
-  white-space: nowrap;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .sub-nav-link {
@@ -389,11 +389,46 @@
   .sub-nav-certifications {
     display: none;
   }
+
+  .otop-search-bar {
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
   .otop-topbar {
     display: none;
+  }
+
+  .otop-main-nav-inner {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .otop-brand {
+    order: 1;
+    flex: 1;
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+  
+  .brand-name {
+    font-size: 1.2rem;
+  }
+
+  .otop-nav-actions {
+    order: 2;
+    gap: 0.5rem;
+  }
+
+  .otop-search-bar {
+    order: 3;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0.5rem;
   }
 
   .search-category-select {
@@ -406,6 +441,10 @@
 
   .action-label {
     display: none;
+  }
+
+  .user-display-name {
+    display: none !important;
   }
 
   .mobile-hamburger-btn {

@@ -6,6 +6,7 @@ import { useAuthStore } from '../store/authStore';
 import { getCategories } from '../services/categoryService';
 import { getCommunities } from '../services/communityService';
 import { normalizeOrderStatus, ORDER_STATUS, ORDER_STATUS_LABELS, resolveMediaUrl, apiErrorMessage } from '../utils/catalog';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import './SellerDashboard.css';
 
@@ -164,6 +165,23 @@ const SellerDashboard = () => {
     }
   };
 
+  const handleExportCSV = async () => {
+    if (!user?.id) return;
+    try {
+      const response = await api.get(`/dashboard/seller/${user.id}/export/csv`, { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `seller_report_${user.id}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      toast.success('ดาวน์โหลดรายงาน CSV สำเร็จ');
+    } catch (err) {
+      toast.error('ไม่สามารถดาวน์โหลดรายงานได้');
+    }
+  };
+
   return (
     <div className="dashboard-page">
       <div className="container">
@@ -178,6 +196,38 @@ const SellerDashboard = () => {
               🏬 สถานะร้านค้า: รับรองแล้ว (OTOP 5 ดาว)
             </div>
             <button
+              onClick={handleExportCSV}
+              style={{
+                padding: '0.45rem 1rem',
+                borderRadius: 'var(--radius-full)',
+                border: '1px solid var(--primary)',
+                background: 'var(--primary-light)',
+                color: 'var(--primary)',
+                fontSize: '0.85rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+              }}
+              className="no-print"
+            >
+              📥 ส่งออกรายงาน (CSV)
+            </button>
+            <button
+              onClick={() => window.print()}
+              style={{
+                padding: '0.45rem 1rem',
+                borderRadius: 'var(--radius-full)',
+                border: '1px solid var(--primary)',
+                background: 'white',
+                color: 'var(--primary)',
+                fontSize: '0.85rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+              }}
+              className="no-print"
+            >
+              🖨️ พิมพ์ / PDF
+            </button>
+            <button
               onClick={() => setShowStoreProfileModal(true)}
               style={{
                 padding: '0.45rem 1rem',
@@ -188,6 +238,7 @@ const SellerDashboard = () => {
                 fontWeight: '600',
                 cursor: 'pointer',
               }}
+              className="no-print"
             >
               ⚙️ ตั้งค่าร้านค้า
             </button>
@@ -334,10 +385,11 @@ const SellerDashboard = () => {
               <tr>
                 <th>เลขที่คำสั่งซื้อ</th>
                 <th>วันที่สั่งซื้อ</th>
-                <th>วิธีชำระเงิน</th>
+                <th>ข้อมูลผู้ซื้อ</th>
+                <th>สินค้า (จำนวน)</th>
                 <th>ยอดรวมสุทธิ</th>
                 <th>สถานะชำระเงิน</th>
-                <th>หลักฐานสลิป</th>
+                <th className="no-print">หลักฐานสลิป</th>
                 <th>สถานะจัดส่ง</th>
                 <th>เลขพัสดุ (Tracking No.)</th>
               </tr>
@@ -347,7 +399,17 @@ const SellerDashboard = () => {
                 <tr key={ord.id}>
                   <td style={{ fontWeight: 700 }}>{ord.id}</td>
                   <td style={{ fontSize: '0.85rem' }}>{new Date(ord.created_at || Date.now()).toLocaleDateString('th-TH')}</td>
-                  <td>{ord.payment_method || 'PromptPay'}</td>
+                  <td>
+                    <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{ord.customer_name || 'ไม่ระบุ'}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{ord.customer_phone || ord.customer_email || ''}</div>
+                  </td>
+                  <td>
+                    <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.85rem' }}>
+                      {(ord.items || []).map((item, idx) => (
+                        <li key={idx}>{item.name} x {item.quantity} ({Number(item.subtotal || 0).toLocaleString()}฿)</li>
+                      ))}
+                    </ul>
+                  </td>
                   <td style={{ fontWeight: 700, color: 'var(--primary)' }}>{Number(ord.grand_total || ord.total_amount || 0).toLocaleString()} ฿</td>
                     <td>
                       {ord.payment_status === 'paid' ? (
@@ -360,7 +422,7 @@ const SellerDashboard = () => {
                         <span style={{ color: '#d97706', fontWeight: 600 }}>{ord.payment_status || 'รอชำระ'}</span>
                       )}
                     </td>
-                  <td>
+                  <td className="no-print">
                     {ord.slip_url ? (
                       <button
                         className="admin-action-btn approve"
@@ -388,15 +450,18 @@ const SellerDashboard = () => {
                       placeholder="กรอกเลขพัสดุ"
                       defaultValue={ord.tracking_number || ''}
                       onBlur={(e) => handleUpdateTracking(ord.id, e.target.value)}
+                      disabled={!!ord.tracking_number}
                       style={{
                         padding: '0.4rem 0.6rem',
                         borderRadius: 'var(--radius-sm)',
                         border: '1px solid var(--border)',
                         fontSize: '0.85rem',
                         width: '140px',
+                        background: ord.tracking_number ? '#f3f4f6' : 'white'
                       }}
+                      className="print-input"
                     />
-                    <div style={{ marginTop: '0.4rem' }}>
+                    <div style={{ marginTop: '0.4rem' }} className="no-print">
                       <Link to={`/orders/${ord.id}/invoice`} style={{ fontSize: '0.8rem', fontWeight: 600 }}>ใบกำกับสินค้า</Link>
                     </div>
                   </td>

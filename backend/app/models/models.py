@@ -40,12 +40,14 @@ class User(Base):
     hashed_password = Column(String(255), nullable=False)
     full_name = Column(String(150), nullable=False)
     phone_number = Column(String(20))
-    role = Column(String, default=RoleEnum.customer.value)
-    avatar_url = Column(Text)
+    role = Column(String(50), default=RoleEnum.customer.value)
+    avatar_url = Column(String(500), nullable=True)
     is_active = Column(Boolean, default=True)
     deleted_at = Column(DateTime(timezone=True))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
+    reset_token = Column(String(100), nullable=True, index=True)
+    reset_token_expires = Column(DateTime(timezone=True), nullable=True)
 
     products = relationship("Product", back_populates="seller")
     orders = relationship("Order", back_populates="customer")
@@ -281,3 +283,101 @@ class UserBehaviorLog(Base):
     query_text = Column(Text)
     metadata_json = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+# --- New Models for Social Features ---
+
+class GroupChat(Base):
+    __tablename__ = "group_chats"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(150), nullable=False)
+    owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    owner = relationship("User", foreign_keys=[owner_id])
+    members = relationship("GroupChatMember", back_populates="group", cascade="all, delete-orphan")
+    messages = relationship("GroupChatMessage", back_populates="group", cascade="all, delete-orphan")
+
+class GroupChatMember(Base):
+    __tablename__ = "group_chat_members"
+    id = Column(Integer, primary_key=True, index=True)
+    group_id = Column(Integer, ForeignKey("group_chats.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    joined_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    group = relationship("GroupChat", back_populates="members")
+    user = relationship("User")
+
+class GroupChatMessage(Base):
+    __tablename__ = "group_chat_messages"
+    id = Column(Integer, primary_key=True, index=True)
+    group_id = Column(Integer, ForeignKey("group_chats.id"), nullable=False)
+    sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text)
+    image_url = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    group = relationship("GroupChat", back_populates="messages")
+    sender = relationship("User")
+
+class PrivateChatRoom(Base):
+    __tablename__ = "private_chat_rooms"
+    id = Column(Integer, primary_key=True, index=True)
+    user1_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user2_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user1 = relationship("User", foreign_keys=[user1_id])
+    user2 = relationship("User", foreign_keys=[user2_id])
+    messages = relationship("PrivateChatMessage", back_populates="room", cascade="all, delete-orphan")
+
+class PrivateChatMessage(Base):
+    __tablename__ = "private_chat_messages"
+    id = Column(Integer, primary_key=True, index=True)
+    room_id = Column(Integer, ForeignKey("private_chat_rooms.id"), nullable=False)
+    sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text)
+    image_url = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    room = relationship("PrivateChatRoom", back_populates="messages")
+    sender = relationship("User")
+
+class Post(Base):
+    __tablename__ = "posts"
+    id = Column(Integer, primary_key=True, index=True)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text, nullable=False)
+    image_url = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
+
+    author = relationship("User")
+    comments = relationship("PostComment", back_populates="post", cascade="all, delete-orphan")
+
+class PostComment(Base):
+    __tablename__ = "post_comments"
+    id = Column(Integer, primary_key=True, index=True)
+    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    parent_comment_id = Column(Integer, ForeignKey("post_comments.id"), nullable=True) # For replies
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    post = relationship("Post", back_populates="comments")
+    author = relationship("User")
+    replies = relationship("PostComment", backref="parent")
+
+# --- New Models for Auth/OTP ---
+
+class OTPCode(Base):
+    __tablename__ = "otp_codes"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    phone_number = Column(String(20), nullable=False)
+    code = Column(String(10), nullable=False)
+    expires_at = Column(DateTime(timezone=True), nullable=False)
+    used = Column(Boolean, default=False)
+    attempts = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User")

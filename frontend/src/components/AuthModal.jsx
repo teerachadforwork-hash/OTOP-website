@@ -8,6 +8,7 @@ import './AuthModal.css';
 
 const AuthModal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,6 +31,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     setStoreDetails('');
     setShowPassword(false);
     setIsLogin(true);
+    setIsForgotPassword(false);
     onClose();
   };
 
@@ -46,6 +48,15 @@ const AuthModal = ({ isOpen, onClose }) => {
         handleClose();
       } else {
         toast.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+      }
+    } else if (isForgotPassword) {
+      const result = await useAuthStore.getState().forgotPassword(email);
+      if (result.success) {
+        toast.success(result.message);
+        setIsForgotPassword(false);
+        setIsLogin(true);
+      } else {
+        toast.error(result.error);
       }
     } else {
       // Register logic
@@ -81,23 +92,25 @@ const AuthModal = ({ isOpen, onClose }) => {
           <div className="auth-brand-mark">OTOP</div>
           <div>
             <p className="auth-eyebrow">OTOP Connect</p>
-            <h2>{isLogin ? 'ยินดีต้อนรับกลับ' : 'เริ่มต้นใช้งาน'}</h2>
+            <h2>{isForgotPassword ? 'ลืมรหัสผ่าน' : (isLogin ? 'ยินดีต้อนรับกลับ' : 'เริ่มต้นใช้งาน')}</h2>
             <p>
-              {isLogin
-                ? 'เข้าสู่ระบบเพื่อจัดการคำสั่งซื้อ ตะกร้า และข้อมูลร้านค้าจากฐานข้อมูลจริง'
-                : 'สร้างบัญชีสำหรับเลือกซื้อสินค้า หรือสมัครเป็นผู้ขายสินค้า OTOP'}
+              {isForgotPassword
+                ? 'กรอกอีเมลของคุณเพื่อรับลิงก์สำหรับตั้งรหัสผ่านใหม่'
+                : (isLogin
+                  ? 'เข้าสู่ระบบเพื่อจัดการคำสั่งซื้อ ตะกร้า และข้อมูลร้านค้าจากฐานข้อมูลจริง'
+                  : 'สร้างบัญชีสำหรับเลือกซื้อสินค้า หรือสมัครเป็นผู้ขายสินค้า OTOP')}
             </p>
           </div>
         </div>
 
         <div className="auth-modal-body">
           <div className="auth-modal-header">
-            <h3>{isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน'}</h3>
-            <p>{isLogin ? 'กรอกอีเมลและรหัสผ่านของคุณ' : 'กรอกข้อมูลพื้นฐานให้ครบถ้วน'}</p>
+            <h3>{isForgotPassword ? 'ส่งลิงก์รีเซ็ตรหัสผ่าน' : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน')}</h3>
+            <p>{isForgotPassword ? 'กรอกอีเมลที่ลงทะเบียนไว้' : (isLogin ? 'กรอกอีเมลและรหัสผ่านของคุณ' : 'กรอกข้อมูลพื้นฐานให้ครบถ้วน')}</p>
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
-            {!isLogin && (
+            {!isLogin && !isForgotPassword && (
               <>
                 <div className="form-group">
                   <label>ชื่อ-นามสกุล</label>
@@ -169,39 +182,61 @@ const AuthModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="form-group">
-              <label>รหัสผ่าน</label>
-              <div className="input-shell">
-                <Lock size={18} />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+            {!isForgotPassword && (
+              <div className="form-group">
+                <label>รหัสผ่าน</label>
+                <div className="input-shell">
+                  <Lock size={18} />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle-btn"
+                    onClick={() => setShowPassword((current) => !current)}
+                    aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
+                    title={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {isLogin && !isForgotPassword && (
+              <div style={{ textAlign: 'right', marginBottom: '15px' }}>
                 <button
                   type="button"
-                  className="password-toggle-btn"
-                  onClick={() => setShowPassword((current) => !current)}
-                  aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
-                  title={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
+                  style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: '500' }}
+                  onClick={() => setIsForgotPassword(true)}
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  ลืมรหัสผ่าน?
                 </button>
               </div>
-            </div>
+            )}
 
             <button type="submit" className="auth-submit-btn" disabled={loading}>
-              {loading ? <Loader2 className="animate-spin" style={{ margin: 'auto' }} size={20} /> : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน')}
+              {loading ? <Loader2 className="animate-spin" style={{ margin: 'auto' }} size={20} /> : (isForgotPassword ? 'ส่งลิงก์รีเซ็ต' : (isLogin ? 'เข้าสู่ระบบ' : 'ลงทะเบียน'))}
             </button>
           </form>
 
           <div className="auth-toggle">
-            {isLogin ? 'ยังไม่มีบัญชีผู้ใช้?' : 'มีบัญชีอยู่แล้ว?'}
-            <button type="button" onClick={() => setIsLogin(!isLogin)}>
-              {isLogin ? 'ลงทะเบียนที่นี่' : 'เข้าสู่ระบบ'}
-            </button>
+            {isForgotPassword ? (
+              <button type="button" onClick={() => setIsForgotPassword(false)}>
+                กลับไปหน้าเข้าสู่ระบบ
+              </button>
+            ) : (
+              <>
+                {isLogin ? 'ยังไม่มีบัญชีผู้ใช้?' : 'มีบัญชีอยู่แล้ว?'}
+                <button type="button" onClick={() => setIsLogin(!isLogin)}>
+                  {isLogin ? 'ลงทะเบียนที่นี่' : 'เข้าสู่ระบบ'}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

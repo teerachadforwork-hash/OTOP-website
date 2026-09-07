@@ -67,6 +67,8 @@ def get_order(order_id: int, db: Session = Depends(get_db), current_user: models
 
 @router.post("/", response_model=schemas.OrderOut, status_code=status.HTTP_201_CREATED)
 def create_order(order_in: schemas.OrderCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    if auth.user_role(current_user) == models.RoleEnum.seller.value:
+        raise HTTPException(status_code=403, detail="ผู้ขายไม่สามารถสั่งซื้อสินค้าได้")
     if not order_in.items:
         raise HTTPException(status_code=400, detail="กรุณาเลือกสินค้าอย่างน้อย 1 รายการ")
 
@@ -171,6 +173,9 @@ def update_order_status(
     if new_status not in ALLOWED_STATUSES:
         raise HTTPException(status_code=400, detail="สถานะคำสั่งซื้อไม่ถูกต้อง")
 
+    if order.order_status in [models.OrderStatusEnum.completed.value, models.OrderStatusEnum.cancelled.value]:
+        raise HTTPException(status_code=400, detail="คำสั่งซื้อนี้สิ้นสุดแล้ว ไม่สามารถแก้ไขได้")
+
     role = auth.user_role(current_user)
     if role == models.RoleEnum.customer.value:
         allowed = CUSTOMER_ALLOWED_TRANSITIONS.get(order.order_status, set())
@@ -179,8 +184,17 @@ def update_order_status(
     elif role == models.RoleEnum.seller.value:
         if not any(item.seller_id == current_user.id for item in order.items):
             raise HTTPException(status_code=403, detail="ไม่มีสิทธิ์จัดการคำสั่งซื้อนี้")
+        if new_status == models.OrderStatusEnum.completed.value:
+            raise HTTPException(status_code=400, detail="ผู้ขายไม่สามารถยืนยันรับสินค้าแทนลูกค้าได้")
     elif role != models.RoleEnum.admin.value:
         raise HTTPException(status_code=403, detail="ไม่มีสิทธิ์จัดการคำสั่งซื้อ")
+
+    if payload.tracking_number is not None:
+        if role == models.RoleEnum.seller.value and order.tracking_number and order.tracking_number != payload.tracking_number:
+            raise HTTPException(status_code=400, detail="ไม่สามารถแก้ไขเลขพัสดุหลังจากบันทึกแล้ว")
+        if new_status == models.OrderStatusEnum.cancelled.value:
+            raise HTTPException(status_code=400, detail="คำสั่งซื้อถูกยกเลิก ห้ามกรอกเลขพัสดุ")
+        order.tracking_number = payload.tracking_number
 
     if (
         new_status == models.OrderStatusEnum.cancelled.value
@@ -194,10 +208,8 @@ def update_order_status(
                     product.status = models.ProductStatusEnum.approved.value
 
     order.order_status = new_status
-    if payload.tracking_number is not None:
-        order.tracking_number = payload.tracking_number
-        if payload.tracking_number and new_status == models.OrderStatusEnum.preparing.value:
-            order.order_status = models.OrderStatusEnum.shipped.value
+    if payload.tracking_number and new_status == models.OrderStatusEnum.preparing.value:
+        order.order_status = models.OrderStatusEnum.shipped.value
 
     db.commit()
     order = _order_query(db).filter(models.Order.id == order.id).first()
