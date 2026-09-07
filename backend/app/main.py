@@ -40,6 +40,8 @@ def ensure_postgres_schema():
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()",
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE",
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_number VARCHAR(20)",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS private_key VARCHAR(50)",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS hint VARCHAR(255)",
         "ALTER TABLE communities ADD COLUMN IF NOT EXISTS leader_name VARCHAR(150)",
         "ALTER TABLE communities ADD COLUMN IF NOT EXISTS established_year INTEGER",
         "ALTER TABLE communities ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()",
