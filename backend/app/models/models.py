@@ -356,17 +356,32 @@ class Post(Base):
 
 class PostComment(Base):
     __tablename__ = "post_comments"
+
     id = Column(Integer, primary_key=True, index=True)
     post_id = Column(Integer, ForeignKey("posts.id"), nullable=False)
     author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    parent_comment_id = Column(Integer, ForeignKey("post_comments.id"), nullable=True) # For replies
+    parent_comment_id = Column(
+        Integer,
+        ForeignKey("post_comments.id"),
+        nullable=True
+    )
     content = Column(Text, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     post = relationship("Post", back_populates="comments")
     author = relationship("User")
-    replies = relationship("PostComment", backref="parent")
 
+    parent = relationship(
+        "PostComment",
+        remote_side=[id],
+        back_populates="replies"
+    )
+
+    replies = relationship(
+        "PostComment",
+        back_populates="parent",
+        cascade="all, delete-orphan"
+    )
 # --- New Models for Auth/OTP ---
 
 class OTPCode(Base):
