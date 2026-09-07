@@ -1,7 +1,7 @@
 export const PLACEHOLDER_IMAGE =
   'https://images.unsplash.com/photo-1590736704728-f4730bb30770?w=600&auto=format&fit=crop&q=80';
 
-export const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:8000';
+export const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'https://otop-website-api-hujf.onrender.com';
 
 export const resolveMediaUrl = (url) => {
   if (!url) return PLACEHOLDER_IMAGE;
